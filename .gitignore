@@ -135,3 +135,7 @@ dmypy.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+
+#Adding ignore for python testing code
+test.py
