@@ -59,6 +59,7 @@ class Snake():
             print(food)
             if self.head == food:
                 print('collided with food')
+                foods.remove(food)
                 self.grow(food.strength)
         
         for snake in snakes:
@@ -74,8 +75,8 @@ class Snake():
                 print('Collided with head')
                 #die.exe
 
-
     def grow(self, strength):
+        self.body.append(Bodypart(0, 0))
         print('growing')
 
     def wall_collision(self, walls):
