@@ -15,7 +15,7 @@ class Snok(QMainWindow):
     def GUI(self):
 
         self.gameBoard = Board(self)
-        #self.setCentralWidget(self.gameBoard)
+        self.setCentralWidget(self.gameBoard)
 
         self.msgBar = self.statusBar()
         self.gameBoard.msgScoreBar[str].connect(self.msgBar.showMessage)
