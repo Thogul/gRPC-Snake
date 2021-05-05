@@ -45,19 +45,6 @@ def spawn_food(field):
     return  [random_x, random_y]
 
 
-while False:
-    field = clean_field()
-    insert_food(field, foods)
-    insert_snake(field, snake)
-    print_field(field)
-    direction = input('Direction: ')
-    snake.move(direction)
-    if snake.collision([snake], foods):
-        break
-    if len(foods) < 1:
-        foods.append(Food(spawn_food(field)[0], spawn_food(field)[1], 5))
-
-
 if __name__ == '__main__':
     snake = Snake()
     field = clean_field()
