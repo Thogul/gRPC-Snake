@@ -62,7 +62,7 @@ class Board(QFrame):
 
     
 
-     def keyPressEvent(self, event):
+    def keyPressEvent(self, event):
 
         key = event.key()
 
