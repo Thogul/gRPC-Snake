@@ -5,8 +5,8 @@ def clean_field(width=11, height=11):
 
 def insert_snake(field, snake:Snake):
     for bodypart in snake.body:
-        field[bodypart[0]][bodypart[1]] = 'O'
-    field[snake.head[0]][snake.head[1]] = '@'
+        field[bodypart.x][bodypart.y] = bodypart.skin
+    field[snake.head.x][snake.head.y] = snake.head.skin
 
 def print_field(field):
     for y in field:
@@ -23,3 +23,5 @@ while True:
     print_field(field)
     direction = input('Direction: ')
     snake.move(direction)
+    if snake.collision([snake], []):
+        break
