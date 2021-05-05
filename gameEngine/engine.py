@@ -20,7 +20,6 @@ def print_field(field):
             print(x, end=' ')
         print('\n', end='')
 
-
 snake = Snake()
 field = clean_field()
 foods = [Food(2, 2)]

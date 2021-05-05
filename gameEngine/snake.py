@@ -2,9 +2,9 @@ from objects import *
 
 class Snake():
 
-    def __init__(self, position = [5, 5], start_length = 5, name='ME'):
+    def __init__(self, x: int = 5, y: int = 5, start_length: int = 5, name: str = 'ME'):
         #self.head = position
-        self.head = Bodypart(5, 5, '@')
+        self.head = Bodypart(x, y, '@')
         self.length = start_length
         #self.body = [self.head[:]]
         self.body = []
@@ -17,7 +17,7 @@ class Snake():
         self.alive = True
         self.name = name
 
-    def move(self, direction:str, speed=1):
+    def move(self, direction: str, speed: int = 1):
         #firtly try to move, if no valid move was sent, skip the rest
         moves = ['w', 'a', 's', 'd']
         lastx, lasty = self.head.x, self.head.y
@@ -53,7 +53,7 @@ class Snake():
         #firtly move the whole body forward by one position from back to front
 
 
-    def collision(self, snakes, foods):
+    def collision(self, snakes: list[Snake], foods: list[Food]):
         for food in foods:
             print(self.head)
             print(food)
@@ -75,12 +75,12 @@ class Snake():
                 print('Collided with head')
                 #die.exe
 
-    def grow(self, strength):
-        self.body.append(Bodypart(0, 0))
-        self.body.append(Bodypart(0, 0))
+    def grow(self, strength: int):
+        for _ in range(strength):
+            self.body.append(Bodypart(0, 0))
         print('growing')
 
-    def wall_collision(self, walls):
+    def wall_collision(self, walls:list[Bodypart]):
         for wall in walls:
             for body in wall:
                 if self.head == body:
