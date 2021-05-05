@@ -35,7 +35,7 @@ class Snake():
         else:
             return
 
-        #firtly move the whole body forward by one position
+        #firtly move the whole body forward by one position from back to front
         body_length = len(self.body)
         for i in range(1, len(self.body)):
             self.body[body_length-i] = self.body[body_length-i-1]
