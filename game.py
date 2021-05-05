@@ -4,11 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication
 
 import grpc;
 
-class SnakeGUI (QMainWindow) {
+class SnakeGUI (QMainWindow):
     
-    def _init_(self){
-
-        super()._init_()
-    }
-    
-}
+    def __init__(self):
+        super().__init__()
