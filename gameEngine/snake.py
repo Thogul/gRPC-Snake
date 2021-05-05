@@ -11,6 +11,7 @@ class Snake():
         for i in range(1, self.length):
             self.body.append([self.head[0], self.head[1]+i])
         print(self.body)
+        self.score = 0
 
     def move(self, direction:str, speed=1):
         #firtly try to move, if no valid move was sent, skip the rest
@@ -43,18 +44,22 @@ class Snake():
         self.body[0] = self.head[:]
         print(self.body)
 
+    def grow(self, strength):
+        pass
+
+    def collision(self, snakes, foods):
+        for food in foods:
+            if self.head == food:
+                grow(food.strength)
+
+    def wall_collision(self, walls):
+        pass
+
+    def add_score(self, amount=None):
+        if amount is None:
+            self.score += self.length*10
+        else:
+            self.score += amount
 
 if __name__ == '__main__':
     snake = Snake()
-    for i in range(3):
-        print(snake.head)
-        print(snake.body)
-        snake.move('w')
-        print(snake.head)
-        print(snake.body)
-    for i in range(3):
-        print(snake.head)
-        print(snake.body)
-        snake.move('a')
-        print(snake.head)
-        print(snake.body)
