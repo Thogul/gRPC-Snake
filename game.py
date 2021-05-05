@@ -57,14 +57,36 @@ class Board(QFrame):
         self.timer.start(Board.Speed, self)
         self.msgScoreBar.emit("Hello")
     
+class LogIn(QWidget):
 
+    def __init__(self, parent=None):
 
+        super().__init__(parent)
+        self.setWindowTitle("Choose your player")
+        layout = QFormLayout()
+        layout.addRow('Enter your Nickname: ', QLineEdit())
+        layout.addRow('Choose your color: ', QColorDialog())
+        btn = QPushButton('Enter Game!')
+        btn.clicked.connect(onClicked)
+        layout.addWidget(btn)
+        self.setLayout(layout)
+        self.show()
 
+def onClicked(self):
+    deleteWid = LogIn()
+    #deleteWid.close()
+    deleteWid.setParent(None)
+    #deleteWid.deleteLater()
+    snok = Snok()
 
 def main():
 
     app = QApplication([])
-    snok = Snok()
+    lg = LogIn()
+    #childWindow->setAttribute( Qt::WA_DeleteOnClose );
+
+    lg.show()
+    #snok = Snok()
     sys.exit(app.exec_())
 
 
