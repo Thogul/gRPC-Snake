@@ -48,7 +48,9 @@ class Snake():
         pass
 
     def collision(self, snakes, foods):
-        pass
+        for food in foods:
+            if self.head == food:
+                grow(food.strength)
 
     def wall_collision(self, walls):
         pass
