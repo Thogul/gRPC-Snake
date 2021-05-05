@@ -58,15 +58,21 @@ class Snake():
         for snake in snakes:
             if self.head == snake.body:
                 print('Collided with a body')
+                #die.exe
             elif self.head == snake.head:
                 print('Collided with head')
+                #die.exe
 
 
     def grow(self, strength):
         print('growing')
 
     def wall_collision(self, walls):
-        pass
+        for wall in walls:
+            for body in wall:
+                if self.head == body:
+                    print('collided with wall')
+                    #die.exe
 
     def add_score(self, amount=None):
         if amount is None:
