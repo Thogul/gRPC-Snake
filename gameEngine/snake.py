@@ -14,6 +14,7 @@ class Snake():
             self.body.append([self.head.x, self.head.y+i])
         #print(self.body)
         self.score = 0
+        self.alive = True
 
     def move(self, direction:str, speed=1):
         #firtly try to move, if no valid move was sent, skip the rest
@@ -53,6 +54,13 @@ class Snake():
             if self.head == food:
                 print('collided with food')
                 self.grow(food.strength)
+        
+        for snake in snakes:
+            if self.head == snake.body:
+                print('Collided with a body')
+            elif self.head == snake.head:
+                print('Collided with head')
+
 
     def grow(self, strength):
         print('growing')
