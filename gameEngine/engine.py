@@ -6,8 +6,8 @@ def clean_field(width=11, height=11):
 
 def insert_snake(field, snake:Snake):
     for bodypart in snake.body:
-        field[bodypart.x][bodypart.y] = bodypart.skin
-    field[snake.head.x][snake.head.y] = snake.head.skin
+        field[bodypart.y][bodypart.x] = bodypart.skin
+    field[snake.head.y][snake.head.x] = snake.head.skin
 
 def insert_food(field, foods):
     for food in foods:
