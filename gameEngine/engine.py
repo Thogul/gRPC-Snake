@@ -23,29 +23,28 @@ def render_field(field, main_snake: Snake, foods, snakes=[]):
     midscreeny, midscreenx = main_snake.head.y, main_snake.head.x
     for food in foods:
         deltay, deltax = midscreeny-food.y, midscreenx-food.x
-        if (deltay <= middley) and (deltax <= middlex):
+        if (abs(deltay) <= middley) and (abs(deltax) <= middlex):
             field[middley-deltay][middlex-deltax] = food.skin
 
     #draw in main snake, body then head, incase of body errors
     for bodypart in main_snake.body:
         deltax = bodypart.x - main_snake.head.x
         deltay = bodypart.y - main_snake.head.y
-        field[middley+deltay][middlex+deltax] = bodypart.skin
+        if (abs(deltay) <= middley) and (abs(deltax) <= middlex):
+            field[middley+deltay][middlex+deltax] = bodypart.skin
+        #field[middley+deltay][middlex+deltax] = bodypart.skin
     field[middley][middlex] = main_snake.head.skin
 
     print_field(field)
 
-def spawn_food(field):
-    max_y = len(field)-1
-    max_x = len(field[0])-1
-    
-    random_x = random.randint(0, max_x)
-    random_y = random.randint(0, max_y)
-
-    return  [random_x, random_y]
+def spawn_food(foods, min_x=0, max_x=5, min_y=0, max_y=5):
+    x = random.randint(min_x, max_x)
+    y = random.randint(min_y, max_y)
+    foods.append(Food(x, y))
 
 
 if __name__ == '__main__':
+    max_food = 5
     snake = Snake()
     field = clean_field()
     foods = [Food(0,0)]
@@ -55,3 +54,5 @@ if __name__ == '__main__':
         snake.move(direction)
         if snake.collision([snake], foods):
             break
+        if len(foods) < max_food:
+            spawn_food(foods)
