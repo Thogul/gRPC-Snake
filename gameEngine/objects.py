@@ -12,3 +12,9 @@ class Bodypart():
     x: int
     y: int
     skin: str = 'O'
+
+if __name__ == '__main__':
+    body = Bodypart(10, 11)
+    print(body)
+    food = Food(2, 3)
+    print(food)
