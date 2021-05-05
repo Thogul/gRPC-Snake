@@ -25,6 +25,11 @@ class Snok(QMainWindow):
         
 
         self.setGeometry(100, 100, 1000, 800)
+        self.setStyleSheet("background: lightgreen;")
+        self.msgBar.setStyleSheet("background: #CD96CD;")
+        self.gameBoard.setStyleSheet("border: 10px dotted black;")
+
+    
 
         #Center
         screen = QDesktopWidget().screenGeometry()
