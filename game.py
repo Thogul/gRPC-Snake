@@ -5,6 +5,8 @@ from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog
 
+import Leap
+
 class Snok(QMainWindow):
 
     def __init__(self):
@@ -56,6 +58,39 @@ class Board(QFrame):
         self.timer = QBasicTimer()
         self.timer.start(Board.Speed, self)
         self.msgScoreBar.emit("Hello")
+        self.direction = 1
+
+    
+
+    def keyPressEvent(self, event):
+
+        key = event.key()
+
+        if key == Qt.Key_P:
+            self.pause()
+            return
+
+        if self.isPaused:
+            return
+
+        elif key == Qt.Key_Left:
+            if self.direction != 2:
+                self.direction = 1
+        elif key == Qt.Key_Right:
+            if self.direction != 1:
+                self.direction = 2
+        elif key == Qt.Key_Down:
+            if self.direction != 4:
+                self.direction = 3
+        elif key == Qt.Key_Up:
+            if self.direction != 3:
+                self.direction = 4
+        
+        
+
+
+        else:
+            super(Board, self).keyPressEvent(event)
     
 class LogIn(QWidget):
 
