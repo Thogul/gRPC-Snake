@@ -3,7 +3,7 @@ from objects import *
 
 class Snake():
 
-    def __init__(self, x: int = 5, y: int = 5, start_length: int = 5, name: str = 'ME'):
+    def __init__(self, x: int = 2, y: int = 2, start_length: int = 5, name: str = 'ME'):
         #self.head = position
         self.head = Bodypart(x, y, '@')
         self.length = start_length
@@ -79,7 +79,7 @@ class Snake():
 
     def grow(self, strength: int):
         for _ in range(strength):
-            self.body.append(Bodypart(0, 0))
+            self.body.append(Bodypart(self.body[-1].x, self.body[-1].y))
         print('growing')
 
     def wall_collision(self, walls:list):
