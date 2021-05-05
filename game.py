@@ -58,6 +58,7 @@ class Board(QFrame):
         self.timer = QBasicTimer()
         self.timer.start(Board.Speed, self)
         self.msgScoreBar.emit("Hello")
+        self.direction = 1
 
     
 
