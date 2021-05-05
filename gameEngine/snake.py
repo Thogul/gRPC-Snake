@@ -43,10 +43,10 @@ class Snake():
         self.body[0] = self.head[:]
         print(self.body)
 
-    def grow(self):
+    def grow(self, strength):
         pass
 
-    def collision(self, snakes):
+    def collision(self, snakes, foods):
         pass
 
     def wall_collision(self, walls):
