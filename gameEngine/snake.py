@@ -1,16 +1,18 @@
-
+from objects import *
 
 class Snake():
 
     def __init__(self, position = [5, 5], start_length = 3):
-        self.head = position
+        #self.head = position
+        self.head = Bodypart(5, 5)
         self.length = start_length
-        self.body = [self.head[:]]
+        #self.body = [self.head[:]]
+        self.body = []
         self.invalid_direction = 's'
         self.last_direction = 'w'
         for i in range(1, self.length):
-            self.body.append([self.head[0], self.head[1]+i])
-        print(self.body)
+            self.body.append([self.head.x, self.head.y+i])
+        #print(self.body)
         self.score = 0
 
     def move(self, direction:str, speed=1):
@@ -44,13 +46,16 @@ class Snake():
         self.body[0] = self.head[:]
         print(self.body)
 
-    def grow(self, strength):
-        pass
-
     def collision(self, snakes, foods):
         for food in foods:
+            print(self.head)
+            print(food)
             if self.head == food:
-                grow(food.strength)
+                print('collided with food')
+                self.grow(food.strength)
+
+    def grow(self, strength):
+        print('growing')
 
     def wall_collision(self, walls):
         pass
@@ -63,3 +68,6 @@ class Snake():
 
 if __name__ == '__main__':
     snake = Snake()
+    food = Food(5, 5)
+
+    snake.collision([], [food])
