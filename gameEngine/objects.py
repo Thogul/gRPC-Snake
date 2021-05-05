@@ -12,7 +12,6 @@ class Food():
         try:
             xbool = other.x == self.head.x
             ybool = other.y == self.head.x
-            print(xbool and ybool)
             return xbool and ybool
         except:
             return False
@@ -25,8 +24,6 @@ class Bodypart():
     skin: str = 'O'
 
     def __eq__(self, other):
-        print(other)
-        print(self)
         try:
             if self.x == other.x:
                 if self.y == other.y:
