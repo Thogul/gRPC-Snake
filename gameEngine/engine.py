@@ -6,31 +6,11 @@ import random
 def clean_field(width=11, height=11):
     return [['*' for i in range(width)] for i in range(height)]
 
-def insert_snake(field, snake:Snake):
-    for bodypart in snake.body:
-        field[bodypart.y][bodypart.x] = bodypart.skin
-    field[snake.head.y][snake.head.x] = snake.head.skin
-
-def insert_food(field, foods):
-    for food in foods:
-        field[food.y][food.x] = food.skin
-
-def spawn_food(field):
-    max_y = len(field)-1
-    max_x = len(field[0])-1
-    
-    random_x = random.randint(0, max_x)
-    random_y = random.randint(0, max_y)
-
-    return  [random_x, random_y]
-
 def print_field(field):
     for y in field:
         for x in y:
             print(x, end=' ')
         print('\n', end='')
-
-
 
 def render_field(field, main_snake: Snake, foods, snakes=[]):
     #first, clean up the whole field
@@ -55,6 +35,14 @@ def render_field(field, main_snake: Snake, foods, snakes=[]):
 
     print_field(field)
 
+def spawn_food(field):
+    max_y = len(field)-1
+    max_x = len(field[0])-1
+    
+    random_x = random.randint(0, max_x)
+    random_y = random.randint(0, max_y)
+
+    return  [random_x, random_y]
 
 
 while False:
