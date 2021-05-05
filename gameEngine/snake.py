@@ -43,18 +43,14 @@ class Snake():
         self.body[0] = self.head[:]
         print(self.body)
 
+    def grow(self):
+        pass
+
+    def collision(self, snakes):
+        pass
+
+    def wall_collision(self, walls):
+        pass
 
 if __name__ == '__main__':
     snake = Snake()
-    for i in range(3):
-        print(snake.head)
-        print(snake.body)
-        snake.move('w')
-        print(snake.head)
-        print(snake.body)
-    for i in range(3):
-        print(snake.head)
-        print(snake.body)
-        snake.move('a')
-        print(snake.head)
-        print(snake.body)
