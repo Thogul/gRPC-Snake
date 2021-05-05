@@ -77,6 +77,7 @@ class Snake():
 
     def grow(self, strength):
         self.body.append(Bodypart(0, 0))
+        self.body.append(Bodypart(0, 0))
         print('growing')
 
     def wall_collision(self, walls):
