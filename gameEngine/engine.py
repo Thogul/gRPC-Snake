@@ -42,3 +42,5 @@ while True:
     snake.move(direction)
     if snake.collision([snake], foods):
         break
+    if len(foods) < 1:
+        foods.append(Food(spawn_food(field)[0], spawn_food(field)[1], 5))
