@@ -3,7 +3,7 @@ import sys
 
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication
+from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog
 
 class Snok(QMainWindow):
 
@@ -75,16 +75,14 @@ class LogIn(QWidget):
 def onClicked(self):
     deleteWid = LogIn()
     #deleteWid.close()
-    deleteWid.setParent(None)
-    #deleteWid.deleteLater()
+    #deleteWid.setParent(None)
+    deleteWid.deleteLater()
     snok = Snok()
-
 def main():
 
     app = QApplication([])
     lg = LogIn()
-    #childWindow->setAttribute( Qt::WA_DeleteOnClose );
-
+    lg.setAttribute(Qt::WA_DeleteOnClose)
     lg.show()
     #snok = Snok()
     sys.exit(app.exec_())
