@@ -1,5 +1,6 @@
 from objects import *
 
+
 class Snake():
 
     def __init__(self, x: int = 5, y: int = 5, start_length: int = 5, name: str = 'ME'):
@@ -47,13 +48,14 @@ class Snake():
             return
 
         #rotate all elements to the righ, with last one looping around
+        #OPS, is slow! can be optimized if it becomes a problem, but probably wont
         self.body = [self.body[-1]] + self.body[:-1]
         self.body[0].x = lastx
         self.body[0].y = lasty
         #firtly move the whole body forward by one position from back to front
 
 
-    def collision(self, snakes: list[Snake], foods: list[Food]):
+    def collision(self, snakes: list, foods: list):
         for food in foods:
             print(self.head)
             print(food)
@@ -80,7 +82,7 @@ class Snake():
             self.body.append(Bodypart(0, 0))
         print('growing')
 
-    def wall_collision(self, walls:list[Bodypart]):
+    def wall_collision(self, walls:list):
         for wall in walls:
             for body in wall:
                 if self.head == body:
