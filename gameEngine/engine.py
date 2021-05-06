@@ -37,9 +37,16 @@ def render_field(field, main_snake: Snake, foods, snakes=[]):
 
     print_field(field)
 
-def spawn_food(foods, min_x=0, max_x=5, min_y=0, max_y=5):
+def spawn_food(foods, main_snake, min_x=0, max_x=5, min_y=0, max_y=5):
     x = random.randint(min_x, max_x)
     y = random.randint(min_y, max_y)
+    
+    for bodypart in main_snake.body:
+        while bodypart == Food(x, y):
+            print("MAT UNDER SLANGE")
+            x = random.randint(min_x, max_x)
+            y = random.randint(min_y, max_y)
+    
     foods.append(Food(x, y))
 
 
@@ -55,4 +62,4 @@ if __name__ == '__main__':
         if snake.collision([snake], foods):
             break
         if len(foods) < max_food:
-            spawn_food(foods)
+            spawn_food(foods, snake)
