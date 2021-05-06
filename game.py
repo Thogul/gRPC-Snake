@@ -5,7 +5,6 @@ from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog
 
-import Leap
 
 class Snok(QMainWindow):
 
@@ -112,13 +111,11 @@ def onClicked(self):
     #deleteWid.close()
     #deleteWid.setParent(None)
     deleteWid.deleteLater()
-    snok = Snok()
 def main():
 
     app = QApplication([])
     lg = LogIn()
-    lg.setAttribute(Qt::WA_DeleteOnClose)
-    lg.show()
+    lg.setAttribute(Qt.WA_DeleteOnClose)
     #snok = Snok()
     sys.exit(app.exec_())
 
