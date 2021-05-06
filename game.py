@@ -1,9 +1,10 @@
 import random
 import sys
 
-from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QObject
-from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog, QLabel
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QDialog, QColorDialog
+
 
 
 class Mainwindow(QMainWindow):
