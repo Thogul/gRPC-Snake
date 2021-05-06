@@ -1,9 +1,9 @@
 import random
 import sys
 
-from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
+from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal, QObject
 from PyQt5.QtGui import QPainter, QColor
-from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog
+from PyQt5.QtWidgets import QMainWindow, QFrame, QDesktopWidget, QApplication, QWidget, QFormLayout, QPushButton, QLineEdit, QColorDialog, QLabel
 
 
 class Snok(QMainWindow):
@@ -93,30 +93,30 @@ class Board(QFrame):
     
 class LogIn(QWidget):
 
-    def __init__(self, parent=None):
+    def __init__(self):
 
-        super().__init__(parent)
+        super().__init__()
         self.setWindowTitle("Choose your player")
         layout = QFormLayout()
         layout.addRow('Enter your Nickname: ', QLineEdit())
         layout.addRow('Choose your color: ', QColorDialog())
-        btn = QPushButton('Enter Game!')
-        btn.clicked.connect(onClicked)
+        btn = QPushButton('Enter Game!', self)
+        btn.clicked.connect(self.onClicked)
         layout.addWidget(btn)
         self.setLayout(layout)
         self.show()
 
-def onClicked(self):
-    deleteWid = LogIn()
-    #deleteWid.close()
-    #deleteWid.setParent(None)
-    deleteWid.deleteLater()
+    def onClicked(self):
+        
+        self.snok = Snok()
+        self.snok.show()
+        self.deleteLater()
+   
+
 def main():
 
     app = QApplication([])
     lg = LogIn()
-    lg.setAttribute(Qt.WA_DeleteOnClose)
-    #snok = Snok()
     sys.exit(app.exec_())
 
 
