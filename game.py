@@ -37,6 +37,11 @@ class Snok(QMainWindow):
         size = self.geometry()
         self.move(int((screen.width() - size.width()) / 2),
                   int((screen.height() - size.height()) / 2))
+                  
+        btn = QPushButton('Quit Game', self)
+        btn.clicked.connect(QApplication.instance().quit)
+        btn.setGeometry(900, 735, 70, 50)
+        btn.show()
     
         self.setWindowTitle('Snok')
         self.show()
