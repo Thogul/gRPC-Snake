@@ -85,8 +85,6 @@ class Board(QFrame):
             if self.direction != 3:
                 self.direction = 4
         
-        
-
 
         else:
             super(Board, self).keyPressEvent(event)
