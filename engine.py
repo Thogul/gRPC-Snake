@@ -72,21 +72,24 @@ class Engine():
         foods.append(mat)
 
     def get_items_on_screen(self):
-        items_onscreen = [self.snake.head]
+        items_onscreen = []
         middlex, middley = self.screen_width//2, self.screen_height//2
         centerx, centery = self.snake.head.x, self.snake.head.y
+
+        #Add head to list
+        items_onscreen.append(Bodypart(middlex, middley, '@'))
 
         for food in self.foods:
             deltax, deltay = centerx-food.x, centery-food.x
             if (abs(deltax) <= middlex) and (abs(deltay)-middley):
-                items_onscreen.append(food)
+                #items_onscreen.append(food)
+                items_onscreen.append(Food(middlex-deltax, middley-deltay))
         
         for bodypart in self.snake.body:
             deltax, deltay = bodypart.x-centerx, bodypart.y-centery
             if (abs(deltax)-middlex) and (abs(deltay)-middley):
-                items_onscreen.append(bodypart)
-            
-        items_onscreen.append(self.snake.head)
+                #items_onscreen.append(bodypart)
+                items_onscreen.append(bodypart(middlex-deltax, middley-deltay))
 
         return items_onscreen
 
