@@ -56,6 +56,11 @@ class Engine():
 
             mat = Food(x, y)
 
+            if main_snake.head == mat:
+                print("MAT UNDER HODE")
+                under = True
+                continue
+
             for bodypart in main_snake.body:
                 if bodypart == mat:
                     print("MAT UNDER SLANGE")
