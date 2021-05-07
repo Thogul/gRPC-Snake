@@ -150,4 +150,13 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    #main()
+    from engine import Engine
+    from snake import Snake
+    snake = Snake()
+    engine = Engine()
+    field = engine.clean_field()
+    engine.render_field(field, snake, [], [])
+    #field = gameEngine.Engine.clean_field()
+    #snake = gameEngine.snake.Snake()
+    #gameEngine.Engine.render_field(field, snake, [],[])

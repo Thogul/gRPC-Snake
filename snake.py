@@ -1,4 +1,5 @@
-from objects import *
+from food import Food
+from bodypart import Bodypart
 
 
 class Snake():
