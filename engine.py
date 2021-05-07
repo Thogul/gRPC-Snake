@@ -1,5 +1,6 @@
 from snake import Snake
 from food import Food
+from bodypart import Bodypart
 
 import random
 
