@@ -4,6 +4,11 @@ from food import Food
 import random
 
 class Engine():
+
+    def __init__(self):
+        self.snake = Snake()
+        self.foods = []
+
     def clean_field(self, width=11, height=11):
         return [['*' for i in range(width)] for i in range(height)]
 
@@ -39,24 +44,28 @@ class Engine():
         self.print_field(field)
 
     def spawn_food(self, foods, main_snake, min_x=0, max_x=5, min_y=0, max_y=5):
-        x = random.randint(min_x, max_x)
-        y = random.randint(min_y, max_y)
 
-        mat = Food(x, y)
-        
-        for bodypart in main_snake.body:
-            while bodypart == mat:
-                print("MAT UNDER SLANGE")
-                x = random.randint(min_x, max_x)
-                y = random.randint(min_y, max_y)
-                mat = Food(x, y)
+        mat = None
+        under = True
+        while under:
+            x = random.randint(min_x, max_x)
+            y = random.randint(min_y, max_y)
+
+            mat = Food(x, y)
+
+            for bodypart in main_snake.body:
+                if bodypart == mat:
+                    print("MAT UNDER SLANGE")
+                    under = True
+                    break
+
+            break
                 
-
         foods.append(mat)
 
 
 if __name__ == '__main__':
-    max_food = 1
+    max_food = 5
     engine = Engine()
     snake = Snake()
     field = engine.clean_field()
