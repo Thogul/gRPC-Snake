@@ -48,6 +48,7 @@ class Engine():
         mat = None
         under = True
         while under:
+            under = False
             x = random.randint(min_x, max_x)
             y = random.randint(min_y, max_y)
 
@@ -59,13 +60,13 @@ class Engine():
                     under = True
                     break
 
-            break
+            
                 
         foods.append(mat)
 
 
 if __name__ == '__main__':
-    max_food = 5
+    max_food = 1
     engine = Engine()
     snake = Snake()
     field = engine.clean_field()
