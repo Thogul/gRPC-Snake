@@ -89,7 +89,7 @@ class Engine():
             deltax, deltay = bodypart.x-centerx, bodypart.y-centery
             if (abs(deltax)-middlex) and (abs(deltay)-middley):
                 #items_onscreen.append(bodypart)
-                items_onscreen.append(bodypart(middlex-deltax, middley-deltay))
+                items_onscreen.append(Bodypart(middlex-deltax, middley-deltay))
 
         return items_onscreen
 
