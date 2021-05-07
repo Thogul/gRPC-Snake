@@ -5,9 +5,11 @@ import random
 
 class Engine():
 
-    def __init__(self):
+    def __init__(self, screen_width=11, screen_height=11):
         self.snake = Snake()
         self.foods = []
+        self.screen_width = screen_width
+        self.screen_height = screen_height
 
     def clean_field(self, width=11, height=11):
         return [['*' for i in range(width)] for i in range(height)]
@@ -64,6 +66,24 @@ class Engine():
                 
         foods.append(mat)
 
+    def get_items_on_screen(self):
+        items_onscreen = [self.snake.head]
+        middlex, middley = self.screen_width//2, self.screen_height//2
+        centerx, centery = self.snake.head.x, self.snake.head.y
+
+        for food in self.foods:
+            deltax, deltay = centerx-food.x, centery-food.x
+            if (abs(deltax) <= middlex) and (abs(deltay)-middley):
+                items_onscreen.append(food)
+        
+        for bodypart in self.snake.body:
+            deltax, deltay = bodypart.x-centerx, bodypart.y-centery
+            if (abs(deltax)-middlex) and (abs(deltay)-middley):
+                items_onscreen.append(bodypart)
+            
+        items_onscreen.append(self.snake.head)
+
+        return items_onscreen
 
 if __name__ == '__main__':
     max_food = 1
@@ -73,6 +93,7 @@ if __name__ == '__main__':
     foods = [Food(0,0)]
     while True:
         engine.render_field(field, snake, foods)
+        print(len(engine.get_items_on_screen()))
         direction = input('Direction: ')
         snake.move(direction)
         if snake.collision([snake], foods):
