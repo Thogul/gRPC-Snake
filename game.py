@@ -8,6 +8,9 @@ from PyQt5.QtCore import QBasicTimer
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import QPainter, QColor
 
+
+selectedColor = QtGui.QColor(0, 0, 255)
+
 class Mainwindow(QMainWindow):
 
     def __init__(self):
@@ -112,10 +115,9 @@ class Board(QtWidgets.QFrame):
 
     def draw_square(self, painter, x, y):
 
-        color = QColor(0x228B22)
+        global selectedColor
         
-        painter.fillRect(x , y , self.rec_width() ,
-                         self.rec_height() , color)
+        painter.fillRect(x , y , self.rec_width() , self.rec_height(), selectedColor)
 
 
 
@@ -154,8 +156,8 @@ class LoginDialog(QDialog):
         self.pickcolor.clicked.connect(self.colorDialog)
         self.framecolor = QtWidgets.QFrame(Dialog)
         self.framecolor.setGeometry(QtCore.QRect(390, 30, 100, 75))
-        color = QtGui.QColor(0, 0, 255)
-        self.framecolor.setStyleSheet("QWidget { background-color: %s}" %color.name())
+        #color = QtGui.QColor(0, 0, 255)
+        self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
     
 
@@ -166,6 +168,9 @@ class LoginDialog(QDialog):
         color = QColorDialog.getColor()
         if color.isValid():
             self.framecolor.setStyleSheet("QWidget { background-color: %s}" %color.name())
+            global selectedColor
+            selectedColor = color
+            #print (selectedColor)
     
     def enter_game(self):
 
