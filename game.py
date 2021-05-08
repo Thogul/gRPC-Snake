@@ -1,23 +1,19 @@
 import random
 import sys
-
+import engine
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QDialog, QColorDialog
-
-
+from PyQt5.QtCore import QBasicTimer 
+from PyQt5.QtWidgets import * 
+from PyQt5.QtGui import QPainter, QColor
 
 class Mainwindow(QMainWindow):
 
-    def __init__(self, name):#, color):
+    def __init__(self):
         super().__init__()
 
-        self.name = name
-        #self.color = color
-
         self.setupUi(self)
-
-
 
 
     def setupUi(self, MainWindow):
@@ -27,7 +23,8 @@ class Mainwindow(QMainWindow):
         MainWindow.setStyleSheet("background: rgb(170, 255, 127)")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.board = QtWidgets.QFrame(self.centralwidget)
+
+        self.board = Board(self)
         self.board.setGeometry(QtCore.QRect(0, 0, 1021, 741))
         self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.board.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -56,7 +53,6 @@ class Mainwindow(QMainWindow):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        self.login = LoginDialog()
         MainWindow.setWindowTitle(_translate("MainWindow", "Snok"))
         self.scoreboard.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -64,8 +60,62 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-        self.statusbar.showMessage(_translate("statusbar", self.name))
-        #self.statusbar.showMessage(_translate("statusbar", self.color))
+
+class Board(QtWidgets.QFrame):
+
+    
+    def __init__(self, parent):
+        super(Board, self).__init__(parent)
+        self.WIDTHINBLOCKS = 60
+        self.HEIGHTINBLOCKS = 40
+        self.SPEED = 80
+
+
+        self.engine = engine.Engine(1021, 741 )
+        self.items = self.engine.get_items_on_screen()
+
+        self.timer = QBasicTimer()
+
+
+        self.food = []
+
+        self.board = []
+
+        self.snakes = []
+        print(str(self.items))
+
+
+
+    
+    def rec_width(self):
+        return self.contentsRect().width() / self.WIDTHINBLOCKS
+    
+    def rec_height(self):
+        return self.contentsRect().height() / self.HEIGHTINBLOCKS
+
+    def paintEvent(self, event): 
+        
+        painter = QPainter(self)
+        rect = self.contentsRect()
+
+        boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
+        
+        for item in self.items:
+            if item.skin == '@':
+               # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
+                #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
+                self.draw_square(painter, item.x,  item.y)
+                #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
+                print(item.x, item.y)
+                print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
+                
+
+    def draw_square(self, painter, x, y):
+
+        color = QColor(0x228B22)
+        
+        painter.fillRect(x , y , self.rec_width() ,
+                         self.rec_height() , color)
 
 
 
@@ -118,12 +168,10 @@ class LoginDialog(QDialog):
             self.framecolor.setStyleSheet("QWidget { background-color: %s}" %color.name())
     
     def enter_game(self):
-        user = self.userName.text()
-        #color = self.
-        self.main = Mainwindow(user)# color)  
+
+        self.main = Mainwindow()  
         self.main.show()
-        self.hide()
-    
+        self.deleteLater()
         
 
     def retranslateUi(self, Dialog):
@@ -150,13 +198,4 @@ def main():
 
 
 if __name__ == '__main__':
-    #main()
-    from engine import Engine
-    from snake import Snake
-    snake = Snake()
-    engine = Engine()
-    field = engine.clean_field()
-    engine.render_field(field, snake, [], [])
-    #field = gameEngine.Engine.clean_field()
-    #snake = gameEngine.snake.Snake()
-    #gameEngine.Engine.render_field(field, snake, [],[])
+    main()
