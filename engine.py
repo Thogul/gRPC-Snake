@@ -11,17 +11,32 @@ class Engine():
         self.foods = []
         self.screen_width = screen_width
         self.screen_height = screen_height
+        self.walls = []
 
     def clean_field(self, width=11, height=11):
         return [['*' for i in range(width)] for i in range(height)]
 
-    def print_field(self, field):
+    def genereate_wall(self, fromx, fromy, tox, toy):
+        #generate a group of bodyparts to act as a wall from x,y to x1,y1
+        if fromy == toy:
+            for offset in range(0, tox-fromx):
+                self.walls.append(Bodypart(fromx+offset, fromy, '#'))
+        elif fromx == tox:
+            for offset in range(0, toy-fromy):
+                self.walls.append(Bodypart(fromx, fromy+offset, '#'))
+
+    @staticmethod
+    def print_field(field):
         for y in field:
             for x in y:
                 print(x, end=' ')
             print('\n', end='')
 
-    def render_field(self, field, main_snake: Snake, foods, snakes=[]):
+    def _render_field(self):
+        field = self.clean_field(self.screen_width, self.screen_height)
+        self.render_field(field, self.snake, self.foods, [], self.walls)
+
+    def render_field(self, field, main_snake: Snake, foods, snakes=[], walls=[]):
         #first, clean up the whole field
         field = self.clean_field()
 
@@ -43,6 +58,12 @@ class Engine():
                 field[middley+deltay][middlex+deltax] = bodypart.skin
             #field[middley+deltay][middlex+deltax] = bodypart.skin
         field[middley][middlex] = main_snake.head.skin
+
+        for wall in walls:
+            deltax = wall.x - main_snake.head.x
+            deltay = wall.y - main_snake.head.y
+            if (abs(deltay) <= middley) and (abs(deltax) <= middlex):
+                field[middley+deltay][middlex+deltax] = wall.skin
 
         self.print_field(field)
 
@@ -97,15 +118,15 @@ class Engine():
 if __name__ == '__main__':
     max_food = 1
     engine = Engine()
+    engine.genereate_wall(0, 0, 10, 0)
     snake = Snake()
     field = engine.clean_field()
     foods = [Food(0,0)]
     while True:
-        engine.render_field(field, snake, foods)
-        print(len(engine.get_items_on_screen()))
+        engine._render_field()
         direction = input('Direction: ')
-        snake.move(direction)
-        if snake.collision([snake], foods):
+        engine.snake.move(direction)
+        if engine.snake.collision([engine.snake], engine.foods):
             break
         if len(foods) < max_food:
             engine.spawn_food(foods, snake)
