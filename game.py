@@ -70,11 +70,13 @@ class Board(QtWidgets.QFrame):
     def __init__(self, parent):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 60
-        self.HEIGHTINBLOCKS = 40
+        self.HEIGHTINBLOCKS = 60
         self.SPEED = 80
+        self.screen_width = 1021
+        self.screen_height = 741
 
 
-        self.engine = engine.Engine(1021, 741 )
+        self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.items = self.engine.get_items_on_screen()
 
         self.timer = QBasicTimer()
@@ -88,8 +90,6 @@ class Board(QtWidgets.QFrame):
         print(str(self.items))
 
 
-
-    
     def rec_width(self):
         return self.contentsRect().width() / self.WIDTHINBLOCKS
     
@@ -108,12 +108,13 @@ class Board(QtWidgets.QFrame):
             if item.skin == '@':
                # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
-                self.draw_square(painter,item.x , item.y )
+                self.draw_square(painter,item.x * (self.screen_width//self.WIDTHINBLOCKS), item.y * (self.screen_height//self.HEIGHTINBLOCKS))
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
                 print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
-                self.draw_square(painter,  item.x , item.y+20 )
+                self.draw_square(painter,  item.x * (self.screen_width//self.WIDTHINBLOCKS), item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                print('drawing new item at:', end=' ')
                 print(item.x ,item.y )
                 
 
