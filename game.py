@@ -113,7 +113,7 @@ class Board(QtWidgets.QFrame):
                 print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
-                self.draw_square(painter,  item.x , item.y )
+                self.draw_square(painter,  item.x , item.y+20 )
                 print(item.x ,item.y )
                 
 
