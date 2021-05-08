@@ -67,7 +67,7 @@ class Engine():
 
         self.print_field(field)
 
-    def spawn_food(self, foods, main_snake, min_x=0, max_x=5, min_y=0, max_y=5):
+    def spawn_food(self, min_x=0, max_x=5, min_y=0, max_y=5):
 
         mat = None
         under = True
@@ -78,20 +78,18 @@ class Engine():
 
             mat = Food(x, y)
 
-            if main_snake.head == mat:
+            if self.snake.head == mat:
                 print("MAT UNDER HODE")
                 under = True
                 continue
 
-            for bodypart in main_snake.body:
+            for bodypart in self.snake.body:
                 if bodypart == mat:
                     print("MAT UNDER SLANGE")
                     under = True
                     break
-
-            
-                
-        foods.append(mat)
+        print('spawned some food at', mat)
+        self.foods.append(mat)
 
     def get_items_on_screen(self):
         items_onscreen = []
@@ -119,14 +117,13 @@ if __name__ == '__main__':
     max_food = 1
     engine = Engine()
     engine.genereate_wall(0, 0, 10, 0)
-    snake = Snake()
-    field = engine.clean_field()
-    foods = [Food(0,0)]
     while True:
         engine._render_field()
         direction = input('Direction: ')
         engine.snake.move(direction)
         if engine.snake.collision([engine.snake], engine.foods):
             break
-        if len(foods) < max_food:
-            engine.spawn_food(foods, snake)
+        if engine.snake.wall_collision(engine.walls):
+            break
+        if len(engine.foods) < max_food:
+            engine.spawn_food()

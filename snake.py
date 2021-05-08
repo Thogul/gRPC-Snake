@@ -76,6 +76,7 @@ class Snake():
                 continue
             if self.head == snake.head:
                 print('Collided with head')
+                return True
                 #die.exe
 
     def grow(self, strength: int):
@@ -85,10 +86,10 @@ class Snake():
 
     def wall_collision(self, walls:list):
         for wall in walls:
-            for body in wall:
-                if self.head == body:
-                    print('collided with wall')
-                    #die.exe
+            if self.head == wall:
+                print('collided with wall')
+                return True
+                #die.exe
 
     def add_score(self, amount=None):
         if amount is None:
