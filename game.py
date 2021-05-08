@@ -103,21 +103,25 @@ class Board(QtWidgets.QFrame):
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
         
+
         for item in self.items:
             if item.skin == '@':
                # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
-                self.draw_square(painter, item.x,  item.y)
+                self.draw_square(painter,item.x , item.y )
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
                 print(item.x, item.y)
-                print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
+                #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
+            elif item.skin == 'O':
+                self.draw_square(painter,  item.x , item.y )
+                print(item.x ,item.y )
                 
 
     def draw_square(self, painter, x, y):
 
         global selectedColor
         
-        painter.fillRect(x , y , self.rec_width() , self.rec_height(), selectedColor)
+        painter.fillRect(x, y , self.rec_width() , self.rec_height(), selectedColor)
 
 
 
