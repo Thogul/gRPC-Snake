@@ -80,6 +80,7 @@ class Snake():
                 #die.exe
 
     def grow(self, strength: int):
+        self.add_score(100)
         for _ in range(strength):
             self.body.append(Bodypart(self.body[-1].x, self.body[-1].y))
         print('growing')
@@ -94,7 +95,7 @@ class Snake():
 
     def add_score(self, amount=None):
         if amount is None:
-            self.score += self.length*10
+            self.score += self.length
         else:
             self.score += amount
 
