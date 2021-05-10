@@ -194,22 +194,22 @@ class Board(QtWidgets.QFrame):
         #print('noe')
 
         key = event.key()
-        if key == Qt.Key_W:
+        if key == Qt.Key_W or key == Qt.Key_Up:
             #self.engine.snake.move(key)
             self.direction = 'w'
             print('you pressed w')
 
-        if key == Qt.Key_A:
+        if key == Qt.Key_A or key == Qt.Key_Left:
             #self.engine.snake.move(key)
             self.direction = 'a'
             print("you pressed a")
         
-        if key == Qt.Key_D:
+        if key == Qt.Key_D or key == Qt.Key_Right:
             #self.engine.snake.move(key)
             self.direction = 'd'
             print("you pressed d")
 
-        if key == Qt.Key_S:
+        if key == Qt.Key_S or key == Qt.Key_Down:
             #self.engine.snake.move(key)
             self.direction = 's'
             print("you pressed s")
