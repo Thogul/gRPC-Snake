@@ -79,6 +79,8 @@ class Engine():
         if self.max_apples > len(self.foods):
             self.spawn_food()
 
+        self.snake.add_score()
+
         if self.snake.collision([self.snake], self.foods):
             return True
         elif self.snake.wall_collision(self.walls):
