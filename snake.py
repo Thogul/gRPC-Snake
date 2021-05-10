@@ -95,7 +95,7 @@ class Snake():
 
     def add_score(self, amount=None):
         if amount is None:
-            self.score += self.length
+            self.score += self.length//2
         else:
             self.score += amount
 
