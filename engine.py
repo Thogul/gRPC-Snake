@@ -6,11 +6,11 @@ import random
 
 class Engine():
 
-    def __init__(self, screen_width=11, screen_height=11):
+    def __init__(self, border_widht=11, border_height=11):
         self.snake = Snake(0, 0)
         self.foods = []
-        self.screen_width = screen_width
-        self.screen_height = screen_height
+        self.border_width = border_widht
+        self.border_height = border_height
         self.walls = []
 
     def clean_field(self, width=11, height=11):
@@ -26,14 +26,22 @@ class Engine():
                 self.walls.append(Bodypart(fromx, fromy+offset, '#'))
     
     def generate_outer_walls(self, height=10, width=10):
-        #first make x-direction walls
+        #Generates an outer wall
         x_offset = width//2
         y_offset = height//2
-        self.genereate_wall(0-x_offset, 0+y_offset, x_offset, 0+y_offset)
-        self.genereate_wall(0-x_offset, 0-y_offset, x_offset, 0-y_offset)
 
-        self.genereate_wall(0+x_offset, 0-y_offset, 0+x_offset, 0+y_offset+1)
-        self.genereate_wall(0-x_offset, 0-y_offset, 0-x_offset, 0+y_offset)
+        self.genereate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
+        self.genereate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
+        self.genereate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
+        self.genereate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
+        
+        '''
+        self.genereate_wall(0-x_offset, 0+y_offset, x_offset+1, 0+y_offset)
+        self.genereate_wall(0-x_offset+1, 0-y_offset-1, x_offset+1, 0-y_offset-1)
+
+        self.genereate_wall(0+x_offset+1, 0-y_offset, 0+x_offset+1, 0+y_offset+1)
+        self.genereate_wall(0-x_offset, 0-y_offset, 0-x_offset, 0+y_offset+1)
+        '''
         #print(self.walls)
 
 
@@ -44,8 +52,8 @@ class Engine():
                 print(x, end=' ')
             print('\n', end='')
 
-    def _render_field(self):
-        field = self.clean_field(self.screen_width, self.screen_height)
+    def _render_field(self, screen_width=11, screen_height=11):
+        field = self.clean_field(screen_width, screen_height)
         self.render_field(field, self.snake, self.foods, [], self.walls)
 
     def render_field(self, field, main_snake: Snake, foods, snakes=[], walls=[]):
@@ -109,9 +117,9 @@ class Engine():
         print('spawned some food at', mat)
         self.foods.append(mat)
 
-    def get_items_on_screen(self):
+    def get_items_on_screen(self, width=11, height=11):
         items_onscreen = []
-        middlex, middley = self.screen_width//2, self.screen_height//2
+        middlex, middley = width//2, height//2
         centerx, centery = self.snake.head.x, self.snake.head.y
 
         #Add head to list
@@ -132,9 +140,9 @@ class Engine():
         return items_onscreen
 
 if __name__ == '__main__':
-    max_food = 1
+    max_food = 2
     engine = Engine()
-    engine.generate_outer_walls()
+    engine.generate_outer_walls(50, 50)
     while True:
         engine._render_field()
         direction = input('Direction: ')
