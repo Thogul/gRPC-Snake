@@ -77,7 +77,7 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-        self.statusbar.showMessage(_translate("statusbar", self.name ))
+        self.statusbar.showMessage(_translate("statusbar", self.name))
 
 
 class Board(QtWidgets.QFrame):
@@ -177,7 +177,8 @@ class Board(QtWidgets.QFrame):
                 self.timer.stop()
             #self.paintEvent(event)
             print("okey")
-            self.length.emit(str(len(self.engine.snake.body)+1))
+            #self.length.emit(str(len(self.engine.snake.body)+1))
+            self.length.emit(str(self.engine.snake.score))
 
             self.update()
 
