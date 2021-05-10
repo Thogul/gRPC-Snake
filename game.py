@@ -139,7 +139,7 @@ class Board(QtWidgets.QFrame):
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        print('Getting moves: ', self.items)
+        #print('Getting moves: ', self.items)
 
         for item in self.items:
             if item.skin == '@':
@@ -167,7 +167,7 @@ class Board(QtWidgets.QFrame):
 
     def draw_square(self, painter, x, y, QColor):
 
-        painter.fillRect(x, y , self.rec_width() , self.rec_height(), QColor)
+        painter.fillRect(int(x), int(y) , int(self.rec_width()) , int(self.rec_height()), QColor)
     
     
     def timerEvent(self, event):
