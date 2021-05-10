@@ -62,6 +62,8 @@ class Mainwindow(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuSettings.menuAction())
+
+        self.board.length[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -75,10 +77,13 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-        self.statusbar.showMessage(_translate("statusbar", self.name))
+        self.statusbar.showMessage(_translate("statusbar", self.name ))
+
+
 class Board(QtWidgets.QFrame):
 
-    
+    length = pyqtSignal(str)
+
     def __init__(self, parent):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 105
@@ -88,6 +93,7 @@ class Board(QtWidgets.QFrame):
         self.screen_height = 750
 
 
+
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.engine.spawn_food()
@@ -95,6 +101,9 @@ class Board(QtWidgets.QFrame):
         self.timer = QBasicTimer()
 
         self.direction = "w"
+
+        self.length
+
 
 
         self.food = []
@@ -161,6 +170,7 @@ class Board(QtWidgets.QFrame):
             self.engine.snake.move(self.direction)
             #self.paintEvent(event)
             print("okey")
+            self.length.emit(str(len(self.engine.snake.body)+1))
 
             self.update()
            
