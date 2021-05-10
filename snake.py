@@ -55,6 +55,8 @@ class Snake():
         self.body[0].y = lasty
         #firtly move the whole body forward by one position from back to front
 
+        print(self.body)
+
 
     def collision(self, snakes: list, foods: list):
         for food in foods:
