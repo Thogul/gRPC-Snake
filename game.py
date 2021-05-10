@@ -83,7 +83,7 @@ class Board(QtWidgets.QFrame):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 60
         self.HEIGHTINBLOCKS = 60
-        self.SPEED = 1000
+        self.SPEED = 500
         self.screen_width = 1050
         self.screen_height = 750
 
@@ -122,7 +122,7 @@ class Board(QtWidgets.QFrame):
         rect = self.contentsRect()
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
-        self.item = self.engine.get_items_on_screen()
+        self.items = self.engine.get_items_on_screen()
         print('Getting moves: ', self.engine.snake.body)
 
         for item in self.items:
@@ -166,23 +166,23 @@ class Board(QtWidgets.QFrame):
 
         key = event.key()
         if key == Qt.Key_W:
-            self.engine.snake.move(key)
-            self.direction = key
+            #self.engine.snake.move(key)
+            self.direction = 'w'
             print('you pressed w')
 
         if key == Qt.Key_A:
-            self.engine.snake.move(key)
-            self.direction = key
+            #self.engine.snake.move(key)
+            self.direction = 'a'
             print("you pressed a")
         
         if key == Qt.Key_D:
-            self.engine.snake.move(key)
-            self.direction = key
+            #self.engine.snake.move(key)
+            self.direction = 'd'
             print("you pressed d")
 
         if key == Qt.Key_S:
-            self.engine.snake.move(key)
-            self.direction = key
+            #self.engine.snake.move(key)
+            self.direction = 's'
             print("you pressed s")
 
         
