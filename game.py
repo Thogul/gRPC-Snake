@@ -152,19 +152,19 @@ class Board(QtWidgets.QFrame):
         key = event.key()
         if key == Qt.Key_W:
             self.engine.snake.move("w")
-            print('w')
+            print('you pressed w')
 
         if key == Qt.Key_A:
             self.engine.snake.move("a")
-            print("a")
+            print("you pressed a")
         
         if key == Qt.Key_D:
             self.engine.snake.move("d")
-            print("d")
+            print("you pressed d")
 
         if key == Qt.Key_S:
             self.engine.snake.move("s")
-            print("s")
+            print("you pressed s")
 
         
         
