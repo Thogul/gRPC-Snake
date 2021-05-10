@@ -13,7 +13,7 @@ class Snake():
         self.invalid_direction = 's'
         self.last_direction = 'w'
         for i in range(1, self.length):
-            self.body.append(Bodypart(self.head.x, self.head.y+i))
+            self.body.append(Bodypart(self.head.x, self.head.y-i))
         #print(self.body)
         self.score = 0
         self.alive = True
@@ -38,11 +38,11 @@ class Snake():
             self.invalid_direction = 'w'
             self.last_direction = 's'
         elif direction == 'd':
-            self.head.x -= 1
+            self.head.x += 1
             self.invalid_direction = 'a'
             self.last_direction = 'd'
         elif direction == 'a':
-            self.head.x += 1
+            self.head.x -= 1
             self.invalid_direction = 'd'
             self.last_direction = 'a'
         else:
@@ -55,13 +55,8 @@ class Snake():
         self.body[0].y = lasty
         #firtly move the whole body forward by one position from back to front
 
-        print(self.body)
-
-
     def collision(self, snakes: list, foods: list):
         for food in foods:
-            print(self.head)
-            print(food)
             if self.head == food:
                 print('collided with food')
                 foods.remove(food)
