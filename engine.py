@@ -32,8 +32,8 @@ class Engine():
         self.genereate_wall(0-x_offset, 0+y_offset, x_offset, 0+y_offset)
         self.genereate_wall(0-x_offset, 0-y_offset, x_offset, 0-y_offset)
 
-        self.genereate_wall(0+x_offset, 0-y_offset, 0+x_offset, 0+y_offset)
-        self.genereate_wall(0-x_offset, 0-y_offset-1, 0-x_offset, 0+y_offset)
+        self.genereate_wall(0+x_offset, 0-y_offset, 0+x_offset, 0+y_offset+1)
+        self.genereate_wall(0-x_offset, 0-y_offset, 0-x_offset, 0+y_offset)
         #print(self.walls)
 
 
