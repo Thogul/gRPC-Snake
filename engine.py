@@ -83,6 +83,12 @@ class Engine():
                 under = True
                 continue
 
+            for wall in self.walls:
+                if wall == mat:
+                    print("MAT UNDER VEGG")
+                    under = True
+                    break
+
             for bodypart in self.snake.body:
                 if bodypart == mat:
                     print("MAT UNDER SLANGE")
