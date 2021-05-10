@@ -63,7 +63,7 @@ class Mainwindow(QMainWindow):
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuSettings.menuAction())
 
-        self.board.length[str].connect(self.statusbar.showMessage)
+        self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -82,7 +82,7 @@ class Mainwindow(QMainWindow):
 
 class Board(QtWidgets.QFrame):
 
-    length = pyqtSignal(str)
+    score = pyqtSignal(str)
 
     def __init__(self, parent):
         super(Board, self).__init__(parent)
@@ -103,7 +103,7 @@ class Board(QtWidgets.QFrame):
 
         self.direction = "w"
 
-        self.length
+
 
 
 
@@ -178,7 +178,7 @@ class Board(QtWidgets.QFrame):
             #self.paintEvent(event)
             print("okey")
             #self.length.emit(str(len(self.engine.snake.body)+1))
-            self.length.emit(str(self.engine.snake.score))
+            self.score.emit(str(self.engine.snake.score))
 
             self.update()
 
