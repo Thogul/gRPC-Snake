@@ -123,6 +123,15 @@ class Engine():
             if ((0 <= x < width) and (0 <= y < height)):
                 #items_onscreen.append(bodypart)
                 items_onscreen.append(Bodypart(x, y))
+        
+        for wall in self.walls:
+            deltax, deltay = wall.x - referencex, referencey - wall.y
+            x = middlex + deltax
+            y = middley + deltay
+            if ((0 <= x < width) and (0 <= y < height)):
+                #items_onscreen.append(bodypart)
+                items_onscreen.append(Bodypart(x, y, '#'))
+
 
         items_onscreen.append(Bodypart(middlex, middley, '@'))
 
@@ -130,7 +139,7 @@ class Engine():
 
 if __name__ == '__main__':
     engine = Engine()
-    engine.generate_outer_walls(50, 50)
+    engine.generate_outer_walls(20, 20)
     while True:
         engine.render_field()
         direction = input('Direction: ')
