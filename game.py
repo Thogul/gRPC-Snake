@@ -18,8 +18,10 @@ selectedColor = QtGui.QColor(0, 0, 255)
 
 class Mainwindow(QMainWindow):
 
-    def __init__(self):
+    def __init__(self, name):
         super(Mainwindow, self).__init__()
+
+        self.name = name
 
         self.setupUi(self)
         
