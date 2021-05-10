@@ -89,7 +89,8 @@ class Board(QtWidgets.QFrame):
 
 
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        self.items = self.engine.get_items_on_screen()
+        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        self.engine.spawn_food()
 
         self.timer = QBasicTimer()
 
@@ -107,6 +108,7 @@ class Board(QtWidgets.QFrame):
 
         self.start()
 
+
        
 
 
@@ -122,8 +124,8 @@ class Board(QtWidgets.QFrame):
         rect = self.contentsRect()
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
-        self.items = self.engine.get_items_on_screen()
-        print('Getting moves: ', self.engine.snake.body)
+        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        print('Getting moves: ', self.items)
 
         for item in self.items:
             if item.skin == '@':
@@ -137,6 +139,11 @@ class Board(QtWidgets.QFrame):
                 self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
                 print('drawing new item at:', end=' ')
                 print(item.x ,item.y )
+            
+            elif item.skin == 'A':
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+
+            
                 
 
     def draw_square(self, painter, x, y):
