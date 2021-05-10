@@ -47,6 +47,7 @@ class Mainwindow(QMainWindow):
         self.scoreboard = QtWidgets.QTextBrowser(self.board)
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
+        self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgb(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
         #MainWindow.setCentralWidget(self.centralwidget)
@@ -78,6 +79,7 @@ class Mainwindow(QMainWindow):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
+        self.scoreboard.append(_translate("scoreboard", self.name))
 
 
 class Board(QtWidgets.QFrame):
