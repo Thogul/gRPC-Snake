@@ -43,6 +43,7 @@ class Mainwindow(QMainWindow):
         self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
+        self.board.start()
         self.scoreboard = QtWidgets.QTextBrowser(self.board)
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
@@ -83,14 +84,16 @@ class Board(QtWidgets.QFrame):
         self.WIDTHINBLOCKS = 60
         self.HEIGHTINBLOCKS = 60
         self.SPEED = 80
-        self.screen_width = 1021
-        self.screen_height = 741
+        self.screen_width = 1050
+        self.screen_height = 750
 
 
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.items = self.engine.get_items_on_screen()
 
         self.timer = QBasicTimer()
+
+        self.direction = "w"
 
 
         self.food = []
@@ -101,6 +104,10 @@ class Board(QtWidgets.QFrame):
         print(str(self.items))
 
         self.setFocusPolicy(Qt.StrongFocus)
+
+        self.start()
+
+       
 
 
     def rec_width(self):
@@ -137,24 +144,59 @@ class Board(QtWidgets.QFrame):
         
         painter.fillRect(x, y , self.rec_width() , self.rec_height(), selectedColor)
     
-   # def timerEvent(self, event):
-  
-        # checking timer id
-       # if event.timerId() == self.timer.timerId():
-           # self.move = engine.
+    
+    def timerEvent(self, event):
+        
+        if event.timerId() == self.timer.timerId():
+            self.engine.snake.move(self.direction)
+           
 
     def start(self):
-        self.timer.start(Board.Speed, self)
+        self.timer.start(self.SPEED, self)
 
+   
     def keyPressEvent(self, event):
-        print('noe')
+        #print('noe')
 
         key = event.key()
-        if key == Qt.Key_Left:
-            print('okey')
+        if key == Qt.Key_W:
+            self.engine.snake.move("w")
+<<<<<<< HEAD
+            self.direction = "w"
+            print('w')
+
+        if key == Qt.Key_A:
+            self.engine.snake.move("a")
+            self.direction = "a"
+            print("a")
         
+        if key == Qt.Key_D:
+            self.engine.snake.move("d")
+            self.direction = "d"
+            print("d")
 
+        if key == Qt.Key_S:
+            self.engine.snake.move("s")
+            self.direction = "s"
+            print("s")
+=======
+            print('you pressed w')
 
+        if key == Qt.Key_A:
+            self.engine.snake.move("a")
+            print("you pressed a")
+        
+        if key == Qt.Key_D:
+            self.engine.snake.move("d")
+            print("you pressed d")
+
+        if key == Qt.Key_S:
+            self.engine.snake.move("s")
+            print("you pressed s")
+>>>>>>> ecaf446ad1a2cb7805d0731cd5d58b8005fb0db8
+
+        
+        
 
 class LoginDialog(QDialog):
 
