@@ -37,14 +37,14 @@ class Snake():
             self.head.y -= 1
             self.invalid_direction = 'w'
             self.last_direction = 's'
-        elif direction == 'a':
-            self.head.x -= 1
-            self.invalid_direction = 'd'
-            self.last_direction = 'a'
         elif direction == 'd':
-            self.head.x += 1
+            self.head.x -= 1
             self.invalid_direction = 'a'
             self.last_direction = 'd'
+        elif direction == 'a':
+            self.head.x += 1
+            self.invalid_direction = 'd'
+            self.last_direction = 'a'
         else:
             return
 
