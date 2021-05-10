@@ -30,11 +30,11 @@ class Snake():
             self.move(self.last_direction)
             return
         elif direction == 'w':
-            self.head.y -= 1
+            self.head.y += 1
             self.invalid_direction = 's'
             self.last_direction = 'w'
         elif direction == 's':
-            self.head.y += 1
+            self.head.y -= 1
             self.invalid_direction = 'w'
             self.last_direction = 's'
         elif direction == 'a':
