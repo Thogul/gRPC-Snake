@@ -161,6 +161,7 @@ class Board(QtWidgets.QFrame):
         key = event.key()
         if key == Qt.Key_W:
             self.engine.snake.move("w")
+<<<<<<< HEAD
             self.direction = "w"
             print('w')
 
@@ -178,6 +179,21 @@ class Board(QtWidgets.QFrame):
             self.engine.snake.move("s")
             self.direction = "s"
             print("s")
+=======
+            print('you pressed w')
+
+        if key == Qt.Key_A:
+            self.engine.snake.move("a")
+            print("you pressed a")
+        
+        if key == Qt.Key_D:
+            self.engine.snake.move("d")
+            print("you pressed d")
+
+        if key == Qt.Key_S:
+            self.engine.snake.move("s")
+            print("you pressed s")
+>>>>>>> ecaf446ad1a2cb7805d0731cd5d58b8005fb0db8
 
         
         

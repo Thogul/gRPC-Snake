@@ -69,6 +69,7 @@ class Snake():
             for bodypart in snake.body:
                 if self.head == bodypart:
                     print('Collided with a body')
+                    self.alive = False
                     return True
                     #die.exe
 
@@ -76,6 +77,7 @@ class Snake():
                 continue
             if self.head == snake.head:
                 print('Collided with head')
+                self.alive = False
                 return True
                 #die.exe
 
@@ -88,6 +90,7 @@ class Snake():
         for wall in walls:
             if self.head == wall:
                 print('collided with wall')
+                self.alive = False
                 return True
                 #die.exe
 
