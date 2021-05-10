@@ -7,6 +7,11 @@ from PyQt5.QtWidgets import QDialog, QColorDialog
 from PyQt5.QtCore import QBasicTimer 
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtCore import * 
+from PyQt5.QtWidgets import * 
+from PyQt5.QtGui import * 
+import random
+import sys
 
 
 selectedColor = QtGui.QColor(0, 0, 255)
@@ -14,10 +19,9 @@ selectedColor = QtGui.QColor(0, 0, 255)
 class Mainwindow(QMainWindow):
 
     def __init__(self, name):
-        super().__init__()
-        
-        self.name = name
+        super(Mainwindow, self).__init__()
 
+        self.name = name
 
         self.setupUi(self)
         
@@ -25,14 +29,16 @@ class Mainwindow(QMainWindow):
 
     def setupUi(self, MainWindow):
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1017, 788)
-        MainWindow.setStyleSheet("background: rgb(170, 255, 127)")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
+        #MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(1021, 741)
+        #MainWindow.setStyleSheet("background: rgb(170, 255, 127)")
+        #self.centralwidget = QtWidgets.QWidget(MainWindow)
+        #self.centralwidget.setObjectName("centralwidget")
+
 
         self.board = Board(self)
-        self.board.setGeometry(QtCore.QRect(0, 0, 1021, 741))
+        self.setCentralWidget(self.board)
+        #self.board.setGeometry(QtCore.QRect(0, 0, 1021, 741))
         self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
@@ -41,7 +47,7 @@ class Mainwindow(QMainWindow):
         self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
         self.scoreboard.setStyleSheet("background: rgb(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
-        MainWindow.setCentralWidget(self.centralwidget)
+        #MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1017, 26))
         self.menubar.setStyleSheet("background: rgb(238, 238, 238)")
@@ -93,6 +99,8 @@ class Board(QtWidgets.QFrame):
         self.snakes = []
         print(str(self.items))
 
+        self.setFocusPolicy(Qt.StrongFocus)
+
 
     def rec_width(self):
         return self.contentsRect().width() / self.WIDTHINBLOCKS
@@ -112,12 +120,12 @@ class Board(QtWidgets.QFrame):
             if item.skin == '@':
                # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
-                self.draw_square(painter,item.x * (self.screen_width//self.WIDTHINBLOCKS), item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                self.draw_square(painter,rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
                 print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
-                self.draw_square(painter,  item.x * (self.screen_width//self.WIDTHINBLOCKS), item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
                 print('drawing new item at:', end=' ')
                 print(item.x ,item.y )
                 
@@ -127,6 +135,23 @@ class Board(QtWidgets.QFrame):
         global selectedColor
         
         painter.fillRect(x, y , self.rec_width() , self.rec_height(), selectedColor)
+    
+   # def timerEvent(self, event):
+  
+        # checking timer id
+       # if event.timerId() == self.timer.timerId():
+           # self.move = engine.
+
+    def start(self):
+        self.timer.start(Board.Speed, self)
+
+    def keyPressEvent(self, event):
+        print('noe')
+
+        key = event.key()
+        if key == Qt.Key_Left:
+            print('okey')
+        
 
 
 
