@@ -114,7 +114,7 @@ class Board(QtWidgets.QFrame):
         self.board = []
 
         self.snakes = []
-        print(str(self.items))
+        #print(str(self.items))
 
         self.setFocusPolicy(Qt.StrongFocus)
 
@@ -147,12 +147,12 @@ class Board(QtWidgets.QFrame):
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
                 self.draw_square(painter,rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
-                print(item.x, item.y)
+                #print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
                 self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
-                print('drawing new item at:', end=' ')
-                print(item.x ,item.y )
+                #print('drawing new item at:', end=' ')
+                #print(item.x ,item.y )
             
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
@@ -173,12 +173,12 @@ class Board(QtWidgets.QFrame):
     def timerEvent(self, event):
         
         if event.timerId() == self.timer.timerId():
-            print('Moving')
+            #print('Moving')
             self.engine.snake.move(self.direction)
             if self.engine.update():
                 self.timer.stop()
             #self.paintEvent(event)
-            print("okey")
+            #print("okey")
             #self.length.emit(str(len(self.engine.snake.body)+1))
             self.score.emit(str(self.engine.snake.score))
 
