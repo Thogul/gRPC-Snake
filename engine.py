@@ -7,7 +7,7 @@ import random
 class Engine():
 
     def __init__(self, screen_width=11, screen_height=11):
-        self.snake = Snake()
+        self.snake = Snake(0, 0)
         self.foods = []
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -24,6 +24,18 @@ class Engine():
         elif fromx == tox:
             for offset in range(0, toy-fromy):
                 self.walls.append(Bodypart(fromx, fromy+offset, '#'))
+    
+    def generate_outer_walls(self, height=10, width=10):
+        #first make x-direction walls
+        x_offset = width//2
+        y_offset = height//2
+        self.genereate_wall(0-x_offset, 0+y_offset, x_offset, 0+y_offset)
+        self.genereate_wall(0-x_offset, 0-y_offset, x_offset, 0-y_offset)
+
+        self.genereate_wall(0+x_offset, 0-y_offset, 0+x_offset, 0+y_offset)
+        self.genereate_wall(0-x_offset, 0-y_offset-1, 0-x_offset, 0+y_offset)
+        #print(self.walls)
+
 
     @staticmethod
     def print_field(field):
@@ -122,7 +134,7 @@ class Engine():
 if __name__ == '__main__':
     max_food = 1
     engine = Engine()
-    engine.genereate_wall(0, 0, 10, 0)
+    engine.generate_outer_walls()
     while True:
         engine._render_field()
         direction = input('Direction: ')
