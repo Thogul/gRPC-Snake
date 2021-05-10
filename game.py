@@ -22,6 +22,7 @@ class Mainwindow(QMainWindow):
         super(Mainwindow, self).__init__()
 
         self.setupUi(self)
+        
 
 
     def setupUi(self, MainWindow):
@@ -70,7 +71,7 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-
+        self.statusbar.showMessage(_translate("statusbar", self.name))
 class Board(QtWidgets.QFrame):
 
     
@@ -204,8 +205,8 @@ class LoginDialog(QDialog):
             #print (selectedColor)
     
     def enter_game(self):
-
-        self.main = Mainwindow()  
+        name = self.userName.text()
+        self.main = Mainwindow(name)
         self.main.show()
         self.deleteLater()
         
