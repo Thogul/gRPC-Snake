@@ -47,6 +47,7 @@ class Snake():
             self.last_direction = 'a'
         else:
             return
+            
 
         #rotate all elements to the righ, with last one looping around
         #OPS, is slow! can be optimized if it becomes a problem, but probably wont

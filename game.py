@@ -62,6 +62,8 @@ class Mainwindow(QMainWindow):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuSettings.menuAction())
+
+        self.board.length[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -75,10 +77,13 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-        self.statusbar.showMessage(_translate("statusbar", self.name))
+        self.statusbar.showMessage(_translate("statusbar", self.name ))
+
+
 class Board(QtWidgets.QFrame):
 
-    
+    length = pyqtSignal(str)
+
     def __init__(self, parent):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 105
@@ -88,13 +93,17 @@ class Board(QtWidgets.QFrame):
         self.screen_height = 750
 
 
+
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.engine.spawn_food()
 
         self.timer = QBasicTimer()
 
-        self.direction = "a"
+        self.direction = "w"
+
+        self.length
+
 
 
         self.food = []
@@ -122,6 +131,8 @@ class Board(QtWidgets.QFrame):
         
         painter = QPainter(self)
         rect = self.contentsRect()
+        
+        global selectedColor
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
@@ -131,26 +142,25 @@ class Board(QtWidgets.QFrame):
             if item.skin == '@':
                # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
-                self.draw_square(painter,rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                self.draw_square(painter,rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
                 print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
                 print('drawing new item at:', end=' ')
                 print(item.x ,item.y )
             
             elif item.skin == 'A':
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS))
+                color = QColor(255, 0, 0)
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
 
             
                 
 
-    def draw_square(self, painter, x, y):
+    def draw_square(self, painter, x, y, QColor):
 
-        global selectedColor
-        
-        painter.fillRect(x, y , self.rec_width() , self.rec_height(), selectedColor)
+        painter.fillRect(x, y , self.rec_width() , self.rec_height(), QColor)
     
     
     def timerEvent(self, event):
@@ -160,6 +170,7 @@ class Board(QtWidgets.QFrame):
             self.engine.snake.move(self.direction)
             #self.paintEvent(event)
             print("okey")
+            self.length.emit(str(len(self.engine.snake.body)+1))
 
             self.update()
            
