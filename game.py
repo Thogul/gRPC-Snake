@@ -88,16 +88,17 @@ class Board(QtWidgets.QFrame):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 105
         self.HEIGHTINBLOCKS = 75
-        self.SPEED = 500
+        self.SPEED = 200
         self.screen_width = 1050
         self.screen_height = 750
 
 
 
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        
         self.engine.spawn_food()
-
+        self.engine.generate_outer_walls(100,100)
+        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.timer = QBasicTimer()
 
         self.direction = "w"
@@ -154,6 +155,10 @@ class Board(QtWidgets.QFrame):
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
+            
+            elif item.skin == '#':
+                color = QColor(0, 0, 0)
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
 
             
                 
@@ -168,11 +173,14 @@ class Board(QtWidgets.QFrame):
         if event.timerId() == self.timer.timerId():
             print('Moving')
             self.engine.snake.move(self.direction)
+            if self.engine.update():
+                self.timer.stop()
             #self.paintEvent(event)
             print("okey")
             self.length.emit(str(len(self.engine.snake.body)+1))
 
             self.update()
+
            
 
     def start(self):
