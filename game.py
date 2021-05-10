@@ -81,8 +81,8 @@ class Board(QtWidgets.QFrame):
     
     def __init__(self, parent):
         super(Board, self).__init__(parent)
-        self.WIDTHINBLOCKS = 60
-        self.HEIGHTINBLOCKS = 60
+        self.WIDTHINBLOCKS = 105
+        self.HEIGHTINBLOCKS = 75
         self.SPEED = 500
         self.screen_width = 1050
         self.screen_height = 750
@@ -151,7 +151,7 @@ class Board(QtWidgets.QFrame):
         if event.timerId() == self.timer.timerId():
             print('Moving')
             self.engine.snake.move(self.direction)
-            self.paintEvent(event)
+            #self.paintEvent(event)
             print("okey")
 
             self.update()
