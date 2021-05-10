@@ -83,8 +83,8 @@ class Board(QtWidgets.QFrame):
         self.WIDTHINBLOCKS = 60
         self.HEIGHTINBLOCKS = 60
         self.SPEED = 80
-        self.screen_width = 1021
-        self.screen_height = 741
+        self.screen_width = 1050
+        self.screen_height = 750
 
 
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
@@ -147,11 +147,26 @@ class Board(QtWidgets.QFrame):
         self.timer.start(Board.Speed, self)
 
     def keyPressEvent(self, event):
-        print('noe')
+        #print('noe')
 
         key = event.key()
-        if key == Qt.Key_Left:
-            print('okey')
+        if key == Qt.Key_W:
+            self.engine.snake.move("w")
+            print('w')
+
+        if key == Qt.Key_A:
+            self.engine.snake.move("a")
+            print("a")
+        
+        if key == Qt.Key_D:
+            self.engine.snake.move("d")
+            print("d")
+
+        if key == Qt.Key_S:
+            self.engine.snake.move("s")
+            print("s")
+
+        
         
 
 
