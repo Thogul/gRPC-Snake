@@ -19,8 +19,9 @@ message Position {
 
 message Snake {
     string name = 1;
-    Position head = 2;
-    repeated Position body = 3;
+    int32 score = 2;
+    Position head = 3;
+    repeated Position body = 4;
 }
 
 message
