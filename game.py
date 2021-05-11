@@ -72,7 +72,7 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setObjectName("soundeffect")
         self.soundeffect.setLoopCount(100)
         self.radioButton = QtWidgets.QRadioButton(self.board)
-        self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setObjectName("radioButton")
         self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(True)
@@ -101,7 +101,7 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
-        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Music", None))
+        self.radioButton.setText(_translate("MainWindow", "Music"))
 
 
 class Board(QtWidgets.QFrame):
