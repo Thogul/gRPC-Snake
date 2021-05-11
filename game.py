@@ -43,6 +43,7 @@ class Mainwindow(QMainWindow):
         self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
+        self.board.setFocusPolicy(Qt.StrongFocus)
         #self.board.start()
         self.scoreboard = QtWidgets.QTextBrowser(self.board)
         self.scoreboard.setEnabled(False)
@@ -68,13 +69,27 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setSource(QUrl.fromLocalFile("gamemusic.wav"))
         self.soundeffect.setVolume(0.25)
         self.soundeffect.setObjectName("soundeffect")
+        self.soundeffect.setLoopCount(100)
+        self.radioButton = QtWidgets.QRadioButton(self.board)
+        self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
+        self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
+        self.radioButton.setChecked(True)
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def btnstate(self, radioButton):
+        if radioButton.isChecked() == True:
+            self.soundeffect.play()
+        else:
+            self.soundeffect.stop()
+
+
     def retranslateUi(self, MainWindow):
+        self.soundeffect.play()
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Snok"))
         self.scoreboard.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -85,7 +100,7 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
-        self.soundeffect.play()
+        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Music", None))
 
 
 class Board(QtWidgets.QFrame):
@@ -105,7 +120,7 @@ class Board(QtWidgets.QFrame):
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
         self.engine.spawn_food()
-        self.engine.generate_outer_walls(100,100)
+        self.engine.generate_outer_walls(100,150)
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.timer = QBasicTimer()
 
@@ -122,7 +137,7 @@ class Board(QtWidgets.QFrame):
         self.snakes = []
         #print(str(self.items))
 
-        self.setFocusPolicy(Qt.StrongFocus)
+        
 
         self.start()
 
@@ -173,7 +188,7 @@ class Board(QtWidgets.QFrame):
 
     def draw_square(self, painter, x, y, QColor):
 
-        painter.fillRect(int(x), int(y) , int(self.rec_width()) , int(self.rec_height()), QColor)
+        painter.fillRect(int(x) +1, int(y) +1, int(self.rec_width()) -2 , int(self.rec_height()) -2, QColor)
     
     
     def timerEvent(self, event):
@@ -183,6 +198,10 @@ class Board(QtWidgets.QFrame):
             self.engine.snake.move(self.direction)
             if self.engine.update():
                 self.timer.stop()
+                self.gameOver = Ui_Form()
+                self.gameOver.show()
+                
+                
             #self.paintEvent(event)
             #print("okey")
             #self.length.emit(str(len(self.engine.snake.body)+1))
@@ -293,6 +312,56 @@ class LoginDialog(QDialog):
 
 
     
+class Ui_Form(QWidget):
+    def __init__(self):
+
+        super().__init__()
+
+        self.setupUi(self)
+
+
+    def setupUi(self, Form):
+        if not Form.objectName():
+            Form.setObjectName(u"Form")
+        Form.resize(346, 268)
+        self.quitButton = QPushButton(Form)
+        self.quitButton.setObjectName(u"quitButton")
+        self.quitButton.setGeometry(QRect(50, 170, 93, 28))
+        self.quitButton.setStyleSheet(u"background:rgb(255, 85, 0)")
+        self.quitButton.clicked.connect(self.quitGame)
+        self.playButton = QPushButton(Form)
+        self.playButton.setObjectName(u"playButton")
+        self.playButton.setGeometry(QRect(200, 170, 93, 28))
+        self.playButton.setStyleSheet(u"background:rgb(85, 170, 255)")
+        self.playButton.clicked.connect(self.playAgian)
+        self.gameOver = QLabel(Form)
+        self.gameOver.setObjectName(u"gameOver")
+        self.gameOver.setGeometry(QRect(120, 30, 111, 61))
+        self.gameOver.setStyleSheet(u"font: 20pt \"8514oem\";")
+        self.gameOver.setScaledContents(False)
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QRect(80, 90, 201, 41))
+        self.label.setStyleSheet(u"font: 20pt \"8514oem\";")
+
+        self.retranslateUi(Form)
+
+        QMetaObject.connectSlotsByName(Form)
+    # setupUi
+
+    def quitGame(self):
+        QApplication.instance().quit()
+
+    def playAgian(self,MainWindow):
+        self.close()
+
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.quitButton.setText(QCoreApplication.translate("Form", u"Quit", None))
+        self.playButton.setText(QCoreApplication.translate("Form", u"Play Again", None))
+        self.gameOver.setText(QCoreApplication.translate("Form", u"GAME OVER", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Quit or play again?", None))
+    # retranslateUi
 
 def main():
     
