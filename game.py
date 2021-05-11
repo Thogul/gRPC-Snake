@@ -50,7 +50,7 @@ class Mainwindow(QMainWindow):
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
         self.scoreboard.setFont(QFont("Arial", 12))
-        self.scoreboard.setStyleSheet("background: rgb(247, 247, 247, .5)")
+        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
         #MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -90,7 +90,6 @@ class Mainwindow(QMainWindow):
 
 
     def retranslateUi(self, MainWindow):
-        self.soundeffect.play()
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Snok"))
         self.scoreboard.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
