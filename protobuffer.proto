@@ -12,7 +12,7 @@ service Game {
 
 //Shared stuff i guess
 
-message Position {
+message Position {  
     int32 x = 1;
     int32 y = 2;
 }
@@ -22,6 +22,8 @@ message Snake {
     Position head = 2;
     repeated Position body = 3;
 }
+
+message
 
 //Connect stuff:
 message ConnectRequest {
@@ -35,4 +37,19 @@ message ConnectResponse {
     repeated Snake snakes = 2;
     repeated Position food = 3;
     repeated Position walls = 4;
+}
+
+
+
+//Messages that are the server client communication
+
+message Request {
+    string id = 1;
+    string direction = 2;
+}
+
+message Response {
+    repeated Snake snakes = 1;
+    repeated Position food = 2;
+    repeated Position walls = 3;
 }
