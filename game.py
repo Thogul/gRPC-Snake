@@ -333,6 +333,7 @@ class Ui_Form(QWidget):
         self.playButton.setObjectName(u"playButton")
         self.playButton.setGeometry(QRect(200, 170, 93, 28))
         self.playButton.setStyleSheet(u"background:rgb(85, 170, 255)")
+        self.playButton.clicked.connect(self.playAgian)
         self.gameOver = QLabel(Form)
         self.gameOver.setObjectName(u"gameOver")
         self.gameOver.setGeometry(QRect(120, 30, 111, 61))
@@ -349,7 +350,10 @@ class Ui_Form(QWidget):
     # setupUi
 
     def quitGame(self):
-        sys.exit()
+        QApplication.instance().quit()
+
+    def playAgian(self,MainWindow):
+        self.close()
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
