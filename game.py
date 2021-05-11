@@ -10,6 +10,7 @@ from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import * 
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
+from PyQt5.QtMultimedia import *
 import random
 import sys
 
@@ -24,7 +25,6 @@ class Mainwindow(QMainWindow):
         self.name = name
 
         self.setupUi(self)
-        
 
 
     def setupUi(self, MainWindow):
@@ -57,12 +57,17 @@ class Mainwindow(QMainWindow):
         self.menubar.setObjectName("menubar")
         self.menuSettings = QtWidgets.QMenu(self.menubar)
         self.menuSettings.setObjectName("menuSettings")
+        #self.menuSettings.ad
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setStyleSheet("background: rgb(240, 240, 240)")
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuSettings.menuAction())
+        self.soundeffect = QSoundEffect(MainWindow)
+        self.soundeffect.setSource(QUrl.fromLocalFile("gamemusic.wav"))
+        self.soundeffect.setVolume(0.25)
+        self.soundeffect.setObjectName("soundeffect")
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
@@ -80,6 +85,7 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
+        self.soundeffect.play()
 
 
 class Board(QtWidgets.QFrame):
