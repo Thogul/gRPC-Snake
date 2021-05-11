@@ -16,6 +16,7 @@ import sys
 
 
 selectedColor = QtGui.QColor(0, 0, 255)
+userName = str
 
 class Mainwindow(QMainWindow):
 
@@ -295,6 +296,8 @@ class LoginDialog(QDialog):
     
     def enter_game(self):
         name = self.userName.text()
+        global userName
+        userName=name
         self.main = Mainwindow(name)
         self.main.show()
         self.deleteLater()
@@ -353,6 +356,9 @@ class Ui_Form(QWidget):
         QApplication.instance().quit()
 
     def playAgian(self,MainWindow):
+        global userName
+        self.main = Mainwindow(userName)
+        self.main.show()
         self.close()
 
     def retranslateUi(self, Form):
