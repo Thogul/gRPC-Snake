@@ -69,11 +69,23 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setVolume(0.25)
         self.soundeffect.setObjectName("soundeffect")
         self.soundeffect.setLoopCount(100)
+        self.radioButton = QtWidgets.QRadioButton(self.board)
+        self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
+        self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
+        self.radioButton.setChecked(True)
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def btnstate(self, radioButton):
+        if radioButton.isChecked() == True:
+            self.soundeffect.play()
+        else:
+             self.soundeffect.stop()
+
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -86,7 +98,8 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
-        self.soundeffect.play()
+        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Music", None))
+  
 
 
 class Board(QtWidgets.QFrame):
@@ -106,7 +119,7 @@ class Board(QtWidgets.QFrame):
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
         self.engine.spawn_food()
-        self.engine.generate_outer_walls(100,100)
+        self.engine.generate_outer_walls(100,150)
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.timer = QBasicTimer()
 
