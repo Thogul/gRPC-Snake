@@ -328,6 +328,7 @@ class Ui_Form(QWidget):
         self.quitButton.setObjectName(u"quitButton")
         self.quitButton.setGeometry(QRect(50, 170, 93, 28))
         self.quitButton.setStyleSheet(u"background:rgb(255, 85, 0)")
+        self.quitButton.clicked.connect(self.quitGame)
         self.playButton = QPushButton(Form)
         self.playButton.setObjectName(u"playButton")
         self.playButton.setGeometry(QRect(200, 170, 93, 28))
@@ -346,6 +347,9 @@ class Ui_Form(QWidget):
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
+
+    def quitGame(self):
+        sys.exit()
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
