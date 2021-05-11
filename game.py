@@ -99,6 +99,7 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
+        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Music", None))
 
 
 class Board(QtWidgets.QFrame):
