@@ -68,6 +68,7 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setSource(QUrl.fromLocalFile("gamemusic.wav"))
         self.soundeffect.setVolume(0.25)
         self.soundeffect.setObjectName("soundeffect")
+        self.soundeffect.setLoopCount(100)
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
