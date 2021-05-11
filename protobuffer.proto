@@ -1,1 +1,38 @@
 syntax = "proto3";
+
+service Game {
+
+    //Connect and get allowed streaming id or something
+    rpc Connect (ConnectRequest) returns (ConnectResponse) {}
+
+    //Game-data streaming
+    rpc Stream (stream Request) returns (stream Response) {}
+}
+
+
+//Shared stuff i guess
+
+message Position {
+    int32 x = 1;
+    int32 y = 2;
+}
+
+message Snake {
+    string name = 1;
+    Position head = 2;
+    repeated Position body = 3;
+}
+
+//Connect stuff:
+message ConnectRequest {
+    string id = 1;
+    string name = 2;
+    string password = 3;
+}
+
+message ConnectResponse {
+    string token = 1;
+    repeated Snake snakes = 2;
+    repeated Position food = 3;
+    repeated Position walls = 4;
+}
