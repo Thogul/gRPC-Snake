@@ -16,6 +16,7 @@ import sys
 
 
 selectedColor = QtGui.QColor(0, 0, 255)
+userName = str
 
 class Mainwindow(QMainWindow):
 
@@ -49,7 +50,7 @@ class Mainwindow(QMainWindow):
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
         self.scoreboard.setFont(QFont("Arial", 12))
-        self.scoreboard.setStyleSheet("background: rgb(247, 247, 247, .5)")
+        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
         #MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -71,7 +72,7 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setObjectName("soundeffect")
         self.soundeffect.setLoopCount(100)
         self.radioButton = QtWidgets.QRadioButton(self.board)
-        self.radioButton.setObjectName(u"radioButton")
+        self.radioButton.setObjectName("radioButton")
         self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(True)
@@ -89,7 +90,6 @@ class Mainwindow(QMainWindow):
 
 
     def retranslateUi(self, MainWindow):
-        self.soundeffect.play()
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Snok"))
         self.scoreboard.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -100,7 +100,7 @@ class Mainwindow(QMainWindow):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name))
-        self.radioButton.setText(QCoreApplication.translate("MainWindow", u"Music", None))
+        self.radioButton.setText(_translate("MainWindow", "Music"))
 
 
 class Board(QtWidgets.QFrame):
@@ -295,6 +295,8 @@ class LoginDialog(QDialog):
     
     def enter_game(self):
         name = self.userName.text()
+        global userName
+        userName=name
         self.main = Mainwindow(name)
         self.main.show()
         self.deleteLater()
@@ -313,6 +315,7 @@ class LoginDialog(QDialog):
 
     
 class Ui_Form(QWidget):
+
     def __init__(self):
 
         super().__init__()
@@ -320,47 +323,51 @@ class Ui_Form(QWidget):
         self.setupUi(self)
 
 
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(346, 268)
-        self.quitButton = QPushButton(Form)
-        self.quitButton.setObjectName(u"quitButton")
+    def setupUi(self, QWidget):
+
+        QWidget.setObjectName("Widget")
+        QWidget.resize(346, 268)
+        self.quitButton = QPushButton(QWidget)
+        self.quitButton.setObjectName("quitButton")
         self.quitButton.setGeometry(QRect(50, 170, 93, 28))
-        self.quitButton.setStyleSheet(u"background:rgb(255, 85, 0)")
+        self.quitButton.setStyleSheet("background:rgb(255, 85, 0)")
         self.quitButton.clicked.connect(self.quitGame)
-        self.playButton = QPushButton(Form)
-        self.playButton.setObjectName(u"playButton")
+        self.playButton = QPushButton(QWidget)
+        self.playButton.setObjectName("playButton")
         self.playButton.setGeometry(QRect(200, 170, 93, 28))
-        self.playButton.setStyleSheet(u"background:rgb(85, 170, 255)")
+        self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
         self.playButton.clicked.connect(self.playAgian)
-        self.gameOver = QLabel(Form)
-        self.gameOver.setObjectName(u"gameOver")
+        self.gameOver = QLabel(QWidget)
+        self.gameOver.setObjectName("gameOver")
         self.gameOver.setGeometry(QRect(120, 30, 111, 61))
-        self.gameOver.setStyleSheet(u"font: 20pt \"8514oem\";")
-        self.gameOver.setScaledContents(False)
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
+        self.gameOver.setStyleSheet("font: 20pt \"8514oem\";")
+        self.label = QLabel(QWidget)
+        self.label.setObjectName("label")
         self.label.setGeometry(QRect(80, 90, 201, 41))
-        self.label.setStyleSheet(u"font: 20pt \"8514oem\";")
+        self.label.setStyleSheet("font: 20pt \"8514oem\";")
 
-        self.retranslateUi(Form)
+        self.retranslateUi(QWidget)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(QWidget)
     # setupUi
 
     def quitGame(self):
         QApplication.instance().quit()
 
     def playAgian(self,MainWindow):
+        global userName
+        self.main = Mainwindow(userName)
+        self.main.show()
         self.close()
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.quitButton.setText(QCoreApplication.translate("Form", u"Quit", None))
-        self.playButton.setText(QCoreApplication.translate("Form", u"Play Again", None))
-        self.gameOver.setText(QCoreApplication.translate("Form", u"GAME OVER", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Quit or play again?", None))
+    def retranslateUi(self, QWidget):
+        _translate = QtCore.QCoreApplication.translate
+
+        QWidget.setWindowTitle(_translate("Widget", "Game over!"))
+        self.quitButton.setText(_translate("Widget", "Quit"))
+        self.playButton.setText(_translate("Widget", "Play Again"))
+        self.gameOver.setText(_translate("Widget", "GAME OVER"))
+        self.label.setText(_translate("Widget", "Quit or play again?"))
     # retranslateUi
 
 def main():
