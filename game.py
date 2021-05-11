@@ -316,6 +316,7 @@ class LoginDialog(QDialog):
 
     
 class Ui_Form(QWidget):
+
     def __init__(self):
 
         super().__init__()
@@ -323,33 +324,32 @@ class Ui_Form(QWidget):
         self.setupUi(self)
 
 
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(346, 268)
-        self.quitButton = QPushButton(Form)
-        self.quitButton.setObjectName(u"quitButton")
+    def setupUi(self, QWidget):
+
+        QWidget.setObjectName("Widget")
+        QWidget.resize(346, 268)
+        self.quitButton = QPushButton(QWidget)
+        self.quitButton.setObjectName("quitButton")
         self.quitButton.setGeometry(QRect(50, 170, 93, 28))
-        self.quitButton.setStyleSheet(u"background:rgb(255, 85, 0)")
+        self.quitButton.setStyleSheet("background:rgb(255, 85, 0)")
         self.quitButton.clicked.connect(self.quitGame)
-        self.playButton = QPushButton(Form)
-        self.playButton.setObjectName(u"playButton")
+        self.playButton = QPushButton(QWidget)
+        self.playButton.setObjectName("playButton")
         self.playButton.setGeometry(QRect(200, 170, 93, 28))
-        self.playButton.setStyleSheet(u"background:rgb(85, 170, 255)")
+        self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
         self.playButton.clicked.connect(self.playAgian)
-        self.gameOver = QLabel(Form)
-        self.gameOver.setObjectName(u"gameOver")
+        self.gameOver = QLabel(QWidget)
+        self.gameOver.setObjectName("gameOver")
         self.gameOver.setGeometry(QRect(120, 30, 111, 61))
-        self.gameOver.setStyleSheet(u"font: 20pt \"8514oem\";")
-        self.gameOver.setScaledContents(False)
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
+        self.gameOver.setStyleSheet("font: 20pt \"8514oem\";")
+        self.label = QLabel(QWidget)
+        self.label.setObjectName("label")
         self.label.setGeometry(QRect(80, 90, 201, 41))
-        self.label.setStyleSheet(u"font: 20pt \"8514oem\";")
+        self.label.setStyleSheet("font: 20pt \"8514oem\";")
 
-        self.retranslateUi(Form)
+        self.retranslateUi(QWidget)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(QWidget)
     # setupUi
 
     def quitGame(self):
@@ -361,12 +361,14 @@ class Ui_Form(QWidget):
         self.main.show()
         self.close()
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.quitButton.setText(QCoreApplication.translate("Form", u"Quit", None))
-        self.playButton.setText(QCoreApplication.translate("Form", u"Play Again", None))
-        self.gameOver.setText(QCoreApplication.translate("Form", u"GAME OVER", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Quit or play again?", None))
+    def retranslateUi(self, QWidget):
+        _translate = QtCore.QCoreApplication.translate
+
+        QWidget.setWindowTitle(_translate("Widget", "Game over!"))
+        self.quitButton.setText(_translate("Widget", "Quit"))
+        self.playButton.setText(_translate("Widget", "Play Again"))
+        self.gameOver.setText(_translate("Widget", "GAME OVER"))
+        self.label.setText(_translate("Widget", "Quit or play again?"))
     # retranslateUi
 
 def main():
