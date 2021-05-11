@@ -17,6 +17,7 @@ import sys
 
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
+score = str(engine.Snake().score)
 
 class Mainwindow(QMainWindow):
 
@@ -99,7 +100,7 @@ class Mainwindow(QMainWindow):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
-        self.scoreboard.append(_translate("scoreboard", self.name))
+        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : ' + score))
         self.radioButton.setText(_translate("MainWindow", "Music"))
 
 
