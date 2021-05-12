@@ -10,23 +10,21 @@ service Game {
 }
 
 
-//Shared stuff i guess
-
-message Position {  
+//builtup of classes and how they look
+message Object {  
     int32 x = 1;
     int32 y = 2;
+    string skin = 3;
 }
 
 message Snake {
     string name = 1;
     int32 score = 2;
-    Position head = 3;
-    repeated Position body = 4;
+    Object head = 3;
+    repeated Object body = 4;
 }
 
-message
-
-//Connect stuff:
+//Request connection messages:
 message ConnectRequest {
     string id = 1;
     string name = 2;
@@ -40,10 +38,7 @@ message ConnectResponse {
     repeated Position walls = 4;
 }
 
-
-
-//Messages that are the server client communication
-
+//Game streaming objects
 message Request {
     string id = 1;
     string direction = 2;
@@ -51,6 +46,6 @@ message Request {
 
 message Response {
     repeated Snake snakes = 1;
-    repeated Position food = 2;
-    repeated Position walls = 3;
+    repeated Object food = 2;
+    repeated Object walls = 3;
 }
