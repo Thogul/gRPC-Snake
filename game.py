@@ -17,7 +17,7 @@ import sys
 
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
-score = str(engine.Snake().score)
+
 
 class Mainwindow(QMainWindow):
 
@@ -78,7 +78,12 @@ class Mainwindow(QMainWindow):
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(False)
 
-        self.board.score[str].connect(self.statusbar.showMessage)
+        self.label = QLabel(MainWindow)
+        self.label.setObjectName("label")
+        self.label.setGeometry(QRect(940, -47, 201, 200))
+        self.label.setStyleSheet("font: 20pt \"8514oem\";")
+
+        self.board.score[str].connect(self.label.setText)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -100,7 +105,7 @@ class Mainwindow(QMainWindow):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
-        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : ' + score))
+        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : '))
         self.radioButton.setText(_translate("MainWindow", "Music"))
 
 
