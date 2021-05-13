@@ -76,7 +76,7 @@ class Mainwindow(QMainWindow):
         self.radioButton.setObjectName("radioButton")
         self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
-        self.radioButton.setChecked(True)
+        self.radioButton.setChecked(False)
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
@@ -112,7 +112,7 @@ class Board(QtWidgets.QFrame):
         super(Board, self).__init__(parent)
         self.WIDTHINBLOCKS = 105
         self.HEIGHTINBLOCKS = 75
-        self.SPEED = 200
+        self.SPEED = 80
         self.screen_width = 1050
         self.screen_height = 750
 
