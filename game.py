@@ -246,7 +246,9 @@ class Board(QtWidgets.QFrame):
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
-            
+            elif item.skin == '%':
+                color = QColor(255, 214, 0)
+                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
             elif item.skin == '#':
                 color = QColor(0, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
