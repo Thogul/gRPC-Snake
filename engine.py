@@ -1,6 +1,9 @@
+from hashlib import new
 from snake import Snake
 from food import Food
 from bodypart import Bodypart
+
+from copy import deepcopy
 
 import random
 
@@ -73,6 +76,10 @@ class Engine():
                     under = True
                     break
         print('spawned some food at', mat)
+        golden = random.randint(1,10)
+        if golden == 10:
+            mat.strength = 3
+            mat.skin = '%'
         self.foods.append(mat)
 
     def update(self):
@@ -116,7 +123,8 @@ class Engine():
             y = middley + deltay
             if ((0<= x < width) and (0<= y < height)):
                 #items_onscreen.append(food)
-                items_onscreen.append(Food(x, y))
+                newfood = Food(x, y, food.strength, food.skin)
+                items_onscreen.append(newfood)
         
         for bodypart in self.snake.body:
             deltax, deltay = bodypart.x - referencex, referencey - bodypart.y
