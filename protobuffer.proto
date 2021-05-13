@@ -34,8 +34,8 @@ message ConnectRequest {
 message ConnectResponse {
     string token = 1;
     repeated Snake snakes = 2;
-    repeated Position food = 3;
-    repeated Position walls = 4;
+    repeated Object food = 3;
+    repeated Object walls = 4;
 }
 
 //Game streaming objects
