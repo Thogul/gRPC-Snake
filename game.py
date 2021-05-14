@@ -17,12 +17,9 @@ import sys
 
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
-<<<<<<< HEAD
 
-=======
 score = str(engine.Snake().score)
 gameover = False
->>>>>>> 4db971b7aa446fdbd4a7df9895f812d638c1b645
 
 class Mainwindow(QMainWindow):
 
