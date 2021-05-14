@@ -69,6 +69,18 @@ class Engine():
     
     def generate_wall(self, fromx:int, fromy:int, tox:int, toy:int) -> None:
         raise NotImplementedError
+
+    def spawn_snake(self, id: str = 'Guest') -> None:
+        '''
+        Spawn a new snake with the given id, also add directions to snake
+        '''
+        #basic implementation
+        snake = self.__new_snake(id, 0, 0)
+        self.snakes.append(snake)
+        self.directions[id] = 'w'
+
+        import warnings
+        warnings.warn("Warning...........Just basic implementation")
     
     def update(self) -> None:
         '''
@@ -92,3 +104,5 @@ class Engine():
 
 if __name__ == '__main__':
     engine = Engine()
+    engine.spawn_snake('Thomas')
+    print(engine.snakes)
