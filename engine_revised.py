@@ -1,14 +1,19 @@
 import protobuffer_pb2 as game
 
 #type hinting stuff
-from typing import List
+from typing import List, Dict
 Wall_obj = game.Object
+Id = str
+Direction = str
 
 class Engine():
     def __init__(self) -> None:
         self.snakes: List[game.Snake] = []
         self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
+        
+        #save directions in a dictionary of [id, direction]
+        self.directions: Dict[Id, Direction] = {}
 
     def __new_snake(self, id:str, x:int, y:int, score:int=0, length:int=5) -> game.Snake:
         snake = game.Snake()
@@ -81,5 +86,3 @@ class Engine():
 
 if __name__ == '__main__':
     engine = Engine()
-    food = game.Food(0, 1, 'A', 1)
-    print(food)
