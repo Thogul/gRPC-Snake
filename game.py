@@ -17,7 +17,9 @@ import sys
 
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
+
 score = str(engine.Snake().score)
+gameover = False
 
 class Mainwindow(QMainWindow):
 
@@ -42,14 +44,13 @@ class Mainwindow(QMainWindow):
         self.board = Board(self)
         self.setCentralWidget(self.board)
         #self.board.setGeometry(QtCore.QRect(0, 0, 1021, 741))
-        self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.board.setFrameShadow(QtWidgets.QFrame.Raised)
+  #self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        #self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
-        self.board.setFocusPolicy(Qt.StrongFocus)
-        #self.board.start()
+        self.board.start()
         self.scoreboard = QtWidgets.QTextBrowser(self.board)
         self.scoreboard.setEnabled(False)
-        self.scoreboard.setGeometry(QtCore.QRect(825, 10, 171, 241))
+        self.scoreboard.setGeometry(QtCore.QRect(10, 10, 171, 241))
         self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
@@ -74,20 +75,34 @@ class Mainwindow(QMainWindow):
         self.soundeffect.setLoopCount(100)
         self.radioButton = QtWidgets.QRadioButton(self.board)
         self.radioButton.setObjectName("radioButton")
-        self.radioButton.setGeometry(QtCore.QRect(960, 650, 61, 20))
+        self.radioButton.setGeometry(QtCore.QRect(10, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(False)
+        
+        
+        self.label = QLabel(MainWindow)
+        self.label.setObjectName("label")
+        
+        self.label.setGeometry(QRect(140, -47, 201, 200))
+        self.label.setStyleSheet("font: 20pt \"8514oem\";")
+        self.board.score[str].connect(self.label.setText)
+        
+       
+       
 
         self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        
+
     def btnstate(self, radioButton):
         if radioButton.isChecked() == True:
             self.soundeffect.play()
         else:
-            self.soundeffect.stop()
+            self.soundeffect.stop()        
+
 
 
     def retranslateUi(self, MainWindow):
@@ -100,28 +115,94 @@ class Mainwindow(QMainWindow):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
-        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : ' + score))
+        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : '))
         self.radioButton.setText(_translate("MainWindow", "Music"))
+class Ui_Form(QtWidgets.QWidget):
 
+    def __init__(self, parent):
+
+        super(Ui_Form, self).__init__(parent)
+        self.parent = parent
+
+        self.setupUi(self)
+
+
+    def setupUi(self, QWidget):
+
+        QWidget.setObjectName("Widget")
+        QWidget.resize(346, 268)
+        QWidget.setGeometry(350,100,346,268)
+        self.quitButton = QtWidgets.QPushButton(QWidget)
+        self.quitButton.setObjectName("quitButton")
+        self.quitButton.setGeometry(QRect(50, 170, 93, 28))
+        self.quitButton.setStyleSheet("background:rgb(255, 85, 0)")
+        self.quitButton.clicked.connect(self.quitGame)
+        self.playButton = QtWidgets.QPushButton(QWidget)
+        self.playButton.setObjectName("playButton")
+        self.playButton.setGeometry(QRect(200, 170, 93, 28))
+        self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
+        self.playButton.clicked.connect(self.playAgian)
+        self.quitButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.playButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.gameOver = QtWidgets.QLabel(QWidget)
+        self.gameOver.setObjectName("gameOver")
+        self.gameOver.setGeometry(QRect(120, 30, 111, 61))
+        self.gameOver.setStyleSheet("font: 20pt \"8514oem\";")
+        self.label = QtWidgets.QLabel(QWidget)
+        self.label.setObjectName("label")
+        self.label.setGeometry(QRect(80, 90, 201, 41))
+        self.label.setStyleSheet("font: 20pt \"8514oem\";")
+        
+
+        self.retranslateUi(QWidget)
+
+        QMetaObject.connectSlotsByName(QWidget)
+    # setupUi
+
+    def quitGame(self):
+        QApplication.instance().quit()
+
+    def playAgian(self):
+        #borad = Board(Mainwindow)
+        self.parent.engine = engine.Engine()
+        self.parent.start()
+        self.close()
+
+        
+        
+
+    
+
+    def retranslateUi(self, QWidget):
+        _translate = QtCore.QCoreApplication.translate
+
+        QWidget.setWindowTitle(_translate("Widget", "Game over!"))
+        self.quitButton.setText(_translate("Widget", "Quit"))
+        self.playButton.setText(_translate("Widget", "Play Again"))
+        self.gameOver.setText(_translate("Widget", "GAME OVER"))
+        self.label.setText(_translate("Widget", "Quit or play again?"))
+    # retranslateUi
 
 class Board(QtWidgets.QFrame):
 
     score = pyqtSignal(str)
-
+    WIDTHINBLOCKS = 105
+    HEIGHTINBLOCKS = 75
     def __init__(self, parent):
         super(Board, self).__init__(parent)
-        self.WIDTHINBLOCKS = 105
-        self.HEIGHTINBLOCKS = 75
+        
         self.SPEED = 80
-        self.screen_width = 1050
-        self.screen_height = 750
-
+        self.parent = parent
+        self.screen_width = int(self.parent.width())
+        self.screen_height = int(self.parent.height())
+        self.setFocusPolicy(Qt.StrongFocus)
+  
 
 
         self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
         self.engine.spawn_food()
-        self.engine.generate_outer_walls(100,150)
+        ##self.engine.generate_outer_walls(100,150)
         self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.timer = QBasicTimer()
 
@@ -140,17 +221,20 @@ class Board(QtWidgets.QFrame):
 
         
 
-        self.start()
 
 
        
 
 
     def rec_width(self):
-        return self.contentsRect().width() / self.WIDTHINBLOCKS
+        return self.contentsRect().width() / Board.WIDTHINBLOCKS
     
     def rec_height(self):
-        return self.contentsRect().height() / self.HEIGHTINBLOCKS
+        return self.contentsRect().height() / Board.HEIGHTINBLOCKS
+    
+    def start(self):
+        self.timer.start(self.SPEED, self)
+        self.engine.generate_outer_walls(100, 150)
 
     def paintEvent(self, event): 
         
@@ -159,39 +243,39 @@ class Board(QtWidgets.QFrame):
         
         global selectedColor
 
-        boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
-        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        boardtop = rect.bottom() - Board.HEIGHTINBLOCKS * self.rec_height()
+        self.items = self.engine.get_items_on_screen(Board.WIDTHINBLOCKS, Board.HEIGHTINBLOCKS)
         #print('Getting moves: ', self.items)
 
         for item in self.items:
             if item.skin == '@':
                # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
                 #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
-                self.draw_square(painter,rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
+                self.draw_square(painter,rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
                 #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
                 #print(item.x, item.y)
                 #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
             elif item.skin == 'O':
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS), selectedColor)
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
                 #print('drawing new item at:', end=' ')
                 #print(item.x ,item.y )
             
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(),color )
             elif item.skin == '%':
                 color = QColor(255, 214, 0)
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
             elif item.skin == '#':
                 color = QColor(0, 0, 0)
-                self.draw_square(painter, rect.left() + item.x * (self.screen_width//self.WIDTHINBLOCKS), boardtop + item.y * (self.screen_height//self.HEIGHTINBLOCKS),color )
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
 
             
                 
 
     def draw_square(self, painter, x, y, QColor):
 
-        painter.fillRect(int(x) +1, int(y) +1, int(self.rec_width()) -2 , int(self.rec_height()) -2, QColor)
+        painter.fillRect(int(x) , int(y) , int(self.rec_width()) -2 , int(self.rec_height()) -2 , QColor)
     
     
     def timerEvent(self, event):
@@ -199,10 +283,13 @@ class Board(QtWidgets.QFrame):
         if event.timerId() == self.timer.timerId():
             #print('Moving')
             self.engine.snake.move(self.direction)
+    
             if self.engine.update():
+                self.gameover()
                 self.timer.stop()
-                self.gameOver = Ui_Form()
-                self.gameOver.show()
+                
+
+  
                 
                 
             #self.paintEvent(event)
@@ -212,11 +299,16 @@ class Board(QtWidgets.QFrame):
 
             self.update()
 
+    def gameover(self):
+        global gameover
+        gameover = True
+        
+        self.gameoverWidget = Ui_Form(self)
+        self.gameoverWidget.show()
+
            
 
-    def start(self):
-        self.timer.start(self.SPEED, self)
-
+  
    
     def keyPressEvent(self, event):
         #print('noe')
@@ -273,13 +365,16 @@ class LoginDialog(QDialog):
         self.enterGame.setObjectName("enterGame")
         self.enterGame.clicked.connect(self.enter_game)
         self.enterGame.setStyleSheet("background: rgb(130, 255, 127)")
+        self.enterGame.setCursor(QCursor(Qt.PointingHandCursor))
         self.pickcolor = QtWidgets.QPushButton(Dialog)
         self.pickcolor.setGeometry(QtCore.QRect(125, 50, 241, 28))
         self.pickcolor.setObjectName("pickcolor")
         self.pickcolor.setStyleSheet("background: rgb(255, 255, 255)")
         self.pickcolor.clicked.connect(self.colorDialog)
+        self.pickcolor.setCursor(QCursor(Qt.PointingHandCursor))
         self.framecolor = QtWidgets.QFrame(Dialog)
         self.framecolor.setGeometry(QtCore.QRect(390, 30, 100, 75))
+        
         #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
@@ -317,61 +412,6 @@ class LoginDialog(QDialog):
 
 
     
-class Ui_Form(QWidget):
-
-    def __init__(self):
-
-        super().__init__()
-
-        self.setupUi(self)
-
-
-    def setupUi(self, QWidget):
-
-        QWidget.setObjectName("Widget")
-        QWidget.resize(346, 268)
-        self.quitButton = QPushButton(QWidget)
-        self.quitButton.setObjectName("quitButton")
-        self.quitButton.setGeometry(QRect(50, 170, 93, 28))
-        self.quitButton.setStyleSheet("background:rgb(255, 85, 0)")
-        self.quitButton.clicked.connect(self.quitGame)
-        self.playButton = QPushButton(QWidget)
-        self.playButton.setObjectName("playButton")
-        self.playButton.setGeometry(QRect(200, 170, 93, 28))
-        self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
-        self.playButton.clicked.connect(self.playAgian)
-        self.gameOver = QLabel(QWidget)
-        self.gameOver.setObjectName("gameOver")
-        self.gameOver.setGeometry(QRect(120, 30, 111, 61))
-        self.gameOver.setStyleSheet("font: 20pt \"8514oem\";")
-        self.label = QLabel(QWidget)
-        self.label.setObjectName("label")
-        self.label.setGeometry(QRect(80, 90, 201, 41))
-        self.label.setStyleSheet("font: 20pt \"8514oem\";")
-
-        self.retranslateUi(QWidget)
-
-        QMetaObject.connectSlotsByName(QWidget)
-    # setupUi
-
-    def quitGame(self):
-        QApplication.instance().quit()
-
-    def playAgian(self,MainWindow):
-        global userName
-        self.main = Mainwindow(userName)
-        self.main.show()
-        self.close()
-
-    def retranslateUi(self, QWidget):
-        _translate = QtCore.QCoreApplication.translate
-
-        QWidget.setWindowTitle(_translate("Widget", "Game over!"))
-        self.quitButton.setText(_translate("Widget", "Quit"))
-        self.playButton.setText(_translate("Widget", "Play Again"))
-        self.gameOver.setText(_translate("Widget", "GAME OVER"))
-        self.label.setText(_translate("Widget", "Quit or play again?"))
-    # retranslateUi
 
 def main():
     
