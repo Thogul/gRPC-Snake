@@ -81,7 +81,7 @@ class Mainwindow(QMainWindow):
 
         self.label = QLabel(MainWindow)
         self.label.setObjectName("label")
-        self.label.setGeometry(QRect(940, -47, 201, 200))
+        self.label.setGeometry(QRect(140, -47, 201, 200))
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
 
         self.board.score[str].connect(self.label.setText)
