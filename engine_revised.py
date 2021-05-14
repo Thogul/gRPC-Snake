@@ -15,7 +15,8 @@ class Engine():
         #save directions in a dictionary of [id, direction]
         self.directions: Dict[Id, Direction] = {}
 
-    def __new_snake(self, id:str, x:int, y:int, score:int=0, length:int=5) -> game.Snake:
+    @staticmethod
+    def __new_snake(id:str, x:int, y:int, score:int=0, length:int=5) -> game.Snake:
         snake = game.Snake()
         snake.id = id
         snake.head.x = x
@@ -29,7 +30,8 @@ class Engine():
             snake.body.append(bodypart)
         return snake
 
-    def __new_food(self, x:int, y:int, skin:str='A', strength:int=1) -> game.Food:
+    @staticmethod
+    def __new_food(x:int, y:int, skin:str='A', strength:int=1) -> game.Food:
         food = game.Food()
         food.x = x
         food.y = y
@@ -37,7 +39,8 @@ class Engine():
         food.strength = strength
         return food
 
-    def __new_wall(self, x:int, y:int, skin='#') -> game.Object:
+    @staticmethod
+    def __new_wall(x:int, y:int, skin='#') -> game.Object:
         wall = game.Object()
         wall.x = x
         wall.y = y
@@ -98,11 +101,46 @@ class Engine():
         raise NotImplementedError
 
     @staticmethod
-    def get_items_on_screen(data:game.Data) -> List[game.Object]:
-        raise NotImplementedError
+    def get_items_on_screen(id:str, data:game.Data, width:int=11, height:int=11) -> List[game.Object]:
+        import warnings
+        warnings.warn("Warning...........Not fully implemented")
+
+        #get the main snake first, for center reference
+        main_snake = None
+        #should be with i, snake in enumerate(data.snakes):
+        for i in range(len(data.snakes)):
+            if data.snakes[i].id == id:
+                main_snake = data.snakes.pop(i)
+        if main_snake is None:
+            #my snake is not there, i might be dead or something
+            #maybe not update anything idk
+            return
+
+        #start the algorithm
+        items_onscreen = []
+        middlex, middley = width//2, height//2
+        referencex, referencey = main_snake.head.x, main_snake.head.y
+
+        #The order/priority of items in screen(what is drawn on top of what)
+        #is mainsnakehead, mainsnakebody, other snakeheads, other snakebodies, walls, food
+        #That means that the list is "reversed" with lowest pre first in the list
+
+        for food in data.foods:
+            deltax, deltay = food.x - referencex , referencey - food.y
+            x = middlex + deltax
+            y = middley + deltay
+            if ((0<= x < width) and (0<= y < height)):
+                #items_onscreen.append(food)
+                newfood = Engine.__new_food(x, y, food.skin, food.strength)
+                items_onscreen.append(newfood)
+
+
+        return items_onscreen
 
 
 if __name__ == '__main__':
     engine = Engine()
     engine.spawn_snake('Thomas')
-    print(engine.snakes)
+    engine.foods.append(engine._Engine__new_food(-1, 1))
+    #engine.data_to_client()
+    print(engine.get_items_on_screen('Thomas', engine.data_to_client()))
