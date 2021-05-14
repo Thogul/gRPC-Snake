@@ -49,7 +49,7 @@ class Engine():
         Get the snakes with the given id, then set the direction the snake is
         supposed to move in the next gamestate update
         '''
-        raise NotImplementedError
+        self.directions[id] = direction
 
     def data_to_client(self) -> game.Data:
         raise NotImplementedError
