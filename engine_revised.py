@@ -1,4 +1,5 @@
 import protobuffer_pb2 as game
+import random
 
 #type hinting stuff
 from typing import List, Dict
@@ -65,7 +66,29 @@ class Engine():
         raise NotImplementedError
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
-        raise NotImplementedError
+        
+        food = self.__new_food()
+        under = True
+        while under:
+            under = False
+            randomx = random.randint(minx, maxx)
+            randomy = random.randint(miny, maxy)
+            mat = food(randomx, randomy)
+
+            for snake in self.snakes:
+                if (mat.x == snake.head.x) and (mat.y == snake.head.y):
+                    under = True
+                    continue
+
+                for wall in self.walls:
+                    if (mat.x == wall.x) and (mat.y == wall.y):
+                        under = True
+                        break
+
+                for bodypart in snake.body:
+                    if (mat.x == bodypart.x) and (mat.y == bodypart.y):
+                        under = True
+                        break
 
     def generate_outer_walls(self) -> None:
         raise NotImplementedError
