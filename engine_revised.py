@@ -2,13 +2,12 @@ import protobuffer_pb2 as game
 
 #type hinting stuff
 from typing import List
-Food_obj = game.Object
 Wall_obj = game.Object
 
 class Engine():
     def __init__(self) -> None:
         self.snakes: List[game.Snake] = []
-        self.foods: List[Food_obj] = []
+        self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
 
     def set_snake_direction(self, id:str, direction:str) -> None:
