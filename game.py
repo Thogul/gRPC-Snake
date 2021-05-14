@@ -78,13 +78,16 @@ class Mainwindow(QMainWindow):
         self.radioButton.setGeometry(QtCore.QRect(10, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(False)
-
+        
+        
         self.label = QLabel(MainWindow)
         self.label.setObjectName("label")
+        
         self.label.setGeometry(QRect(140, -47, 201, 200))
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
-
         self.board.score[str].connect(self.label.setText)
+        
+       
        
 
         self.board.score[str].connect(self.statusbar.showMessage)
@@ -139,6 +142,8 @@ class Ui_Form(QtWidgets.QWidget):
         self.playButton.setGeometry(QRect(200, 170, 93, 28))
         self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
         self.playButton.clicked.connect(self.playAgian)
+        self.quitButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.playButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.gameOver = QtWidgets.QLabel(QWidget)
         self.gameOver.setObjectName("gameOver")
         self.gameOver.setGeometry(QRect(120, 30, 111, 61))
@@ -360,13 +365,16 @@ class LoginDialog(QDialog):
         self.enterGame.setObjectName("enterGame")
         self.enterGame.clicked.connect(self.enter_game)
         self.enterGame.setStyleSheet("background: rgb(130, 255, 127)")
+        self.enterGame.setCursor(QCursor(Qt.PointingHandCursor))
         self.pickcolor = QtWidgets.QPushButton(Dialog)
         self.pickcolor.setGeometry(QtCore.QRect(125, 50, 241, 28))
         self.pickcolor.setObjectName("pickcolor")
         self.pickcolor.setStyleSheet("background: rgb(255, 255, 255)")
         self.pickcolor.clicked.connect(self.colorDialog)
+        self.pickcolor.setCursor(QCursor(Qt.PointingHandCursor))
         self.framecolor = QtWidgets.QFrame(Dialog)
         self.framecolor.setGeometry(QtCore.QRect(390, 30, 100, 75))
+        
         #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
