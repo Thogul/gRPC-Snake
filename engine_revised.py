@@ -52,7 +52,11 @@ class Engine():
         self.directions[id] = direction
 
     def data_to_client(self) -> game.Data:
-        raise NotImplementedError
+        data = game.Data()
+        data.snakes.extend(self.snakes)
+        data.foods.extend(self.foods)
+        data.walls.extend(self.walls)
+        return data
 
     def spawn_food_at_snakes(self) -> None:
         raise NotImplementedError
@@ -68,6 +72,8 @@ class Engine():
     
     def update(self) -> None:
         '''
+        OBS: We think we want to use threadlocking when updating the game
+            Maybe only per update part, but likely the whole shæbang
         Take care of updating the game:
          - Move snakes
          - Handle collision
