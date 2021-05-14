@@ -351,7 +351,7 @@ class LoginDialog(QDialog):
         Dialog.resize(540, 200)
         Dialog.setStyleSheet("background: rgb(172, 172, 172)")
         self.userLabel = QtWidgets.QLabel(Dialog)
-        self.userLabel.setGeometry(QtCore.QRect(10,20, 241, 22))
+        self.userLabel.setGeometry(QtCore.QRect(10, 20, 241, 22))
         self.userLabel.setObjectName("enter_nickname")
         self.pick = QtWidgets.QLabel(Dialog)
         self.pick.setGeometry(QtCore.QRect(10,50, 241, 22))
@@ -374,6 +374,9 @@ class LoginDialog(QDialog):
         self.pickcolor.setCursor(QCursor(Qt.PointingHandCursor))
         self.framecolor = QtWidgets.QFrame(Dialog)
         self.framecolor.setGeometry(QtCore.QRect(390, 30, 100, 75))
+        self.instructions = QtWidgets.QLabel(Dialog)
+        self.instructions.setGeometry(QtCore.QRect(140, 90, 241, 22))
+        self.instructions.setObjectName("instructions")
         
         #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
@@ -409,6 +412,7 @@ class LoginDialog(QDialog):
         self.pickcolor.setText(_translate("Dialog", "Pick Color"))
         self.userLabel.setText(_translate("Dialog", "Enter nickname: "))
         self.pick.setText(_translate("Dialog", "Choose your color: "))
+        self.instructions.setText(_translate("Dialog", 'Move with "WASD" or the arrowkeys!'))
 
 
     
