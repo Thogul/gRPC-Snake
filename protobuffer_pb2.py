@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"5\n\x05Snake\x12\x15\n\x04head\x18\x01 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x02 \x03(\x0b\x32\x07.Object\"\x1e\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
+  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"P\n\x05Snake\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"\x1e\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
 )
 
 
@@ -144,15 +144,29 @@ _SNAKE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='head', full_name='Snake.head', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='id', full_name='Snake.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='score', full_name='Snake.score', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='head', full_name='Snake.head', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='body', full_name='Snake.body', index=1,
-      number=2, type=11, cpp_type=10, label=3,
+      name='body', full_name='Snake.body', index=3,
+      number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -170,7 +184,7 @@ _SNAKE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=119,
-  serialized_end=172,
+  serialized_end=199,
 )
 
 
@@ -201,8 +215,8 @@ _DATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=174,
-  serialized_end=204,
+  serialized_start=201,
+  serialized_end=231,
 )
 
 _SNAKE.fields_by_name['head'].message_type = _OBJECT
@@ -259,8 +273,8 @@ _GAMESERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=206,
-  serialized_end=284,
+  serialized_start=233,
+  serialized_end=311,
   methods=[
   _descriptor.MethodDescriptor(
     name='GameStream',
