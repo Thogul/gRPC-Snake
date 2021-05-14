@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"P\n\x05Snake\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"\x1e\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
+  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"<\n\x04\x46ood\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\x12\x10\n\x08strength\x18\x04 \x01(\x05\"P\n\x05Snake\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"L\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake\x12\x14\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x05.Food\x12\x16\n\x05walls\x18\x03 \x03(\x0b\x32\x07.Object2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
 )
 
 
@@ -135,6 +135,59 @@ _OBJECT = _descriptor.Descriptor(
 )
 
 
+_FOOD = _descriptor.Descriptor(
+  name='Food',
+  full_name='Food',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='x', full_name='Food.x', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='y', full_name='Food.y', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='skin', full_name='Food.skin', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='strength', full_name='Food.strength', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=119,
+  serialized_end=179,
+)
+
+
 _SNAKE = _descriptor.Descriptor(
   name='Snake',
   full_name='Snake',
@@ -183,8 +236,8 @@ _SNAKE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=119,
-  serialized_end=199,
+  serialized_start=181,
+  serialized_end=261,
 )
 
 
@@ -203,6 +256,20 @@ _DATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='foods', full_name='Data.foods', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='walls', full_name='Data.walls', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -215,16 +282,19 @@ _DATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=231,
+  serialized_start=263,
+  serialized_end=339,
 )
 
 _SNAKE.fields_by_name['head'].message_type = _OBJECT
 _SNAKE.fields_by_name['body'].message_type = _OBJECT
 _DATA.fields_by_name['snakes'].message_type = _SNAKE
+_DATA.fields_by_name['foods'].message_type = _FOOD
+_DATA.fields_by_name['walls'].message_type = _OBJECT
 DESCRIPTOR.message_types_by_name['Nothing'] = _NOTHING
 DESCRIPTOR.message_types_by_name['Action'] = _ACTION
 DESCRIPTOR.message_types_by_name['Object'] = _OBJECT
+DESCRIPTOR.message_types_by_name['Food'] = _FOOD
 DESCRIPTOR.message_types_by_name['Snake'] = _SNAKE
 DESCRIPTOR.message_types_by_name['Data'] = _DATA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -250,6 +320,13 @@ Object = _reflection.GeneratedProtocolMessageType('Object', (_message.Message,),
   })
 _sym_db.RegisterMessage(Object)
 
+Food = _reflection.GeneratedProtocolMessageType('Food', (_message.Message,), {
+  'DESCRIPTOR' : _FOOD,
+  '__module__' : 'protobuffer_pb2'
+  # @@protoc_insertion_point(class_scope:Food)
+  })
+_sym_db.RegisterMessage(Food)
+
 Snake = _reflection.GeneratedProtocolMessageType('Snake', (_message.Message,), {
   'DESCRIPTOR' : _SNAKE,
   '__module__' : 'protobuffer_pb2'
@@ -273,8 +350,8 @@ _GAMESERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=233,
-  serialized_end=311,
+  serialized_start=341,
+  serialized_end=419,
   methods=[
   _descriptor.MethodDescriptor(
     name='GameStream',
