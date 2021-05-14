@@ -66,6 +66,9 @@ class Engine():
         raise NotImplementedError
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
+        import warnings
+        warnings.warn("Warning...........Not tested!")
+        #Missing golden apple implementation
         
         food = self.__new_food()
         under = True
@@ -80,15 +83,16 @@ class Engine():
                     under = True
                     continue
 
-                for wall in self.walls:
-                    if (mat.x == wall.x) and (mat.y == wall.y):
-                        under = True
-                        break
-
                 for bodypart in snake.body:
                     if (mat.x == bodypart.x) and (mat.y == bodypart.y):
                         under = True
                         break
+
+            for wall in self.walls:
+                if (mat.x == wall.x) and (mat.y == wall.y):
+                    under = True
+                    break
+
 
     def generate_outer_walls(self) -> None:
         raise NotImplementedError
