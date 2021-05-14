@@ -10,6 +10,15 @@ class Engine():
         self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
 
+    def __new_snake(self, id:str, x:int, y:int, score:int=0) -> game.Snake:
+        raise NotImplementedError
+
+    def __new_food(self, x:int, y:int, skin:str='A', strength:int=1) -> game.Food:
+        raise NotImplementedError
+
+    def __new_wall(self, x:int, y:int, skin='#') -> game.Object:
+        raise NotImplementedError
+
     def set_snake_direction(self, id:str, direction:str) -> None:
         '''
         Get the snakes with the given id, then set the direction the snake is
@@ -52,3 +61,5 @@ class Engine():
 
 if __name__ == '__main__':
     engine = Engine()
+    food = game.Food(0, 1, 'A', 1)
+    print(food)
