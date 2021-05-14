@@ -19,10 +19,74 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11protobuffer.proto\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"R\n\x05Snake\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"<\n\x0e\x43onnectRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\"g\n\x0f\x43onnectResponse\x12\r\n\x05token\x18\x01 \x01(\t\x12\x16\n\x06snakes\x18\x02 \x03(\x0b\x32\x06.Snake\x12\x15\n\x04\x66ood\x18\x03 \x03(\x0b\x32\x07.Object\x12\x16\n\x05walls\x18\x04 \x03(\x0b\x32\x07.Object\"(\n\x07Request\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tdirection\x18\x02 \x01(\t\"Q\n\x08Response\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake\x12\x15\n\x04\x66ood\x18\x02 \x03(\x0b\x32\x07.Object\x12\x16\n\x05walls\x18\x03 \x03(\x0b\x32\x07.Object2[\n\x04Game\x12.\n\x07\x43onnect\x12\x0f.ConnectRequest\x1a\x10.ConnectResponse\"\x00\x12#\n\x06Stream\x12\x08.Request\x1a\t.Response\"\x00(\x01\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"5\n\x05Snake\x12\x15\n\x04head\x18\x01 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x02 \x03(\x0b\x32\x07.Object\"\x1e\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
 )
 
 
+
+
+_NOTHING = _descriptor.Descriptor(
+  name='Nothing',
+  full_name='Nothing',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=21,
+  serialized_end=30,
+)
+
+
+_ACTION = _descriptor.Descriptor(
+  name='Action',
+  full_name='Action',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='Action.id', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='direction', full_name='Action.direction', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=32,
+  serialized_end=71,
+)
 
 
 _OBJECT = _descriptor.Descriptor(
@@ -66,8 +130,8 @@ _OBJECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=21,
-  serialized_end=65,
+  serialized_start=73,
+  serialized_end=117,
 )
 
 
@@ -80,132 +144,19 @@ _SNAKE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='Snake.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='score', full_name='Snake.score', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='head', full_name='Snake.head', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='head', full_name='Snake.head', index=0,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='body', full_name='Snake.body', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=67,
-  serialized_end=149,
-)
-
-
-_CONNECTREQUEST = _descriptor.Descriptor(
-  name='ConnectRequest',
-  full_name='ConnectRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='id', full_name='ConnectRequest.id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='ConnectRequest.name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='password', full_name='ConnectRequest.password', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=151,
-  serialized_end=211,
-)
-
-
-_CONNECTRESPONSE = _descriptor.Descriptor(
-  name='ConnectResponse',
-  full_name='ConnectResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='token', full_name='ConnectResponse.token', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='snakes', full_name='ConnectResponse.snakes', index=1,
+      name='body', full_name='Snake.body', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='food', full_name='ConnectResponse.food', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='walls', full_name='ConnectResponse.walls', index=3,
-      number=4, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -218,79 +169,26 @@ _CONNECTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=213,
-  serialized_end=316,
+  serialized_start=119,
+  serialized_end=172,
 )
 
 
-_REQUEST = _descriptor.Descriptor(
-  name='Request',
-  full_name='Request',
+_DATA = _descriptor.Descriptor(
+  name='Data',
+  full_name='Data',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Request.id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='direction', full_name='Request.direction', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=318,
-  serialized_end=358,
-)
-
-
-_RESPONSE = _descriptor.Descriptor(
-  name='Response',
-  full_name='Response',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='snakes', full_name='Response.snakes', index=0,
+      name='snakes', full_name='Data.snakes', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='food', full_name='Response.food', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='walls', full_name='Response.walls', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -303,25 +201,33 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=360,
-  serialized_end=441,
+  serialized_start=174,
+  serialized_end=204,
 )
 
 _SNAKE.fields_by_name['head'].message_type = _OBJECT
 _SNAKE.fields_by_name['body'].message_type = _OBJECT
-_CONNECTRESPONSE.fields_by_name['snakes'].message_type = _SNAKE
-_CONNECTRESPONSE.fields_by_name['food'].message_type = _OBJECT
-_CONNECTRESPONSE.fields_by_name['walls'].message_type = _OBJECT
-_RESPONSE.fields_by_name['snakes'].message_type = _SNAKE
-_RESPONSE.fields_by_name['food'].message_type = _OBJECT
-_RESPONSE.fields_by_name['walls'].message_type = _OBJECT
+_DATA.fields_by_name['snakes'].message_type = _SNAKE
+DESCRIPTOR.message_types_by_name['Nothing'] = _NOTHING
+DESCRIPTOR.message_types_by_name['Action'] = _ACTION
 DESCRIPTOR.message_types_by_name['Object'] = _OBJECT
 DESCRIPTOR.message_types_by_name['Snake'] = _SNAKE
-DESCRIPTOR.message_types_by_name['ConnectRequest'] = _CONNECTREQUEST
-DESCRIPTOR.message_types_by_name['ConnectResponse'] = _CONNECTRESPONSE
-DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
-DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
+DESCRIPTOR.message_types_by_name['Data'] = _DATA
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Nothing = _reflection.GeneratedProtocolMessageType('Nothing', (_message.Message,), {
+  'DESCRIPTOR' : _NOTHING,
+  '__module__' : 'protobuffer_pb2'
+  # @@protoc_insertion_point(class_scope:Nothing)
+  })
+_sym_db.RegisterMessage(Nothing)
+
+Action = _reflection.GeneratedProtocolMessageType('Action', (_message.Message,), {
+  'DESCRIPTOR' : _ACTION,
+  '__module__' : 'protobuffer_pb2'
+  # @@protoc_insertion_point(class_scope:Action)
+  })
+_sym_db.RegisterMessage(Action)
 
 Object = _reflection.GeneratedProtocolMessageType('Object', (_message.Message,), {
   'DESCRIPTOR' : _OBJECT,
@@ -337,69 +243,48 @@ Snake = _reflection.GeneratedProtocolMessageType('Snake', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Snake)
 
-ConnectRequest = _reflection.GeneratedProtocolMessageType('ConnectRequest', (_message.Message,), {
-  'DESCRIPTOR' : _CONNECTREQUEST,
+Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
+  'DESCRIPTOR' : _DATA,
   '__module__' : 'protobuffer_pb2'
-  # @@protoc_insertion_point(class_scope:ConnectRequest)
+  # @@protoc_insertion_point(class_scope:Data)
   })
-_sym_db.RegisterMessage(ConnectRequest)
-
-ConnectResponse = _reflection.GeneratedProtocolMessageType('ConnectResponse', (_message.Message,), {
-  'DESCRIPTOR' : _CONNECTRESPONSE,
-  '__module__' : 'protobuffer_pb2'
-  # @@protoc_insertion_point(class_scope:ConnectResponse)
-  })
-_sym_db.RegisterMessage(ConnectResponse)
-
-Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), {
-  'DESCRIPTOR' : _REQUEST,
-  '__module__' : 'protobuffer_pb2'
-  # @@protoc_insertion_point(class_scope:Request)
-  })
-_sym_db.RegisterMessage(Request)
-
-Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), {
-  'DESCRIPTOR' : _RESPONSE,
-  '__module__' : 'protobuffer_pb2'
-  # @@protoc_insertion_point(class_scope:Response)
-  })
-_sym_db.RegisterMessage(Response)
+_sym_db.RegisterMessage(Data)
 
 
 
-_GAME = _descriptor.ServiceDescriptor(
-  name='Game',
-  full_name='Game',
+_GAMESERVER = _descriptor.ServiceDescriptor(
+  name='GameServer',
+  full_name='GameServer',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=443,
-  serialized_end=534,
+  serialized_start=206,
+  serialized_end=284,
   methods=[
   _descriptor.MethodDescriptor(
-    name='Connect',
-    full_name='Game.Connect',
+    name='GameStream',
+    full_name='GameServer.GameStream',
     index=0,
     containing_service=None,
-    input_type=_CONNECTREQUEST,
-    output_type=_CONNECTRESPONSE,
+    input_type=_NOTHING,
+    output_type=_DATA,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='Stream',
-    full_name='Game.Stream',
+    name='GameAction',
+    full_name='GameServer.GameAction',
     index=1,
     containing_service=None,
-    input_type=_REQUEST,
-    output_type=_RESPONSE,
+    input_type=_ACTION,
+    output_type=_NOTHING,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_GAME)
+_sym_db.RegisterServiceDescriptor(_GAMESERVER)
 
-DESCRIPTOR.services_by_name['Game'] = _GAME
+DESCRIPTOR.services_by_name['GameServer'] = _GAMESERVER
 
 # @@protoc_insertion_point(module_scope)

@@ -1,51 +1,28 @@
 syntax = "proto3";
 
-service Game {
+message Nothing {}
 
-    //Connect and get allowed streaming id or something
-    rpc Connect (ConnectRequest) returns (ConnectResponse) {}
-
-    //Game-data streaming
-    rpc Stream (stream Request) returns (stream Response) {}
+message Action {
+    int32 id = 1;
+    string direction = 2;
 }
 
-
-//builtup of classes and how they look
-message Object {  
+message Object {
     int32 x = 1;
     int32 y = 2;
     string skin = 3;
 }
 
 message Snake {
-    string name = 1;
-    int32 score = 2;
-    Object head = 3;
-    repeated Object body = 4;
+    Object head = 1;
+    repeated Object body = 2;
 }
 
-//Request connection messages:
-message ConnectRequest {
-    string id = 1;
-    string name = 2;
-    string password = 3;
-}
-
-message ConnectResponse {
-    string token = 1;
-    repeated Snake snakes = 2;
-    repeated Object food = 3;
-    repeated Object walls = 4;
-}
-
-//Game streaming objects
-message Request {
-    string id = 1;
-    string direction = 2;
-}
-
-message Response {
+message Data {
     repeated Snake snakes = 1;
-    repeated Object food = 2;
-    repeated Object walls = 3;
+}
+
+service GameServer {
+    rpc GameStream (Nothing) returns (stream Data);
+    rpc GameAction (Action) returns (Nothing);
 }

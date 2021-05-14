@@ -5,7 +5,7 @@ import grpc
 import protobuffer_pb2 as protobuffer__pb2
 
 
-class GameStub(object):
+class GameServerStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -14,60 +14,58 @@ class GameStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Connect = channel.unary_unary(
-                '/Game/Connect',
-                request_serializer=protobuffer__pb2.ConnectRequest.SerializeToString,
-                response_deserializer=protobuffer__pb2.ConnectResponse.FromString,
+        self.GameStream = channel.unary_stream(
+                '/GameServer/GameStream',
+                request_serializer=protobuffer__pb2.Nothing.SerializeToString,
+                response_deserializer=protobuffer__pb2.Data.FromString,
                 )
-        self.Stream = channel.stream_stream(
-                '/Game/Stream',
-                request_serializer=protobuffer__pb2.Request.SerializeToString,
-                response_deserializer=protobuffer__pb2.Response.FromString,
+        self.GameAction = channel.unary_unary(
+                '/GameServer/GameAction',
+                request_serializer=protobuffer__pb2.Action.SerializeToString,
+                response_deserializer=protobuffer__pb2.Nothing.FromString,
                 )
 
 
-class GameServicer(object):
+class GameServerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Connect(self, request, context):
-        """Connect and get allowed streaming id or something
-        """
+    def GameStream(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Stream(self, request_iterator, context):
-        """Game-data streaming
-        """
+    def GameAction(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_GameServicer_to_server(servicer, server):
+def add_GameServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Connect': grpc.unary_unary_rpc_method_handler(
-                    servicer.Connect,
-                    request_deserializer=protobuffer__pb2.ConnectRequest.FromString,
-                    response_serializer=protobuffer__pb2.ConnectResponse.SerializeToString,
+            'GameStream': grpc.unary_stream_rpc_method_handler(
+                    servicer.GameStream,
+                    request_deserializer=protobuffer__pb2.Nothing.FromString,
+                    response_serializer=protobuffer__pb2.Data.SerializeToString,
             ),
-            'Stream': grpc.stream_stream_rpc_method_handler(
-                    servicer.Stream,
-                    request_deserializer=protobuffer__pb2.Request.FromString,
-                    response_serializer=protobuffer__pb2.Response.SerializeToString,
+            'GameAction': grpc.unary_unary_rpc_method_handler(
+                    servicer.GameAction,
+                    request_deserializer=protobuffer__pb2.Action.FromString,
+                    response_serializer=protobuffer__pb2.Nothing.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Game', rpc_method_handlers)
+            'GameServer', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Game(object):
+class GameServer(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Connect(request,
+    def GameStream(request,
             target,
             options=(),
             channel_credentials=None,
@@ -77,14 +75,14 @@ class Game(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Game/Connect',
-            protobuffer__pb2.ConnectRequest.SerializeToString,
-            protobuffer__pb2.ConnectResponse.FromString,
+        return grpc.experimental.unary_stream(request, target, '/GameServer/GameStream',
+            protobuffer__pb2.Nothing.SerializeToString,
+            protobuffer__pb2.Data.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def Stream(request_iterator,
+    def GameAction(request,
             target,
             options=(),
             channel_credentials=None,
@@ -94,8 +92,8 @@ class Game(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.stream_stream(request_iterator, target, '/Game/Stream',
-            protobuffer__pb2.Request.SerializeToString,
-            protobuffer__pb2.Response.FromString,
+        return grpc.experimental.unary_unary(request, target, '/GameServer/GameAction',
+            protobuffer__pb2.Action.SerializeToString,
+            protobuffer__pb2.Nothing.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
