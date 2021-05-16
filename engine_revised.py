@@ -68,7 +68,7 @@ class Engine():
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
         warnings.warn("Warning...........Not tested!")
-        #Missing golden apple implementation
+        
         
         food = self.__new_food()
         under = True
@@ -92,6 +92,12 @@ class Engine():
                 if (mat.x == wall.x) and (mat.y == wall.y):
                     under = True
                     break
+        golden = random.randint(1,10)
+        if golden == 10:
+            mat.skin = '%'
+            mat.strengrh = 3
+
+
 
     def generate_outer_walls(self) -> None:
         raise NotImplementedError
