@@ -93,7 +93,6 @@ class Engine():
                     under = True
                     break
 
-
     def generate_outer_walls(self) -> None:
         raise NotImplementedError
     
@@ -111,7 +110,59 @@ class Engine():
 
         import warnings
         warnings.warn("Warning...........Just basic implementation")
-    
+
+    def move_snake(self, id:str, direction) -> None:
+        raise NotImplementedError
+        #move a snake a direction
+
+    def grow_snake(self, id:str, food:game.Object) -> None:
+        #add a new snake object on the same spot as the last snake bodypart
+        for snake in self.snakes:
+            if snake.id == id:
+                bodypart = game.Object()
+                bodypart.x = snake.body[-1].x
+                bodypart.y = snake.body[-1].y
+                bodypart.skin = 'O'
+                snake.body.append(bodypart)
+                try:
+                    self.foods.remove(food)
+                except ValueError:
+                    print('Could not remove food from snake!' + food)
+                return
+
+    def collisions(self):
+        #Run throught each snake and see if it collides with anything
+        #Maybe when running through snakes, make it not run through earlier snakes
+        #Dont know what we should do with head to head collision(both dead, priority?)
+
+        #run through each snake:
+        for snake in enumerate(self.snakes):
+            #run through itself, for self collision
+            for bodypart in snake.body:
+                if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
+                    #snake has collided with itself, delete or something
+                    #self.kill_snake(snake.id) something like this id
+                    raise NotImplementedError
+            
+            #All other snakes body collision
+            for other_snake in self.snakes:
+                if other_snake == snake:
+                    break
+                for bodypart in other_snake.body:
+                    if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
+                        #Collision suff idk
+                        raise NotImplementedError
+
+            for wall in self.walls:
+                if (snake.head.x == wall.x) and (snake.head.y == wall.y):
+                    #Do collision
+                    raise NotImplementedError
+            
+            for food in self.foods:
+                if (snake.head.x == food.x) and (snake.head.y == food.y):
+                    #Eat an apple or something
+                    self.grow_snake(snake.id, food)
+
     def update(self) -> None:
         '''
         OBS: We think we want to use threadlocking when updating the game
