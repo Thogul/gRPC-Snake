@@ -136,7 +136,7 @@ class Engine():
         #Dont know what we should do with head to head collision(both dead, priority?)
 
         #run through each snake:
-        for snake in enumerate(self.snakes):
+        for snake in self.snakes:
             #run through itself, for self collision
             for bodypart in snake.body:
                 if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
@@ -176,6 +176,7 @@ class Engine():
          For clearity, make needed private functions for
          functionality that is needed
          '''
+        #self.collisions()
         raise NotImplementedError
 
     @staticmethod
@@ -219,6 +220,6 @@ class Engine():
 if __name__ == '__main__':
     engine = Engine()
     engine.spawn_snake('Thomas')
-    engine.foods.append(engine._Engine__new_food(-1, 1))
-    #engine.data_to_client()
-    print(engine.get_items_on_screen('Thomas', engine.data_to_client()))
+    engine.foods.append(engine._Engine__new_food(0, 0))
+    #print(engine.data_to_client())
+    engine.collisions()
