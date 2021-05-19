@@ -24,6 +24,11 @@ class GameServerStub(object):
                 request_serializer=protobuffer__pb2.Action.SerializeToString,
                 response_deserializer=protobuffer__pb2.Nothing.FromString,
                 )
+        self.GameScores = channel.unary_unary(
+                '/GameServer/GameScores',
+                request_serializer=protobuffer__pb2.Nothing.SerializeToString,
+                response_deserializer=protobuffer__pb2.HighScores.FromString,
+                )
 
 
 class GameServerServicer(object):
@@ -41,6 +46,12 @@ class GameServerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GameScores(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_GameServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -53,6 +64,11 @@ def add_GameServerServicer_to_server(servicer, server):
                     servicer.GameAction,
                     request_deserializer=protobuffer__pb2.Action.FromString,
                     response_serializer=protobuffer__pb2.Nothing.SerializeToString,
+            ),
+            'GameScores': grpc.unary_unary_rpc_method_handler(
+                    servicer.GameScores,
+                    request_deserializer=protobuffer__pb2.Nothing.FromString,
+                    response_serializer=protobuffer__pb2.HighScores.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -95,5 +111,22 @@ class GameServer(object):
         return grpc.experimental.unary_unary(request, target, '/GameServer/GameAction',
             protobuffer__pb2.Action.SerializeToString,
             protobuffer__pb2.Nothing.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GameScores(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/GameServer/GameScores',
+            protobuffer__pb2.Nothing.SerializeToString,
+            protobuffer__pb2.HighScores.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
