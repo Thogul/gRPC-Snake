@@ -289,9 +289,9 @@ class Board(QtWidgets.QFrame):
             #self.engine.snake.move(self.direction)
            # self.client.send_action(self.direction)
     
-           # if self.engine.update():
-            #    self.gameover()
-             #   self.timer.stop()
+            if len(self.items):
+                self.gameover()
+                #self.timer.stop()
                 
 
   
@@ -305,8 +305,7 @@ class Board(QtWidgets.QFrame):
             self.update()
 
     def gameover(self):
-        global gameover
-        gameover = True
+
         
         self.gameoverWidget = Ui_Form(self)
         self.gameoverWidget.show()
