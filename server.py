@@ -1,4 +1,5 @@
 from concurrent import futures
+from threading import Thread
 
 import grpc
 import time
@@ -43,7 +44,6 @@ class GameServer(rpc.GameServerServicer):
 if __name__ == '__main__':
     port = 50051
 
-
     engine = Engine()
     engine.spawn_snake('Thomas')
     grpc_server = GameServer(engine)
@@ -55,8 +55,14 @@ if __name__ == '__main__':
 
     server.add_insecure_port('[::]:' + str(port))
     server.start()
-    #server.wait_for_termination()
-
+    gameloop = Thread(target=engine.game_loop_thread, daemon=True)
+    gameloop.start()
+    server.wait_for_termination()
+    '''
+    id = 0
     while True:
+
         input('Make new snake')
-        engine.spawn_snake()
+        engine.spawn_snake(str(id))
+        id += 1
+    '''

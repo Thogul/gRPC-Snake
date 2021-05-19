@@ -1,3 +1,4 @@
+from time import sleep
 import protobuffer_pb2 as game
 import random
 
@@ -71,14 +72,13 @@ class Engine():
         import warnings
         warnings.warn("Warning...........Not tested!")
         
-        
-        food = self.__new_food()
+        mat = None
         under = True
         while under:
             under = False
             randomx = random.randint(minx, maxx)
             randomy = random.randint(miny, maxy)
-            mat = food(randomx, randomy)
+            mat = self.__new_food(randomx, randomy)
 
             for snake in self.snakes:
                 if (mat.x == snake.head.x) and (mat.y == snake.head.y):
@@ -189,6 +189,12 @@ class Engine():
                     print('Could not remove food from snake!' + food)
                 return
 
+    def kill_snake(self, id):
+        for snake in self.snakes:
+            if snake.id == id:
+                self.snakes.remove(snake)
+                self.directions.pop(id, None)
+
     def collisions(self):
         #Run throught each snake and see if it collides with anything
         #Maybe when running through snakes, make it not run through earlier snakes
@@ -201,7 +207,7 @@ class Engine():
                 if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                     #snake has collided with itself, delete or something
                     #self.kill_snake(snake.id) something like this id
-                    raise NotImplementedError
+                    self.kill_snake(snake.id)
             
             #All other snakes body collision
             for other_snake in self.snakes:
@@ -210,12 +216,12 @@ class Engine():
                 for bodypart in other_snake.body:
                     if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                         #Collision suff idk
-                        raise NotImplementedError
+                        self.kill_snake(snake.id)
 
             for wall in self.walls:
                 if (snake.head.x == wall.x) and (snake.head.y == wall.y):
                     #Do collision
-                    raise NotImplementedError
+                    self.kill_snake(snake.id)
             
             for food in self.foods:
                 if (snake.head.x == food.x) and (snake.head.y == food.y):
@@ -235,8 +241,16 @@ class Engine():
          For clearity, make needed private functions for
          functionality that is needed
          '''
-        #self.collisions()
-        raise NotImplementedError
+        self.collisions()
+        #if len(self.directions) > 0:
+        for id, direction in self.directions.items():
+            self.move_snake(id, direction)
+    
+    def game_loop_thread(self) -> None:
+        while True:
+            sleep(0.1)
+            print('updating')
+            self.update()
 
     @staticmethod
     def get_items_on_screen(id:str, data:game.Data, width:int=11, height:int=11) -> List[game.Object]:

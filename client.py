@@ -25,7 +25,7 @@ class Client():
             
             print('----------')
             for snake in data.snakes:
-                print(f'snake @{snake.head.x}{snake.head.y}\nbody O{snake.body[0].x}{snake.body[0].x}')
+                print(f'snake @{snake.head.x}{snake.head.y}\nbody O{snake.body[0].x}{snake.body[0].y}')
             
 
     def send_action(self, action):
