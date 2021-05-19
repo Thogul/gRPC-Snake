@@ -213,7 +213,7 @@ class Board(QFrame):
 
         self.board = []
 
-        self.snakes = []
+        self.snakes_score = []
         #print(str(self.items))
 
         
@@ -246,9 +246,8 @@ class Board(QFrame):
         data.snakes[:]
 
         for snake in data.snakes:
-
-            print(snake.score)
             self.score.emit(str(snake.score))
+
         self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
        
