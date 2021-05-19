@@ -3,7 +3,7 @@ import protobuffer_pb2 as game
 import random
 
 #type hinting stuff
-from typing import List, Dict
+from typing import List, Dict, Tuple
 Wall_obj = game.Object
 Id = str
 Direction = str
@@ -13,6 +13,9 @@ class Engine():
         self.snakes: List[game.Snake] = []
         self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
+        self.max_food = 10
+        self.boundariesx : Tuple(int, int) = (0, 0)
+        self.boundariesy : Tuple(int, int) = (0, 0)
         
         #save directions in a dictionary of [id, direction]
         self.directions: Dict[Id, Direction] = {}
@@ -80,7 +83,8 @@ class Engine():
     def spawn_food_at_snakes(self) -> None:
         for snake in self.snakes:
             headx, heady = snake.head.x, snake.head.y
-            self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
+            if self.max_food > len(self.foods):
+                self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
@@ -117,8 +121,11 @@ class Engine():
         self.foods.append(mat)
 
     def generate_outer_walls(self, height: int = 10, width: int = 10) -> None:
+        #Height and width needs to be atleast 6
         x_offset = width//2
         y_offset = height//2
+        self.boundariesx = (-x_offset+3, x_offset-3)
+        self.boundariesy = (-y_offset+3, y_offset-3)
 
         self.generate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
         self.generate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
@@ -140,7 +147,11 @@ class Engine():
         Spawn a new snake with the given id, also add directions to snake
         '''
         #basic implementation
-        snake = self.__new_snake(id, 1, 1, 0, 4) #Testing legnth
+        minx, maxx = self.boundariesx
+        x = random.randint(minx, maxx)
+        miny, maxy = self.boundariesy
+        y = random.randint(miny, maxy)
+        snake = self.__new_snake(id, x, y, 0, 4) #Testing legnth
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
@@ -192,11 +203,12 @@ class Engine():
         #add a new snake object on the same spot as the last snake bodypart
         for snake in self.snakes:
             if snake.id == id:
-                bodypart = game.Object()
-                bodypart.x = snake.body[-1].x
-                bodypart.y = snake.body[-1].y
-                bodypart.skin = 'O'
-                snake.body.append(bodypart)
+                for _ in range(food.strength):
+                    bodypart = game.Object()
+                    bodypart.x = snake.body[-1].x
+                    bodypart.y = snake.body[-1].y
+                    bodypart.skin = 'O'
+                    snake.body.append(bodypart)
                 try:
                     self.foods.remove(food)
                 except ValueError:
@@ -227,7 +239,11 @@ class Engine():
             #All other snakes body collision
             for other_snake in self.snakes:
                 if other_snake == snake:
-                    break
+                    continue
+                if (snake.head.x == other_snake.head.x) and (snake.head.y == other_snake.head.y):
+                    self.kill_snake(snake.id)
+                    self.kill_snake(other_snake.id)
+                    continue
                 for bodypart in other_snake.body:
                     if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                         #Collision suff idk
@@ -260,10 +276,12 @@ class Engine():
         #if len(self.directions) > 0:
         for id, direction in self.directions.items():
             self.move_snake(id, direction)
+
+        #self.spawn_food_at_snakes()
     
     def game_loop_thread(self) -> None:
         while True:
-            sleep(1)
+            sleep(0.1)
             print('updating')
             self.update()
 

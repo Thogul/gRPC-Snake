@@ -11,7 +11,9 @@ from engine_revised import Engine
 from queue import Queue
 
 
-address = '192.168.43.122'
+#address = '192.168.43.122'
+address = 'localhost'
+#address = '0.0.0.0'
 port = 50051
 
 class Client():
