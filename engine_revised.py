@@ -102,13 +102,25 @@ class Engine():
 
         self.foods.append(mat)
 
+    def generate_outer_walls(self, height: int = 10, width: int = 10) -> None:
+        x_offset = width//2
+        y_offset = height//2
 
+        self.genereate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
+        self.genereate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
+        self.genereate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
+        self.genereate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
 
-    def generate_outer_walls(self) -> None:
-        raise NotImplementedError
     
     def generate_wall(self, fromx:int, fromy:int, tox:int, toy:int) -> None:
-        raise NotImplementedError
+        if fromy == toy:
+            for xoffset in range(0, tox-fromx):
+                wall = self.__new_wall(fromx+xoffset, fromy)
+                self.walls.append(wall)
+        elif fromx == tox:
+            for yoffset in range(0, toy-fromy):
+                wall = self.__new_wall(fromx, fromy+yoffset)
+                self.walls.append(wall)
 
     def spawn_snake(self, id: str = 'Guest') -> None:
         '''
