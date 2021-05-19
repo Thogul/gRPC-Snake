@@ -112,6 +112,9 @@ class Engine():
                 if (mat.x == wall.x) and (mat.y == wall.y):
                     under = True
                     break
+            
+            if (mat.x <= self.boundariesx[0]) and (mat.x >= self.boundariesx[1]) and (mat.y <= self.boundariesy[0]) and (mat.y >= self.boundariesy[1]):
+                under = True
 
         golden = random.randint(1,10)
         if golden == 10:
