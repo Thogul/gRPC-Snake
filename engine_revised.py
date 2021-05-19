@@ -1,3 +1,4 @@
+from time import sleep
 import protobuffer_pb2 as game
 import random
 
@@ -63,20 +64,21 @@ class Engine():
         return data
 
     def spawn_food_at_snakes(self) -> None:
-        raise NotImplementedError
+        for snake in self.snakes:
+            headx, heady = snake.head.x, snake.head.y
+            self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
         warnings.warn("Warning...........Not tested!")
         
-        
-        food = self.__new_food()
+        mat = None
         under = True
         while under:
             under = False
             randomx = random.randint(minx, maxx)
             randomy = random.randint(miny, maxy)
-            mat = food(randomx, randomy)
+            mat = self.__new_food(randomx, randomy)
 
             for snake in self.snakes:
                 if (mat.x == snake.head.x) and (mat.y == snake.head.y):
@@ -92,25 +94,39 @@ class Engine():
                 if (mat.x == wall.x) and (mat.y == wall.y):
                     under = True
                     break
+
         golden = random.randint(1,10)
         if golden == 10:
             mat.skin = '%'
-            mat.strengrh = 3
+            mat.strength = 3
 
+        self.foods.append(mat)
 
+    def generate_outer_walls(self, height: int = 10, width: int = 10) -> None:
+        x_offset = width//2
+        y_offset = height//2
 
-    def generate_outer_walls(self) -> None:
-        raise NotImplementedError
-    
+        self.genereate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
+        self.genereate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
+        self.genereate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
+        self.genereate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
+
     def generate_wall(self, fromx:int, fromy:int, tox:int, toy:int) -> None:
-        raise NotImplementedError
+        if fromy == toy:
+            for xoffset in range(0, tox-fromx):
+                wall = self.__new_wall(fromx+xoffset, fromy)
+                self.walls.append(wall)
+        elif fromx == tox:
+            for yoffset in range(0, toy-fromy):
+                wall = self.__new_wall(fromx, fromy+yoffset)
+                self.walls.append(wall)
 
     def spawn_snake(self, id: str = 'Guest') -> None:
         '''
         Spawn a new snake with the given id, also add directions to snake
         '''
         #basic implementation
-        snake = self.__new_snake(id, 0, 0)
+        snake = self.__new_snake(id, 1, 1)
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
@@ -118,8 +134,45 @@ class Engine():
         warnings.warn("Warning...........Just basic implementation")
 
     def move_snake(self, id:str, direction) -> None:
-        raise NotImplementedError
-        #move a snake a direction
+        #firstly find the right snake:
+        #VERY UGLY CODE
+        moves = ['w', 'a', 's', 'd']
+        for snake in self.snakes:
+            if snake.id == id:
+                lastx, lasty = snake.head.x, snake.head.y
+                if direction == 'w':
+                    if snake.body[0].y == lasty+1:
+                        self.move_snake(id, 's')
+                        return
+                    else:
+                        snake.head.y += 1
+                if direction == 's':
+                    if snake.body[0].y == lasty-1:
+                        self.move_snake(id, 'w')
+                        return
+                    else:
+                        snake.head.y -= 1
+                if direction == 'd':
+                    if snake.body[0].x == lastx + 1:
+                        self.move_snake(id, 'a')
+                        return
+                    else:
+                        snake.head.x += 1
+                if direction == 'a':
+                    if snake.body[0].x == lastx - 1:
+                        self.move_snake(id, 'd')
+                        return
+                    else:
+                        snake.head.x -= 1
+
+                #move the body:
+                for i in range(1, len(snake.body)):
+                    snake.body[-i].x = snake.body[-i-1].x
+                    snake.body[-i].y = snake.body[-i-1].y
+                snake.body[0].x = lastx
+                snake.body[0].y = lasty
+
+                return
 
     def grow_snake(self, id:str, food:game.Object) -> None:
         #add a new snake object on the same spot as the last snake bodypart
@@ -136,6 +189,12 @@ class Engine():
                     print('Could not remove food from snake!' + food)
                 return
 
+    def kill_snake(self, id):
+        for snake in self.snakes:
+            if snake.id == id:
+                self.snakes.remove(snake)
+                self.directions.pop(id, None)
+
     def collisions(self):
         #Run throught each snake and see if it collides with anything
         #Maybe when running through snakes, make it not run through earlier snakes
@@ -148,7 +207,7 @@ class Engine():
                 if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                     #snake has collided with itself, delete or something
                     #self.kill_snake(snake.id) something like this id
-                    raise NotImplementedError
+                    self.kill_snake(snake.id)
             
             #All other snakes body collision
             for other_snake in self.snakes:
@@ -157,12 +216,12 @@ class Engine():
                 for bodypart in other_snake.body:
                     if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                         #Collision suff idk
-                        raise NotImplementedError
+                        self.kill_snake(snake.id)
 
             for wall in self.walls:
                 if (snake.head.x == wall.x) and (snake.head.y == wall.y):
                     #Do collision
-                    raise NotImplementedError
+                    self.kill_snake(snake.id)
             
             for food in self.foods:
                 if (snake.head.x == food.x) and (snake.head.y == food.y):
@@ -182,8 +241,16 @@ class Engine():
          For clearity, make needed private functions for
          functionality that is needed
          '''
-        #self.collisions()
-        raise NotImplementedError
+        self.collisions()
+        #if len(self.directions) > 0:
+        for id, direction in self.directions.items():
+            self.move_snake(id, direction)
+    
+    def game_loop_thread(self) -> None:
+        while True:
+            sleep(0.1)
+            print('updating')
+            self.update()
 
     @staticmethod
     def get_items_on_screen(id:str, data:game.Data, width:int=11, height:int=11) -> List[game.Object]:
@@ -226,6 +293,17 @@ class Engine():
 if __name__ == '__main__':
     engine = Engine()
     engine.spawn_snake('Thomas')
-    engine.foods.append(engine._Engine__new_food(0, 0))
+    #engine.foods.append(engine._Engine__new_food(0, 0))
     #print(engine.data_to_client())
-    engine.collisions()
+    for snake in engine.data_to_client().snakes:
+        print(snake.head.x, snake.head.y, snake.head.skin)
+        for bodypart in snake.body:
+            print(bodypart.x, bodypart.y, bodypart.skin)
+    engine.move_snake('Thomas', 'd')
+    print('Moving snake')
+    for snake in engine.data_to_client().snakes:
+        print(snake.head.x, snake.head.y, snake.head.skin)
+        for bodypart in snake.body:
+            print(bodypart.x, bodypart.y, bodypart.skin)
+    #print(engine.data_to_client())
+    #engine.collisions()
