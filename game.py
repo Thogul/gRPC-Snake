@@ -19,6 +19,7 @@ from client import Client
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
 
+#score = str(engine.Snake().score)
 gameover = False
 
 class Mainwindow(QMainWindow):
@@ -165,6 +166,10 @@ class Ui_Form(QWidget):
 
     def playAgian(self):
         #borad = Board(Mainwindow)
+        self.parent.engine = engine_revised.Engine()
+        self.parent.client = Client(userName, self.parent.engine)
+        self.parent.client.send_action("w")
+        self.parent.start()
         self.close()
         
         
@@ -182,12 +187,14 @@ class Ui_Form(QWidget):
     # retranslateUi
 
 class Board(QFrame):
-
     score = pyqtSignal(str)
-    WIDTHINBLOCKS = 105
-    HEIGHTINBLOCKS = 75
+    
     def __init__(self, parent):
         super(Board, self).__init__(parent)
+
+        
+        self.WIDTHINBLOCKS = 105
+        self.HEIGHTINBLOCKS = 75
         
         self.SPEED = 17
         self.parent = parent
@@ -228,14 +235,14 @@ class Board(QFrame):
 
 
     def rec_width(self):
-        return self.contentsRect().width() / Board.WIDTHINBLOCKS
+        return self.contentsRect().width() / self.WIDTHINBLOCKS
     
     def rec_height(self):
-        return self.contentsRect().height() / Board.HEIGHTINBLOCKS
+        return self.contentsRect().height() / self.HEIGHTINBLOCKS
     
     def start(self):
         self.timer.start(self.SPEED, self)
-        self.engine.generate_outer_walls(100, 150)
+        #self.engine.generate_outer_walls(100, 150)
 
     def paintEvent(self, event): 
         
@@ -244,9 +251,9 @@ class Board(QFrame):
         
         global selectedColor
 
-        boardtop = rect.bottom() - Board.HEIGHTINBLOCKS * self.rec_height()
+        boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
         data = self.client.gotten_data.get()
-        self.items = self.engine.get_items_on_screen(userName, data, Board.WIDTHINBLOCKS, Board.HEIGHTINBLOCKS)
+        self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         #print('Getting moves: ', self.items)
 
         for item in self.items:

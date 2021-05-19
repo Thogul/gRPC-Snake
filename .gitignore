@@ -140,3 +140,4 @@ dmypy.json
 #Adding ignore for python testing code
 /testing
 test.py
+legacy/login.py

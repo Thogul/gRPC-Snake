@@ -81,10 +81,10 @@ class Engine():
         return data
 
     def spawn_food_at_snakes(self) -> None:
-        for snake in self.snakes:
-            headx, heady = snake.head.x, snake.head.y
-            if self.max_food > len(self.foods):
-                self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
+        snake = random.choice(self.snakes)
+        headx, heady = snake.head.x, snake.head.y
+        if self.max_food > len(self.foods):
+            self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
@@ -112,6 +112,9 @@ class Engine():
                 if (mat.x == wall.x) and (mat.y == wall.y):
                     under = True
                     break
+            
+            if (mat.x <= self.boundariesx[0]) and (mat.x >= self.boundariesx[1]) and (mat.y <= self.boundariesy[0]) and (mat.y >= self.boundariesy[1]):
+                under = True
 
         golden = random.randint(1,10)
         if golden == 10:
