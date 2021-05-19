@@ -26,26 +26,18 @@ class GameServer(rpc.GameServerServicer):
             yield data
     
     def GameAction(self, request: game.Action, context):
-        print(f'{request.id} generated new snek')
+        #Move snek!
+        self.engine.set_snake_direction(request.id, request.direction)
+        print(f'{request.id} moved')
         #self.engine.move_sanek(request.id, request.diretction)
-        snake = game.Snake()
-        snake.head.x = 0
-        snake.head.y = 0
-        snake.head.skin = '@'
-        body = game.Object()
-        body.x = 0
-        body.y = -1
-        body.skin = 'O'
-        snake.body.append(body)
-
-        self.snakes.append(snake)
         return game.Nothing()
 
 if __name__ == '__main__':
     port = 50051
 
     engine = Engine()
-    engine.spawn_snake('Thomas')
+    #engine.spawn_snake('Thomas')
+    engine.generate_outer_walls(50, 50)
     grpc_server = GameServer(engine)
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

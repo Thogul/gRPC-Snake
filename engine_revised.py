@@ -17,6 +17,14 @@ class Engine():
         #save directions in a dictionary of [id, direction]
         self.directions: Dict[Id, Direction] = {}
 
+    @ staticmethod
+    def new_object(x:int, y:int, skin:str):
+        object = game.Object()
+        object.x = x
+        object.y = y
+        object.skin = skin
+        return object
+
     @staticmethod
     def __new_snake(id:str, x:int, y:int, score:int=0, length:int=5) -> game.Snake:
         snake = game.Snake()
@@ -55,6 +63,12 @@ class Engine():
         supposed to move in the next gamestate update
         '''
         self.directions[id] = direction
+        #check if snake exists, and if not. Spawn a new one.
+        for snake in self.snakes:
+            if snake.id == id:
+                return
+        print('Could not find new snake, made a new one with id:' + id)
+        self.spawn_snake(id, )
 
     def data_to_client(self) -> game.Data:
         data = game.Data()
@@ -106,10 +120,10 @@ class Engine():
         x_offset = width//2
         y_offset = height//2
 
-        self.genereate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
-        self.genereate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
-        self.genereate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
-        self.genereate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
+        self.generate_wall(-x_offset, y_offset+1, x_offset+1, y_offset+1)
+        self.generate_wall(-x_offset, -y_offset-1, x_offset+1, -y_offset-1)
+        self.generate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
+        self.generate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
 
     def generate_wall(self, fromx:int, fromy:int, tox:int, toy:int) -> None:
         if fromy == toy:
@@ -126,7 +140,7 @@ class Engine():
         Spawn a new snake with the given id, also add directions to snake
         '''
         #basic implementation
-        snake = self.__new_snake(id, 1, 1)
+        snake = self.__new_snake(id, 1, 1, 0, 10) #Testing legnth
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
@@ -266,7 +280,8 @@ class Engine():
         if main_snake is None:
             #my snake is not there, i might be dead or something
             #maybe not update anything idk
-            return
+            print('was no main snek')
+            return []
 
         #start the algorithm
         items_onscreen = []
@@ -286,9 +301,49 @@ class Engine():
                 newfood = Engine.__new_food(x, y, food.skin, food.strength)
                 items_onscreen.append(newfood)
 
+        for snake in data.snakes:
+            deltax, deltay = snake.head.x - referencex , referencey - snake.head.y
+            x = middlex + deltax
+            y = middley + deltay
+            if ((0<= x < width) and (0<= y < height)):
+                items_onscreen.append(Engine.new_object(x, y, '@'))
 
+            for bodypart in snake.body:
+                deltax, deltay = snake.head.x - referencex , referencey - snake.head.y
+                x = middlex + deltax
+                y = middley + deltay
+                if ((0<= x < width) and (0<= y < height)):
+                    items_onscreen.append(Engine.new_object(x, y, 'O'))
+
+        for wall in data.walls:
+            deltax, deltay = wall.x - referencex , referencey - wall.y
+            x = middlex + deltax
+            y = middley + deltay
+            if ((0<= x < width) and (0<= y < height)):
+                items_onscreen.append(Engine.new_object(x, y, '#'))
+
+        #Add main snake, with head last so it's printed on top of everything else
+        for bodypart in main_snake.body:
+            deltax, deltay = bodypart.x - referencex , referencey - bodypart.y
+            x = middlex + deltax
+            y = middley + deltay
+            if ((0<= x < width) and (0<= y < height)):
+                items_onscreen.append(Engine.new_object(x, y, 'O'))
+
+        items_onscreen.append(Engine.new_object(middlex, middley, '@'))
+        
         return items_onscreen
 
+    @staticmethod
+    def render_field(items, screen_width=11, screen_height=11):
+        field = [['*' for i in range(screen_width)] for i in range(screen_height)]
+        for item in items:
+            field[item.y][item.x] = item.skin
+    
+        for y in field:
+            for x in y:
+                print(x, end=' ')
+            print('\n', end='')
 
 if __name__ == '__main__':
     engine = Engine()
