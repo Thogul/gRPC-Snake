@@ -100,6 +100,8 @@ class Engine():
             mat.skin = '%'
             mat.strength = 3
 
+        self.foods.append(mat)
+
 
 
     def generate_outer_walls(self) -> None:
