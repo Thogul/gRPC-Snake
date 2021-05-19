@@ -111,7 +111,6 @@ class Engine():
         self.genereate_wall(-x_offset-1, -y_offset, -x_offset-1, y_offset+1)
         self.genereate_wall(x_offset+1, -y_offset, x_offset+1, y_offset+1)
 
-    
     def generate_wall(self, fromx:int, fromy:int, tox:int, toy:int) -> None:
         if fromy == toy:
             for xoffset in range(0, tox-fromx):
@@ -127,7 +126,7 @@ class Engine():
         Spawn a new snake with the given id, also add directions to snake
         '''
         #basic implementation
-        snake = self.__new_snake(id, 0, 0)
+        snake = self.__new_snake(id, 1, 1)
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
@@ -135,8 +134,45 @@ class Engine():
         warnings.warn("Warning...........Just basic implementation")
 
     def move_snake(self, id:str, direction) -> None:
-        raise NotImplementedError
-        #move a snake a direction
+        #firstly find the right snake:
+        #VERY UGLY CODE
+        moves = ['w', 'a', 's', 'd']
+        for snake in self.snakes:
+            if snake.id == id:
+                lastx, lasty = snake.head.x, snake.head.y
+                if direction == 'w':
+                    if snake.body[0].y == lasty+1:
+                        self.move_snake(id, 's')
+                        return
+                    else:
+                        snake.head.y += 1
+                if direction == 's':
+                    if snake.body[0].y == lasty-1:
+                        self.move_snake(id, 'w')
+                        return
+                    else:
+                        snake.head.y -= 1
+                if direction == 'd':
+                    if snake.body[0].x == lastx + 1:
+                        self.move_snake(id, 'a')
+                        return
+                    else:
+                        snake.head.x += 1
+                if direction == 'a':
+                    if snake.body[0].x == lastx - 1:
+                        self.move_snake(id, 'd')
+                        return
+                    else:
+                        snake.head.x -= 1
+
+                #move the body:
+                for i in range(1, len(snake.body)):
+                    snake.body[-i].x = snake.body[-i-1].x
+                    snake.body[-i].y = snake.body[-i-1].y
+                snake.body[0].x = lastx
+                snake.body[0].y = lasty
+
+                return
 
     def grow_snake(self, id:str, food:game.Object) -> None:
         #add a new snake object on the same spot as the last snake bodypart
@@ -243,6 +279,17 @@ class Engine():
 if __name__ == '__main__':
     engine = Engine()
     engine.spawn_snake('Thomas')
-    engine.foods.append(engine._Engine__new_food(0, 0))
+    #engine.foods.append(engine._Engine__new_food(0, 0))
     #print(engine.data_to_client())
-    engine.collisions()
+    for snake in engine.data_to_client().snakes:
+        print(snake.head.x, snake.head.y, snake.head.skin)
+        for bodypart in snake.body:
+            print(bodypart.x, bodypart.y, bodypart.skin)
+    engine.move_snake('Thomas', 'd')
+    print('Moving snake')
+    for snake in engine.data_to_client().snakes:
+        print(snake.head.x, snake.head.y, snake.head.skin)
+        for bodypart in snake.body:
+            print(bodypart.x, bodypart.y, bodypart.skin)
+    #print(engine.data_to_client())
+    #engine.collisions()
