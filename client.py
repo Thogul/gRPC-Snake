@@ -19,7 +19,7 @@ class Client():
     def __init__(self, id:str, engine: Engine):
         self.id = id
         self.engine = engine
-        self.gotten_data = queue(maxsize=0)
+        self.gotten_data = Queue(maxsize=0)
         channel = grpc.insecure_channel(address+':'+str(port))
         self.conn = rpc.GameServerStub(channel)
 
