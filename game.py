@@ -186,8 +186,8 @@ class Ui_Form(QWidget):
     # retranslateUi
 
 class Board(QFrame):
-    score = pyqtSignal(str)
     
+    score = pyqtSignal(str)
     def __init__(self, parent):
         super(Board, self).__init__(parent)
 
@@ -252,7 +252,19 @@ class Board(QFrame):
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
         data = self.client.gotten_data.get()
+
+        data.snakes[:]
+
+        for snake in data.snakes:
+
+            print(snake.score)
+            self.score.emit(str(snake.score))
         self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        
+       
+
+        
+
         #print('Getting moves: ', self.items)
 
         for item in self.items:
@@ -302,7 +314,8 @@ class Board(QFrame):
             #self.paintEvent(event)
             #print("okey")
             #self.length.emit(str(len(self.engine.snake.body)+1))
-            #self.score.emit(str(self.engine.snake.score))
+            
+           
 
             self.update()
 
