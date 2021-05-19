@@ -45,8 +45,11 @@ class GameServer(rpc.GameServerServicer):
 
 if __name__ == '__main__':
     port = 50051
-
-    db = db.DB()
+    import sys
+    db = None
+    if len(sys.argv) > 1:
+        if sys.argv[1] == True:
+            db = db.DB()
     engine = Engine()
     #engine.spawn_snake('Thomas')
     #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))

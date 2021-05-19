@@ -234,7 +234,7 @@ class Engine():
                 self.snakes.remove(snake)
                 self.directions.pop(id, None)
                 if self.db is not None:
-                    self.db.insert_score(id, score)
+                    Thread(target=lambda:self.db.insert_score(id, score), daemon=True).start()
                 self.__spawn_food(x, y, x, y)
 
     def update_scores(self) -> None:
