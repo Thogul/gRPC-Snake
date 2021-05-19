@@ -1,6 +1,7 @@
 import random
 import sys
 import engine
+import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtWidgets import QDialog, QColorDialog
@@ -13,6 +14,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtMultimedia import *
 import random
 import sys
+from client import Client
 
 
 selectedColor = QtGui.QColor(0, 0, 255)
@@ -191,19 +193,22 @@ class Board(QtWidgets.QFrame):
     def __init__(self, parent):
         super(Board, self).__init__(parent)
         
-        self.SPEED = 80
+        self.SPEED = 17
         self.parent = parent
         self.screen_width = int(self.parent.width())
         self.screen_height = int(self.parent.height())
         self.setFocusPolicy(Qt.StrongFocus)
   
+     
+        #self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        self.engine = engine_revised.Engine()
+        self.client = Client(userName, self.engine)
+        self.client.send_action("w")
 
 
-        self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        
-        self.engine.spawn_food()
         ##self.engine.generate_outer_walls(100,150)
-        self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        #self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
+        #self.items = self.engine.get_items_on_screen()
         self.timer = QBasicTimer()
 
         self.direction = "w"
@@ -244,17 +249,15 @@ class Board(QtWidgets.QFrame):
         global selectedColor
 
         boardtop = rect.bottom() - Board.HEIGHTINBLOCKS * self.rec_height()
-        self.items = self.engine.get_items_on_screen(Board.WIDTHINBLOCKS, Board.HEIGHTINBLOCKS)
+        data = self.client.gotten_data.get()
+        self.items = self.engine.get_items_on_screen(userName, data, Board.WIDTHINBLOCKS, Board.HEIGHTINBLOCKS)
         #print('Getting moves: ', self.items)
 
         for item in self.items:
             if item.skin == '@':
-               # self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height())
-                #self.draw_square(painter, item.x * self.rec_width(),  item.y * self.rec_height())
+              
                 self.draw_square(painter,rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
-                #self.draw_square(painter,  item.y * self.rec_height() , item.x * self.rec_width())
-                #print(item.x, item.y)
-                #print(str(self.contentsRect().width() / self.WIDTHINBLOCKS), str(self.contentsRect().height() / self.HEIGHTINBLOCKS))
+             
             elif item.skin == 'O':
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
                 #print('drawing new item at:', end=' ')
@@ -281,12 +284,14 @@ class Board(QtWidgets.QFrame):
     def timerEvent(self, event):
         
         if event.timerId() == self.timer.timerId():
+            #self.paintEvent(event)
             #print('Moving')
-            self.engine.snake.move(self.direction)
+            #self.engine.snake.move(self.direction)
+           # self.client.send_action(self.direction)
     
-            if self.engine.update():
-                self.gameover()
-                self.timer.stop()
+           # if self.engine.update():
+            #    self.gameover()
+             #   self.timer.stop()
                 
 
   
@@ -295,7 +300,7 @@ class Board(QtWidgets.QFrame):
             #self.paintEvent(event)
             #print("okey")
             #self.length.emit(str(len(self.engine.snake.body)+1))
-            self.score.emit(str(self.engine.snake.score))
+            #self.score.emit(str(self.engine.snake.score))
 
             self.update()
 
@@ -311,26 +316,32 @@ class Board(QtWidgets.QFrame):
   
    
     def keyPressEvent(self, event):
+
+        
         #print('noe')
 
         key = event.key()
         if key == Qt.Key_W or key == Qt.Key_Up:
             #self.engine.snake.move(key)
+            self.client.send_action("w")
             self.direction = 'w'
             print('you pressed w')
 
         if key == Qt.Key_A or key == Qt.Key_Left:
             #self.engine.snake.move(key)
+            self.client.send_action("a")
             self.direction = 'a'
             print("you pressed a")
         
         if key == Qt.Key_D or key == Qt.Key_Right:
             #self.engine.snake.move(key)
+            self.client.send_action("d")
             self.direction = 'd'
             print("you pressed d")
 
         if key == Qt.Key_S or key == Qt.Key_Down:
             #self.engine.snake.move(key)
+            self.client.send_action("s")
             self.direction = 's'
             print("you pressed s")
 
