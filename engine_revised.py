@@ -81,7 +81,8 @@ class Engine():
         return data
 
     def spawn_food_at_snakes(self) -> None:
-        snake = random.choice(self.snakes)
+        randint = random.randint(0, len(self.snakes))
+        snake = self.snakes[randint]
         headx, heady = snake.head.x, snake.head.y
         if self.max_food > len(self.foods):
             self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
