@@ -49,9 +49,9 @@ class Mainwindow(QMainWindow):
         #self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
         self.board.start()
-        self.scoreboard = QtWidgets.QTextBrowser(self.board)
-        self.scoreboard.setEnabled(False)
-        self.scoreboard.setGeometry(QtCore.QRect(10, 10, 171, 241))
+        self.scoreboard = QtWidgets.QTextEdit(self.board)
+        #self.scoreboard.setEnabled(False)
+        self.scoreboard.setGeometry(QtCore.QRect(10, 10, 200, 241))
         self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
@@ -77,12 +77,15 @@ class Mainwindow(QMainWindow):
         
         self.label.setGeometry(QRect(140, -47, 201, 200))
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
-        self.board.score[str].connect(self.label.setText)
+        #self.board.score[str].connect(self.label.setText)
+        #self.board.score[str].connect(self.scoreboard.setText)
+        for score in self.board.snok_score:
+            print(score.id)
+            self.scoreboard.append(score.score)
         
-       
-       
+        #self.board.score[str].connect(self.statusbar.showMessage)
+        #print(self.board.score[str])
 
-        self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -177,7 +180,8 @@ class Ui_Form(QWidget):
 
 class Board(QFrame):
     
-    score = pyqtSignal(str)
+    #score = pyqtSignal(str)
+    snok_score =[]
     def __init__(self, parent):
         super(Board, self).__init__(parent)
 
@@ -246,7 +250,13 @@ class Board(QFrame):
         data.snakes[:]
 
         for snake in data.snakes:
-            self.score.emit(str(snake.score))
+
+            #Board.snok_score.append({snake.id, snake.score})
+            self.parent.scoreboard.setText(snake.id + ' : ' + str(snake.score))
+            #self.score.emit(str(snake.score))
+
+
+
 
         self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
