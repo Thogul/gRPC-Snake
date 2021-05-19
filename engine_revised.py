@@ -13,13 +13,14 @@ Id = str
 Direction = str
 
 class Engine():
-    def __init__(self) -> None:
+    def __init__(self, db = None) -> None:
         self.snakes: List[game.Snake] = []
         self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
         self.max_food = 10
         self.boundariesx : Tuple(int, int) = (0, 0)
         self.boundariesy : Tuple(int, int) = (0, 0)
+        self.db = db
         
         #save directions in a dictionary of [id, direction]
         self.directions: Dict[Id, Direction] = {}
@@ -230,11 +231,11 @@ class Engine():
             if snake.id == id:
                 score = snake.score
                 x, y = snake.body[0].x, snake.body[0].y
-                #self.__spawn_food(x, y, x, y)
                 self.snakes.remove(snake)
                 self.directions.pop(id, None)
-                #Thread(db.insert_score(id, score), daemon=True).start()
-                #db.insert_score(id, score)
+                if self.db is not None:
+                    self.db.insert_score(id, score)
+                self.__spawn_food(x, y, x, y)
 
     def update_scores(self) -> None:
         for snake in self.snakes:
