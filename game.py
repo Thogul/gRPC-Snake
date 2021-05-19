@@ -247,11 +247,24 @@ class Board(QFrame):
         data.snakes[:]
 
         for snake in data.snakes:
-            if snake.id == userName:
-                self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score) + '\n')
-            elif snake.id != userName:
+
+            self.snok_score.append({'id' : snake.id, 'score' : snake.score})
+            print(self.snok_score.pop())
+            
+            self.snok_score.sort(key=lambda x: x.get('score'), reverse=True)
+
+            for id,score in self.snok_score:
+
+                self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score))
+
+            #if snake.id != userName:
+                #self.parent.scoreboard.setPlainText(self.snok_score.pop())
+
+            #if snake.id == userName:
+                #self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score) + '\n')
+            #elif snake.id != userName:
             #Board.snok_score.append({snake.id, snake.score})
-                self.parent.scoreboard.append(snake.id + ' : ' + str(snake.score) + '\n')
+                #self.parent.scoreboard.append(snake.id + ' : ' + str(snake.score) + '\n')
             
             #self.score.emit(str(snake.score))
 
