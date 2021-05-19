@@ -2,6 +2,10 @@ from time import sleep
 import protobuffer_pb2 as game
 import random
 
+from threading import Thread
+
+#import db #database
+
 #type hinting stuff
 from typing import List, Dict, Tuple
 Wall_obj = game.Object
@@ -224,8 +228,13 @@ class Engine():
         print(id + 'Died')
         for snake in self.snakes:
             if snake.id == id:
+                score = snake.score
+                x, y = snake.body[0].x, snake.body[0].y
+                #self.__spawn_food(x, y, x, y)
                 self.snakes.remove(snake)
                 self.directions.pop(id, None)
+                #Thread(db.insert_score(id, score), daemon=True).start()
+                #db.insert_score(id, score)
 
     def update_scores(self) -> None:
         for snake in self.snakes:
