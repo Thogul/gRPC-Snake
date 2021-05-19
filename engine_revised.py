@@ -81,10 +81,10 @@ class Engine():
         return data
 
     def spawn_food_at_snakes(self) -> None:
-        for snake in self.snakes:
-            headx, heady = snake.head.x, snake.head.y
-            if self.max_food > len(self.foods):
-                self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
+        snake = random.choice(self.snakes)
+        headx, heady = snake.head.x, snake.head.y
+        if self.max_food > len(self.foods):
+            self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
@@ -277,7 +277,7 @@ class Engine():
         for id, direction in self.directions.items():
             self.move_snake(id, direction)
 
-        #self.spawn_food_at_snakes()
+        self.spawn_food_at_snakes()
     
     def game_loop_thread(self) -> None:
         while True:
