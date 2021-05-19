@@ -159,7 +159,7 @@ class Engine():
         minx, maxx = self.boundariesx
         x = random.randint(minx, maxx)
         miny, maxy = self.boundariesy
-        y = random.randint(miny, maxy)
+        y = random.randint(miny, maxy-10)
         snake = self.__new_snake(id, x, y, 0, 4) #Testing legnth
         self.snakes.append(snake)
         self.directions[id] = 'w'
