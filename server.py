@@ -45,7 +45,8 @@ if __name__ == '__main__':
 
     print('Starting server, listening...')
 
-    server.add_insecure_port('[::]:' + str(port))
+    server.add_insecure_port('192.168.43.122:' + str(port))
+    #server.add_insecure_port('[::]:' + str(port))
     server.start()
     gameloop = Thread(target=engine.game_loop_thread, daemon=True)
     gameloop.start()

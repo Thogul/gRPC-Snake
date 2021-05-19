@@ -11,7 +11,7 @@ from engine_revised import Engine
 from queue import Queue
 
 
-address = 'localhost'
+address = '192.168.43.122'
 port = 50051
 
 class Client():
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     from sys import argv
     client = None
     if len(argv) == 2:
-        client = Client(int(argv[1]), Engine)
+        client = Client(argv[1], Engine)
     else:
         client = Client('Thomas', Engine)
     while True:

@@ -140,7 +140,7 @@ class Engine():
         Spawn a new snake with the given id, also add directions to snake
         '''
         #basic implementation
-        snake = self.__new_snake(id, 1, 1, 0, 10) #Testing legnth
+        snake = self.__new_snake(id, 1, 1, 0, 4) #Testing legnth
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
@@ -204,6 +204,7 @@ class Engine():
                 return
 
     def kill_snake(self, id):
+        print(id + 'Died')
         for snake in self.snakes:
             if snake.id == id:
                 self.snakes.remove(snake)
@@ -262,7 +263,7 @@ class Engine():
     
     def game_loop_thread(self) -> None:
         while True:
-            sleep(0.1)
+            sleep(1)
             print('updating')
             self.update()
 
@@ -271,8 +272,8 @@ class Engine():
         #get the main snake first, for center reference
         main_snake = None
         #should be with i, snake in enumerate(data.snakes):
-        for i in range(len(data.snakes)):
-            if data.snakes[i].id == id:
+        for i, snake in enumerate(data.snakes):
+            if snake.id == id:
                 main_snake = data.snakes.pop(i)
         if main_snake is None:
             #my snake is not there, i might be dead or something
@@ -298,15 +299,15 @@ class Engine():
                 newfood = Engine.__new_food(x, y, food.skin, food.strength)
                 items_onscreen.append(newfood)
 
-        for snake in data.snakes:
-            deltax, deltay = snake.head.x - referencex , referencey - snake.head.y
+        for other_snake in data.snakes:
+            deltax, deltay = other_snake.head.x - referencex , referencey - other_snake.head.y
             x = middlex + deltax
             y = middley + deltay
             if ((0<= x < width) and (0<= y < height)):
                 items_onscreen.append(Engine.new_object(x, y, '@'))
 
-            for bodypart in snake.body:
-                deltax, deltay = snake.head.x - referencex , referencey - snake.head.y
+            for bodypart in other_snake.body:
+                deltax, deltay = bodypart.x - referencex , referencey - bodypart.y
                 x = middlex + deltax
                 y = middley + deltay
                 if ((0<= x < width) and (0<= y < height)):
