@@ -81,11 +81,12 @@ class Engine():
         return data
 
     def spawn_food_at_snakes(self) -> None:
-        randint = random.randint(0, len(self.snakes))
-        snake = self.snakes[randint]
-        headx, heady = snake.head.x, snake.head.y
-        if self.max_food > len(self.foods):
-            self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
+        if len(self.snakes) > 0:
+            randint = random.randint(0, len(self.snakes)-1)
+            snake = self.snakes[randint]
+            headx, heady = snake.head.x, snake.head.y
+            if self.max_food > len(self.foods):
+                self.__spawn_food(headx-5, heady-5, headx+5, heady+5)
 
     def __spawn_food(self, minx:int, miny:int, maxx:int, maxy:int) -> None:
         import warnings
@@ -227,7 +228,7 @@ class Engine():
                 self.directions.pop(id, None)
 
     def update_scores(self) -> None:
-        for snake in self.snake:
+        for snake in self.snakes:
             snake.score += (len(snake.body)+1)//2
 
     def collisions(self):
