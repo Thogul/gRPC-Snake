@@ -172,7 +172,6 @@ class Ui_Form(QWidget):
         self.parent.start()
         self.close()
         
-        
 
     
 
@@ -390,6 +389,7 @@ class LoginDialog(QDialog):
         self.instructions = QtWidgets.QLabel(Dialog)
         self.instructions.setGeometry(QtCore.QRect(140, 90, 241, 22))
         self.instructions.setObjectName("instructions")
+
         
         #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
@@ -434,6 +434,7 @@ def main():
     
     app = QtWidgets.QApplication(sys.argv)
     login = LoginDialog()
+    login.setWindowFlags(Qt.Window)
     login.show()
     sys.exit(app.exec_())
     
