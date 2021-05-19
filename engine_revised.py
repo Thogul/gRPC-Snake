@@ -119,7 +119,7 @@ class Engine():
                     under = True
                     break
             
-            if (mat.x <= self.boundariesx[0]) and (mat.x >= self.boundariesx[1]) and (mat.y <= self.boundariesy[0]) and (mat.y >= self.boundariesy[1]):
+            if (mat.x <= self.boundariesx[0]) or (mat.x >= self.boundariesx[1]) or (mat.y <= self.boundariesy[0]) or (mat.y >= self.boundariesy[1]):
                 under = True
 
         golden = random.randint(1,10)
