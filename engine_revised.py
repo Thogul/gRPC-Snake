@@ -268,9 +268,6 @@ class Engine():
 
     @staticmethod
     def get_items_on_screen(id:str, data:game.Data, width:int=11, height:int=11) -> List[game.Object]:
-        import warnings
-        warnings.warn("Warning...........Not fully implemented")
-
         #get the main snake first, for center reference
         main_snake = None
         #should be with i, snake in enumerate(data.snakes):
