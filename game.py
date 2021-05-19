@@ -1,6 +1,5 @@
 import random
 import sys
-import engine
 import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow
@@ -20,7 +19,6 @@ from client import Client
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
 
-score = str(engine.Snake().score)
 gameover = False
 
 class Mainwindow(QMainWindow):
