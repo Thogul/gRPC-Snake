@@ -33,7 +33,18 @@ message Data {
     repeated Object walls = 3;
 }
 
+//For scoreboard:
+message Score {
+    string id = 1;
+    int32 score = 2;
+}
+
+message HighScores {
+    repeated Score scores = 1;
+}
+
 service GameServer {
     rpc GameStream (Nothing) returns (stream Data);
     rpc GameAction (Action) returns (Nothing);
+    rpc GameScores (Nothing) returns (HighScores);
 }

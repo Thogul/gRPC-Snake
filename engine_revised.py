@@ -226,6 +226,10 @@ class Engine():
                 self.snakes.remove(snake)
                 self.directions.pop(id, None)
 
+    def update_scores(self) -> None:
+        for snake in self.snake:
+            snake.score += (len(snake.body)+1)//2
+
     def collisions(self):
         #Run throught each snake and see if it collides with anything
         #Maybe when running through snakes, make it not run through earlier snakes
@@ -282,6 +286,7 @@ class Engine():
             self.move_snake(id, direction)
 
         self.spawn_food_at_snakes()
+        self.update_scores()
     
     def game_loop_thread(self) -> None:
         while True:

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"<\n\x04\x46ood\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\x12\x10\n\x08strength\x18\x04 \x01(\x05\"P\n\x05Snake\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"L\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake\x12\x14\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x05.Food\x12\x16\n\x05walls\x18\x03 \x03(\x0b\x32\x07.Object2N\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothingb\x06proto3'
+  serialized_pb=b'\n\x11protobuffer.proto\"\t\n\x07Nothing\"\'\n\x06\x41\x63tion\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tdirection\x18\x02 \x01(\t\",\n\x06Object\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\"<\n\x04\x46ood\x12\t\n\x01x\x18\x01 \x01(\x05\x12\t\n\x01y\x18\x02 \x01(\x05\x12\x0c\n\x04skin\x18\x03 \x01(\t\x12\x10\n\x08strength\x18\x04 \x01(\x05\"P\n\x05Snake\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\x12\x15\n\x04head\x18\x03 \x01(\x0b\x32\x07.Object\x12\x15\n\x04\x62ody\x18\x04 \x03(\x0b\x32\x07.Object\"L\n\x04\x44\x61ta\x12\x16\n\x06snakes\x18\x01 \x03(\x0b\x32\x06.Snake\x12\x14\n\x05\x66oods\x18\x02 \x03(\x0b\x32\x05.Food\x12\x16\n\x05walls\x18\x03 \x03(\x0b\x32\x07.Object\"\"\n\x05Score\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05score\x18\x02 \x01(\x05\"$\n\nHighScores\x12\x16\n\x06scores\x18\x01 \x03(\x0b\x32\x06.Score2s\n\nGameServer\x12\x1f\n\nGameStream\x12\x08.Nothing\x1a\x05.Data0\x01\x12\x1f\n\nGameAction\x12\x07.Action\x1a\x08.Nothing\x12#\n\nGameScores\x12\x08.Nothing\x1a\x0b.HighScoresb\x06proto3'
 )
 
 
@@ -286,17 +286,91 @@ _DATA = _descriptor.Descriptor(
   serialized_end=339,
 )
 
+
+_SCORE = _descriptor.Descriptor(
+  name='Score',
+  full_name='Score',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='Score.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='score', full_name='Score.score', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=341,
+  serialized_end=375,
+)
+
+
+_HIGHSCORES = _descriptor.Descriptor(
+  name='HighScores',
+  full_name='HighScores',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='scores', full_name='HighScores.scores', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=377,
+  serialized_end=413,
+)
+
 _SNAKE.fields_by_name['head'].message_type = _OBJECT
 _SNAKE.fields_by_name['body'].message_type = _OBJECT
 _DATA.fields_by_name['snakes'].message_type = _SNAKE
 _DATA.fields_by_name['foods'].message_type = _FOOD
 _DATA.fields_by_name['walls'].message_type = _OBJECT
+_HIGHSCORES.fields_by_name['scores'].message_type = _SCORE
 DESCRIPTOR.message_types_by_name['Nothing'] = _NOTHING
 DESCRIPTOR.message_types_by_name['Action'] = _ACTION
 DESCRIPTOR.message_types_by_name['Object'] = _OBJECT
 DESCRIPTOR.message_types_by_name['Food'] = _FOOD
 DESCRIPTOR.message_types_by_name['Snake'] = _SNAKE
 DESCRIPTOR.message_types_by_name['Data'] = _DATA
+DESCRIPTOR.message_types_by_name['Score'] = _SCORE
+DESCRIPTOR.message_types_by_name['HighScores'] = _HIGHSCORES
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Nothing = _reflection.GeneratedProtocolMessageType('Nothing', (_message.Message,), {
@@ -341,6 +415,20 @@ Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
   })
 _sym_db.RegisterMessage(Data)
 
+Score = _reflection.GeneratedProtocolMessageType('Score', (_message.Message,), {
+  'DESCRIPTOR' : _SCORE,
+  '__module__' : 'protobuffer_pb2'
+  # @@protoc_insertion_point(class_scope:Score)
+  })
+_sym_db.RegisterMessage(Score)
+
+HighScores = _reflection.GeneratedProtocolMessageType('HighScores', (_message.Message,), {
+  'DESCRIPTOR' : _HIGHSCORES,
+  '__module__' : 'protobuffer_pb2'
+  # @@protoc_insertion_point(class_scope:HighScores)
+  })
+_sym_db.RegisterMessage(HighScores)
+
 
 
 _GAMESERVER = _descriptor.ServiceDescriptor(
@@ -350,8 +438,8 @@ _GAMESERVER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=341,
-  serialized_end=419,
+  serialized_start=415,
+  serialized_end=530,
   methods=[
   _descriptor.MethodDescriptor(
     name='GameStream',
@@ -370,6 +458,16 @@ _GAMESERVER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_ACTION,
     output_type=_NOTHING,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GameScores',
+    full_name='GameServer.GameScores',
+    index=2,
+    containing_service=None,
+    input_type=_NOTHING,
+    output_type=_HIGHSCORES,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
