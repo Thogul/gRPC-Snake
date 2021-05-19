@@ -79,10 +79,7 @@ class Mainwindow(QMainWindow):
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
         #self.board.score[str].connect(self.label.setText)
         #self.board.score[str].connect(self.scoreboard.setText)
-        for score in self.board.snok_score:
-            print(score.id)
-            self.scoreboard.append(score.score)
-        
+      
         #self.board.score[str].connect(self.statusbar.showMessage)
         #print(self.board.score[str])
 
@@ -250,9 +247,12 @@ class Board(QFrame):
         data.snakes[:]
 
         for snake in data.snakes:
-
+            if snake.id == userName:
+                self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score) + '\n')
+            elif snake.id != userName:
             #Board.snok_score.append({snake.id, snake.score})
-            self.parent.scoreboard.setText(snake.id + ' : ' + str(snake.score))
+                self.parent.scoreboard.append(snake.id + ' : ' + str(snake.score) + '\n')
+            
             #self.score.emit(str(snake.score))
 
 
@@ -260,7 +260,8 @@ class Board(QFrame):
 
         self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         
-       
+        if len(self.items) ==0:
+            self.parent.scoreboard.clear()
 
         
 
