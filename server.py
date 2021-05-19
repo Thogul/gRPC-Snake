@@ -37,6 +37,7 @@ if __name__ == '__main__':
 
     engine = Engine()
     #engine.spawn_snake('Thomas')
+    #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
     engine.generate_outer_walls(50, 50)
     grpc_server = GameServer(engine)
 
@@ -45,12 +46,13 @@ if __name__ == '__main__':
 
     print('Starting server, listening...')
 
-    server.add_insecure_port('192.168.43.122:' + str(port))
-    #server.add_insecure_port('[::]:' + str(port))
+    #server.add_insecure_port('192.168.43.122:' + str(port))
+    server.add_insecure_port('[::]:' + str(port))
     server.start()
     gameloop = Thread(target=engine.game_loop_thread, daemon=True)
     gameloop.start()
     server.wait_for_termination()
+    exit(0)
     '''
     id = 0
     while True:
