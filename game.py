@@ -119,7 +119,8 @@ class Mainwindow(QMainWindow):
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name + ' Score : '))
         self.radioButton.setText(_translate("MainWindow", "Music"))
-class Ui_Form(QtWidgets.QWidget):
+
+class Ui_Form(QWidget):
 
     def __init__(self, parent):
 
@@ -166,10 +167,7 @@ class Ui_Form(QtWidgets.QWidget):
 
     def playAgian(self):
         #borad = Board(Mainwindow)
-        self.parent.engine = engine.Engine()
-        self.parent.start()
         self.close()
-
         
         
 
@@ -185,7 +183,7 @@ class Ui_Form(QtWidgets.QWidget):
         self.label.setText(_translate("Widget", "Quit or play again?"))
     # retranslateUi
 
-class Board(QtWidgets.QFrame):
+class Board(QFrame):
 
     score = pyqtSignal(str)
     WIDTHINBLOCKS = 105
@@ -289,9 +287,9 @@ class Board(QtWidgets.QFrame):
             #self.engine.snake.move(self.direction)
            # self.client.send_action(self.direction)
     
-            if len(self.items):
+            if len(self.items)==0:
                 self.gameover()
-                #self.timer.stop()
+                self.timer.stop()
                 
 
   
