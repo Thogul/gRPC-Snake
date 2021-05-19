@@ -56,19 +56,10 @@ class Mainwindow(QMainWindow):
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
         #MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1017, 26))
-        self.menubar.setStyleSheet("background: rgb(238, 238, 238)")
-        self.menubar.setObjectName("menubar")
-        self.menuSettings = QtWidgets.QMenu(self.menubar)
-        self.menuSettings.setObjectName("menuSettings")
-        #self.menuSettings.ad
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setStyleSheet("background: rgb(240, 240, 240)")
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.menubar.addAction(self.menuSettings.menuAction())
         self.soundeffect = QSoundEffect(MainWindow)
         self.soundeffect.setSource(QUrl.fromLocalFile("gamemusic.wav"))
         self.soundeffect.setVolume(0.25)
@@ -114,7 +105,6 @@ class Mainwindow(QMainWindow):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
         self.scoreboard.append(_translate("scoreboard", self.name + ' Score : '))
         self.radioButton.setText(_translate("MainWindow", "Music"))
