@@ -16,7 +16,7 @@ class GameServerStub(object):
         """
         self.GameStream = channel.unary_stream(
                 '/GameServer/GameStream',
-                request_serializer=protobuffer__pb2.Nothing.SerializeToString,
+                request_serializer=protobuffer__pb2.Action.SerializeToString,
                 response_deserializer=protobuffer__pb2.Data.FromString,
                 )
         self.GameAction = channel.unary_unary(
@@ -57,7 +57,7 @@ def add_GameServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GameStream': grpc.unary_stream_rpc_method_handler(
                     servicer.GameStream,
-                    request_deserializer=protobuffer__pb2.Nothing.FromString,
+                    request_deserializer=protobuffer__pb2.Action.FromString,
                     response_serializer=protobuffer__pb2.Data.SerializeToString,
             ),
             'GameAction': grpc.unary_unary_rpc_method_handler(
@@ -92,7 +92,7 @@ class GameServer(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_stream(request, target, '/GameServer/GameStream',
-            protobuffer__pb2.Nothing.SerializeToString,
+            protobuffer__pb2.Action.SerializeToString,
             protobuffer__pb2.Data.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

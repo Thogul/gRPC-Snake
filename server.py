@@ -18,22 +18,28 @@ class GameServer(rpc.GameServerServicer):
         self.engine = engine
         #nasty way to set db, but w/e
         self.engine.db = self.db
+        self.connections = []
 
-    def GameStream(self, request_iterator, context) -> game.Data:
-        lastindex = 0
-
-        while True:
-            time.sleep(0.05)
+    def GameStream(self, request: game.Action, context) -> game.Data:
+        self.connections.append(request.id)
+        while request.id in self.connections:
+            time.sleep(0.04)
             data = self.engine.data_to_client()
             #data = game.Data()
             #data.snakes.extend(self.snakes)
-
             yield data
     
     def GameAction(self, request: game.Action, context) -> game.Nothing:
         #Move snek!
-        self.engine.set_snake_direction(request.id, request.direction)
-        print(f'{request.id} moved')
+        if request.direction == "stop":
+            self.connections.remove(request.id)
+            print(request.id + 'disdconnected')
+        elif request.direction == "spawn":
+            self.engine.spawn_snake(request.id)
+            print(request.id + 'Connected')
+        else:  
+            self.engine.set_snake_direction(request.id, request.direction)
+            print(f'{request.id} moved')
         #self.engine.move_sanek(request.id, request.diretction)
         return game.Nothing()
 
@@ -50,7 +56,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         if sys.argv[1] == True:
             db = db.DB()
-    engine = Engine()
+    engine = Engine(db)
     #engine.spawn_snake('Thomas')
     #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
     engine.generate_outer_walls(50, 50)

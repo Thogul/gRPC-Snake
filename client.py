@@ -1,6 +1,7 @@
 import queue
 from sys import maxsize
 import threading
+from time import sleep
 
 import grpc
 
@@ -27,10 +28,23 @@ class Client():
 
 
         #New listening thread for getting messages
-        threading.Thread(target=self.__listen_for_messages, daemon=True).start()
+        self.id_action = game.Action()
+        self.id_action.id = self.id
+        self.id_action.direction = "stream"
+        self.stream_thread = threading.Thread(target=self.__listen_for_messages, daemon=True)
 
+        self.started = False
+        
+    def start(self):
+        self.send_action('spawn')
+        self.stream_thread.start()
+        self.started = True
+    
+    def stop(self):
+        self.send_action('stop')
+    
     def __listen_for_messages(self):
-        for data in self.conn.GameStream(game.Nothing()):
+        for data in self.conn.GameStream(self.id_action):
             #print(data)
             self.gotten_data.put(data)
             '''
@@ -38,7 +52,6 @@ class Client():
             all_items = self.engine.get_items_on_screen(self.id, data)
             self.engine.render_field(all_items)
             '''
-            
 
     def send_action(self, action):
         if action != '':

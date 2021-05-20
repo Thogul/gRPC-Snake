@@ -44,7 +44,7 @@ message HighScores {
 }
 
 service GameServer {
-    rpc GameStream (Nothing) returns (stream Data);
+    rpc GameStream (Action) returns (stream Data);
     rpc GameAction (Action) returns (Nothing);
     rpc GameScores (Nothing) returns (HighScores);
 }

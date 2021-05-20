@@ -75,8 +75,8 @@ class Engine():
         for snake in self.snakes:
             if snake.id == id:
                 return
-        print('Could not find new snake, made a new one with id:' + id)
-        self.spawn_snake(id, )
+        #print('Could not find new snake, made a new one with id:' + id)
+        #self.spawn_snake(id, )
 
     def data_to_client(self) -> game.Data:
         data = game.Data()

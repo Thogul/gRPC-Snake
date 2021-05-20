@@ -15,6 +15,9 @@ import random
 import sys
 from client import Client
 
+from time import sleep
+
+import protobuffer_pb2 as game
 
 selectedColor = QtGui.QColor(0, 0, 255)
 userName = str
@@ -71,7 +74,6 @@ class Mainwindow(QMainWindow):
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(False)
         
-        
         self.label = QLabel(MainWindow)
         self.label.setObjectName("label")
         
@@ -79,9 +81,6 @@ class Mainwindow(QMainWindow):
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
         self.board.score[str].connect(self.label.setText)
         
-       
-       
-
         self.board.score[str].connect(self.statusbar.showMessage)
     
         self.retranslateUi(MainWindow)
@@ -94,7 +93,6 @@ class Mainwindow(QMainWindow):
             self.soundeffect.play()
         else:
             self.soundeffect.stop()        
-
 
 
     def retranslateUi(self, MainWindow):
@@ -163,8 +161,6 @@ class Ui_Form(QWidget):
         self.close()
         
 
-    
-
     def retranslateUi(self, QWidget):
         _translate = QtCore.QCoreApplication.translate
 
@@ -185,7 +181,7 @@ class Board(QFrame):
         self.WIDTHINBLOCKS = 105
         self.HEIGHTINBLOCKS = 75
         
-        self.SPEED = 17
+        self.SPEED = 1
         self.parent = parent
         self.screen_width = int(self.parent.width())
         self.screen_height = int(self.parent.height())
@@ -195,8 +191,9 @@ class Board(QFrame):
         #self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.engine = engine_revised.Engine()
         self.client = Client(userName, self.engine)
-        self.client.send_action("w")
-
+        #self.client.send_action("w")
+        self.data = game.Data()
+        self.data.snakes.append(game.Snake())
 
         ##self.engine.generate_outer_walls(100,150)
         #self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
@@ -205,22 +202,12 @@ class Board(QFrame):
 
         self.direction = "w"
 
-
-
-
-
         self.food = []
 
         self.board = []
 
         self.snakes_score = []
         #print(str(self.items))
-
-        
-
-
-
-       
 
 
     def rec_width(self):
@@ -230,8 +217,11 @@ class Board(QFrame):
         return self.contentsRect().height() / self.HEIGHTINBLOCKS
     
     def start(self):
+        self.client.start()
+        sleep(1)
         self.timer.start(self.SPEED, self)
         #self.engine.generate_outer_walls(100, 150)
+        #begin connection to server
 
     def paintEvent(self, event): 
         
@@ -241,18 +231,15 @@ class Board(QFrame):
         global selectedColor
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
-        data = self.client.gotten_data.get()
+        if not self.client.gotten_data.empty():
+            self.data = self.client.gotten_data.get_nowait()
 
-        data.snakes[:]
+        self.data.snakes[:]
 
-        for snake in data.snakes:
+        for snake in self.data.snakes:
             self.score.emit(str(snake.score))
 
-        self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        
-       
-
-        
+        self.items = self.engine.get_items_on_screen(userName, self.data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
 
         #print('Getting moves: ', self.items)
 
@@ -276,52 +263,33 @@ class Board(QFrame):
                 color = QColor(0, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
 
-            
-                
 
     def draw_square(self, painter, x, y, QColor):
 
         painter.fillRect(int(x) , int(y) , int(self.rec_width()) -2 , int(self.rec_height()) -2 , QColor)
     
-    
+
     def timerEvent(self, event):
-        
-        if event.timerId() == self.timer.timerId():
+        pass
+        #if event.timerId() == self.timer.timerId():
             #self.paintEvent(event)
             #print('Moving')
             #self.engine.snake.move(self.direction)
            # self.client.send_action(self.direction)
     
-            if len(self.items)==0:
-                self.gameover()
-                self.timer.stop()
-                
+            #if len(self.items)==0:
+                #self.client.stop()
+                #self.gameover()
+                #self.timer.stop()
 
-  
-                
-                
-            #self.paintEvent(event)
-            #print("okey")
-            #self.length.emit(str(len(self.engine.snake.body)+1))
-            
-           
-
-            self.update()
+            #self.update()
 
     def gameover(self):
-
-        
         self.gameoverWidget = Ui_Form(self)
         self.gameoverWidget.show()
 
-           
 
-  
-   
     def keyPressEvent(self, event):
-
-        
-        #print('noe')
 
         key = event.key()
         if key == Qt.Key_W or key == Qt.Key_Up:
@@ -349,8 +317,6 @@ class Board(QFrame):
             print("you pressed s")
 
         
-        
-
 class LoginDialog(QDialog):
 
     def __init__(self):
@@ -397,8 +363,6 @@ class LoginDialog(QDialog):
         #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
-    
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -431,8 +395,6 @@ class LoginDialog(QDialog):
         self.instructions.setText(_translate("Dialog", 'Move with "WASD" or the arrowkeys!'))
 
 
-    
-
 def main():
     
     app = QtWidgets.QApplication(sys.argv)
@@ -441,8 +403,5 @@ def main():
     login.show()
     sys.exit(app.exec_())
     
-    
-
-
 if __name__ == '__main__':
     main()
