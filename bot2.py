@@ -4,26 +4,26 @@ from client import Client
 from engine_revised import Engine
 from threading import Thread
 import random
-from protobuffer_pb2 import Data
+
 
 
 class Bot():
     def __init__(self, id, engine:Engine, client:Client) -> None:
         self.id = id
         self.engine = Engine
-        self.client = client(self.id, self.engine)
+        self.client = Client(self.id, self.engine)
         
-
-        snakes = Data.snakes
-        for snake in snakes:
-            if self.id == snake.id:
-                self.snake = snake
-                break
+        while True:
+            data = self.client.gotten_data.get()
+            for snake in data.snakes:
+                if self.id == snake.id:
+                    self.snake = snake
+                    break
 
 
     def getFood(self):
         
-        mat = random.choice.Data.foods
+        mat = random.choice.data.foods
         snake = self.snake
             
         if snake.head.x < mat.x:
