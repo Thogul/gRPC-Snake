@@ -7,10 +7,6 @@ import random
 
 import sys
 
-bot_amount = int(sys.argv[1])
-
-
-
 class Bot():
     def __init__(self, id, engine:Engine, client:Client) -> None:
         self.id = id
@@ -105,7 +101,7 @@ if __name__ == '__main__':
     from time import sleep
     #bot_dos = Bot('Pro gamer', Engine, Client)
     #bot_dos.start()
-    bot_amount = 1
+    bot_amount = int(sys.argv[1])
     for i in range(bot_amount):
         bot = Bot('bot'+str(i), Engine, Client)
         bot.start()
