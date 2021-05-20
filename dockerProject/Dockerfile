@@ -1,8 +1,7 @@
 FROM python:latest
 
-
 WORKDIR /gRPC-Snake
-COPY gRPC-Snake ./
+COPY ../ ./
 RUN python -m pip install -r requierments.txt
 
 EXPOSE 50051
