@@ -1,4 +1,5 @@
 from concurrent import futures
+import sys
 from threading import Thread
 
 import grpc
@@ -6,6 +7,8 @@ import time
 
 import protobuffer_pb2 as game
 import protobuffer_pb2_grpc as rpc
+
+import db
 
 from engine_revised import Engine
 
@@ -34,7 +37,12 @@ class GameServer(rpc.GameServerServicer):
 if __name__ == '__main__':
     port = 50051
 
-    engine = Engine()
+    from sys import argv
+    d_b = None
+    if len(argv) == 2:
+        if argv[1] == 'True':
+            d_b = db.DB()
+    engine = Engine(d_b)
     #engine.spawn_snake('Thomas')
     #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
     engine.generate_outer_walls(50, 50)
