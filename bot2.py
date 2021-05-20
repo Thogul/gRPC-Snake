@@ -17,8 +17,10 @@ class Bot():
     def getFood(self):
         data = self.client.gotten_data.get()
         while len(data.foods) == 0:
+            print('No food')
             data = self.client.gotten_data.get()
         mat = random.choice(data.foods)
+        print('going for ', mat.x, mat.y)
         while True:
             data = self.client.gotten_data.get()
             snake = None
@@ -27,11 +29,13 @@ class Bot():
                     snake = some_snake
             if snake is None:
                 print('am dead i guess')
-                exit(0)
+                return
                 
             if snake.head.x < mat.x:
                 #while snake.head.x < mat.x:
-                if self.heading == 'a':
+                if self.heading == 'd':
+                    continue
+                elif self.heading == 'a':
                     self.client.send_action('w')
                 else:
                     self.client.send_action('d')
@@ -39,17 +43,21 @@ class Bot():
                 continue
             elif snake.head.x > mat.x:
                 #while snake.head.x > mat.x:
-                if self.heading == 'd':
+                if self.heading == 'a':
+                    continue
+                elif self.heading == 'd':
                     self.client.send_action('w')
                     self.heading = 'w'
                 else:
                     self.client.send_action('a')
                     self.heading = 'a'
-                continue
+                    continue
             
-            if snake.head.y < mat.y:
+            elif snake.head.y < mat.y:
                 #while snake.head.y < mat.y:
-                if self.heading == 's':
+                if self.heading == 'w':
+                    continue
+                elif self.heading == 's':
                     self.client.send_action('a')
                     self.heading = 'a'
                 else:
@@ -58,7 +66,9 @@ class Bot():
                 continue
             elif snake.head.y > mat.y:
                 #while snake.head.y > mat.y:
-                if self.heading == 'w':
+                if self.heading == 's':
+                    continue
+                elif self.heading == 'w':
                     self.client.send_action('a')
                     self.heading = 'a'
                 else:
@@ -66,7 +76,7 @@ class Bot():
                     self.heading = 's'
                 continue
 
-            if (snake.head.x == mat.x) and (snake.head.y == mat.y):
+            elif (snake.head.x == mat.x) and (snake.head.y == mat.y):
                 print('360 No-scope!')
                 return
     
@@ -74,8 +84,12 @@ class Bot():
         while True:
             data = self.client.gotten_data.get()
             if self.engine.get_items_on_screen(self.id, data) == []:
-                print('Spawning')
                 self.client.send_action('w')
+                print('spawning')
+            while self.engine.get_items_on_screen(self.id, data) == []:
+                data = self.client.gotten_data.get()
+                print('waiting spawn')
+
             self.getFood()
 
 
@@ -85,9 +99,9 @@ class Bot():
 if __name__ == '__main__':
     #bot_dos = Bot('Pro gamer', Engine, Client)
     #bot_dos.start()
-    bot_amount = 9
+    bot_amount = 1
     for i in range(bot_amount):
-        bot = Bot('bot'+i, Engine, Client)
+        bot = Bot('bot'+str(i), Engine, Client)
         bot.start()
     while True:
         pass

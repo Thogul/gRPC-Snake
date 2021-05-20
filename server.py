@@ -59,7 +59,6 @@ if __name__ == '__main__':
     gameloop = Thread(target=engine.game_loop_thread, daemon=True)
     gameloop.start()
     server.wait_for_termination()
-    exit(0)
     '''
     id = 0
     while True:

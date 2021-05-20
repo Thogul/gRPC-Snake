@@ -17,7 +17,7 @@ class Engine():
         self.snakes: List[game.Snake] = []
         self.foods: List[game.Food] = []
         self.walls: List[game.Object] = []
-        self.max_food = 10
+        self.max_food = 1
         self.boundariesx : Tuple(int, int) = (0, 0)
         self.boundariesy : Tuple(int, int) = (0, 0)
         self.db = db
