@@ -12,8 +12,8 @@ from queue import Queue
 
 
 #address = '192.168.43.122'
-address = 'localhost'
-#address = '0.0.0.0'
+#address = 'localhost'
+address = '127.0.0.1'
 port = 50051
 
 class Client():
@@ -27,10 +27,12 @@ class Client():
 
 
         #New listening thread for getting messages
+        self.id_message = game.Id()
+        self.id_message.id = self.id
         threading.Thread(target=self.__listen_for_messages, daemon=True).start()
 
     def __listen_for_messages(self):
-        for data in self.conn.GameStream(game.Nothing()):
+        for data in self.conn.GameStream(self.id_message):
             #print(data)
             self.gotten_data.put(data)
             '''

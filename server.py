@@ -14,15 +14,14 @@ class GameServer(rpc.GameServerServicer):
         self.snakes = []
         self.engine = engine
 
-    def GameStream(self, request_iterator, context):
+    def GameStream(self, request, context):
         lastindex = 0
-
+        id = request.id
         while True:
             time.sleep(0.05)
-            data = self.engine.data_to_client()
+            data = self.engine.data_to_client(id)
             #data = game.Data()
             #data.snakes.extend(self.snakes)
-
             yield data
     
     def GameAction(self, request: game.Action, context):

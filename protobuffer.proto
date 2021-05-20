@@ -31,6 +31,7 @@ message Data {
     repeated Snake snakes = 1;
     repeated Food foods = 2;
     repeated Object walls = 3;
+    bool alive = 4;
 }
 
 //For scoreboard:
@@ -43,8 +44,12 @@ message HighScores {
     repeated Score scores = 1;
 }
 
+message Id {
+    string id = 1;
+}
+
 service GameServer {
-    rpc GameStream (Nothing) returns (stream Data);
+    rpc GameStream (Id) returns (stream Data);
     rpc GameAction (Action) returns (Nothing);
     rpc GameScores (Nothing) returns (HighScores);
 }

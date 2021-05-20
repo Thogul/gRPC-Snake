@@ -14,6 +14,9 @@ from PyQt5.QtMultimedia import *
 import random
 import sys
 from client import Client
+from threading import Thread
+import protobuffer_pb2 as game
+from time import sleep
 
 
 selectedColor = QtGui.QColor(0, 0, 255)
@@ -156,14 +159,12 @@ class Ui_Form(QWidget):
 
     def playAgian(self):
         #borad = Board(Mainwindow)
-        self.parent.engine = engine_revised.Engine()
-        self.parent.client = Client(userName, self.parent.engine)
-        self.parent.client.send_action("w")
+        #self.parent.engine = engine_revised.Engine()
+        #self.parent.client = Client(userName, self.parent.engine)
+        #self.parent.client.send_action("w")
         self.parent.start()
         self.close()
         
-
-    
 
     def retranslateUi(self, QWidget):
         _translate = QtCore.QCoreApplication.translate
@@ -206,23 +207,24 @@ class Board(QFrame):
 
         self.direction = "w"
 
-
-
-
-
         self.food = []
 
         self.board = []
 
         self.snakes_score = []
+
+        self.data = game.Data()
+        self.data.alive = False
+        self.data_thread = Thread(target=self.game_data_loop, daemon=True)
+        self.data_thread.start()
+        while not self.data.alive:
+            sleep(0.5)
+
         #print(str(self.items))
 
-        
-
-
-
-       
-
+    def game_data_loop(self):
+        while True:
+            self.data = self.client.gotten_data.get()
 
     def rec_width(self):
         return self.contentsRect().width() / self.WIDTHINBLOCKS
@@ -232,6 +234,14 @@ class Board(QFrame):
     
     def start(self):
         self.timer.start(self.SPEED, self)
+        if not self.data_thread.is_alive():
+            self.data_thread.start()
+        self.client.send_action("w")
+        self.data.alive = False
+
+        while not self.data.alive:
+            sleep(0.5)
+
         #self.engine.generate_outer_walls(100, 150)
 
     def paintEvent(self, event): 
@@ -242,42 +252,15 @@ class Board(QFrame):
         global selectedColor
 
         boardtop = rect.bottom() - self.HEIGHTINBLOCKS * self.rec_height()
-        data = self.client.gotten_data.get()
+        #data = self.client.gotten_data.get()
 
-        data.snakes[:]
+        #self.data.snakes[:]
 
-        for snake in data.snakes:
-
-            self.snok_score.append({'id' : snake.id, 'score' : snake.score})
-            print(self.snok_score.pop())
-            
-            self.snok_score.sort(key=lambda x: x.get('score'), reverse=True)
-
-            for id,score in self.snok_score:
-
-                self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score))
-
-            #if snake.id != userName:
-                #self.parent.scoreboard.setPlainText(self.snok_score.pop())
-
-            #if snake.id == userName:
-                #self.parent.scoreboard.setPlainText(snake.id + ' : ' + str(snake.score) + '\n')
-            #elif snake.id != userName:
-            #Board.snok_score.append({snake.id, snake.score})
-                #self.parent.scoreboard.append(snake.id + ' : ' + str(snake.score) + '\n')
-            
-            #self.score.emit(str(snake.score))
-
-
-
-
-        self.items = self.engine.get_items_on_screen(userName, data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        
-        if len(self.items) ==0:
-            self.parent.scoreboard.clear()
-
-        
-
+        mini_data = game.Data()
+        mini_data.snakes.extend(self.data.snakes)
+        mini_data.foods.extend(self.data.foods)
+        mini_data.walls.extend(self.data.walls)
+        self.items = self.engine.get_items_on_screen(userName, mini_data, self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         #print('Getting moves: ', self.items)
 
         for item in self.items:
@@ -311,24 +294,22 @@ class Board(QFrame):
     def timerEvent(self, event):
         
         if event.timerId() == self.timer.timerId():
-            #self.paintEvent(event)
-            #print('Moving')
-            #self.engine.snake.move(self.direction)
-           # self.client.send_action(self.direction)
-    
-            if len(self.items)==0:
+            scores = []
+            for snake in self.data.snakes:
+                scores.append((snake.id, snake.score))
+            scores.sort(key=lambda x : x[1])
+            score_string = ""
+            for i, (id, score) in enumerate(scores):
+                if i == 5:
+                    break
+                score_string += f"{id}: {score}\n"
+            self.parent.scoreboard.setPlainText(score_string)
+
+            
+            if not self.data.alive:
                 self.gameover()
                 self.timer.stop()
-                
-
-  
-                
-                
-            #self.paintEvent(event)
-            #print("okey")
-            #self.length.emit(str(len(self.engine.snake.body)+1))
             
-           
 
             self.update()
 
