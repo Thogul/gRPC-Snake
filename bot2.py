@@ -34,7 +34,7 @@ class Bot():
             if snake.head.x < mat.x:
                 #while snake.head.x < mat.x:
                 if self.heading == 'd':
-                    continue
+                    pass
                 elif self.heading == 'a':
                     self.client.send_action('w')
                     self.heading = 'w'
@@ -45,7 +45,7 @@ class Bot():
             elif snake.head.x > mat.x:
                 #while snake.head.x > mat.x:
                 if self.heading == 'a':
-                    continue
+                    pass
                 elif self.heading == 'd':
                     self.client.send_action('w')
                     self.heading = 'w'
@@ -57,7 +57,7 @@ class Bot():
             elif snake.head.y < mat.y:
                 #while snake.head.y < mat.y:
                 if self.heading == 'w':
-                    continue
+                    pass
                 elif self.heading == 's':
                     self.client.send_action('a')
                     self.heading = 'a'
@@ -68,7 +68,7 @@ class Bot():
             elif snake.head.y > mat.y:
                 #while snake.head.y > mat.y:
                 if self.heading == 's':
-                    continue
+                    pass
                 elif self.heading == 'w':
                     self.client.send_action('a')
                     self.heading = 'a'
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     #bot_dos.start()
     bot_amount = int(sys.argv[1])
     for i in range(bot_amount):
-        bot = Bot('bot'+str(i), Engine, Client)
+        bot = Bot('Pro gamer '+str(i + 1)+' ', Engine, Client)
         bot.start()
         sleep(2)
     while True:
