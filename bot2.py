@@ -38,6 +38,7 @@ class Bot():
                 elif self.heading == 'a':
                     self.client.send_action('w')
                     self.heading = 'w'
+                    sleep(0.25)
                 else:
                     self.client.send_action('d')
                     self.heading = 'd'
@@ -49,6 +50,7 @@ class Bot():
                 elif self.heading == 'd':
                     self.client.send_action('w')
                     self.heading = 'w'
+                    sleep(0.25)
                 else:
                     self.client.send_action('a')
                     self.heading = 'a'
@@ -61,6 +63,7 @@ class Bot():
                 elif self.heading == 's':
                     self.client.send_action('a')
                     self.heading = 'a'
+                    sleep(0.25)
                 else:
                     self.client.send_action('w')
                     self.heading = 'w'
@@ -72,6 +75,7 @@ class Bot():
                 elif self.heading == 'w':
                     self.client.send_action('a')
                     self.heading = 'a'
+                    sleep(0.25)
                 else:
                     self.client.send_action('s')
                     self.heading = 's'
