@@ -12,17 +12,17 @@ class Bot():
         self.id = id
         self.engine = Engine
         self.client = client(self.id, self.engine)
+        
+        for snake in Data.snakes:
+            if self.id == snake.id:
+                self.snake = snake
+                break
 
-
-    snakes = Data.snakes
-    for snake in snakes:
-        if id == snake.id:
-            bot_snake = snake
 
     def getFood(self):
         
         mat = random.choice.Data.foods
-        snake = Bot.bot_snake
+        snake = self.snake
             
         if snake.x < mat.x:
             while snake.x < mat.x:
