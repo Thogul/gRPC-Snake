@@ -37,6 +37,7 @@ class Bot():
                     continue
                 elif self.heading == 'a':
                     self.client.send_action('w')
+                    self.heading = 'w'
                 else:
                     self.client.send_action('d')
                     self.heading = 'd'
@@ -51,7 +52,7 @@ class Bot():
                 else:
                     self.client.send_action('a')
                     self.heading = 'a'
-                    continue
+                continue
             
             elif snake.head.y < mat.y:
                 #while snake.head.y < mat.y:
@@ -78,13 +79,14 @@ class Bot():
 
             elif (snake.head.x == mat.x) and (snake.head.y == mat.y):
                 print('360 No-scope!')
-                return
+                break
     
     def run(self):
         while True:
             data = self.client.gotten_data.get()
             if self.engine.get_items_on_screen(self.id, data) == []:
                 self.client.send_action('w')
+                self.heading = 'w'
                 print('spawning')
             while self.engine.get_items_on_screen(self.id, data) == []:
                 data = self.client.gotten_data.get()
@@ -97,11 +99,13 @@ class Bot():
         Thread(target=self.run, daemon=True).start()
 
 if __name__ == '__main__':
+    from time import sleep
     #bot_dos = Bot('Pro gamer', Engine, Client)
     #bot_dos.start()
-    bot_amount = 1
+    bot_amount = 3
     for i in range(bot_amount):
         bot = Bot('bot'+str(i), Engine, Client)
         bot.start()
+        sleep(2)
     while True:
         pass
