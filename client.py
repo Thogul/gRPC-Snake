@@ -12,8 +12,8 @@ from queue import Queue
 
 
 #address = '192.168.43.122'
-#address = 'localhost'
-address = '127.0.0.1'
+address = 'localhost'
+#address = '172.20.10.5'
 port = 50051
 
 class Client():
@@ -22,7 +22,11 @@ class Client():
         self.id = id
         self.engine = engine
         self.gotten_data = Queue(maxsize=0)
-        channel = grpc.insecure_channel(address+':'+str(port))
+
+        with open('server.crt', 'rb') as f:
+            trusted_certs = f.read()
+        credentials = grpc.ssl_channel_credentials(root_certificates=trusted_certs)
+        channel = grpc.secure_channel(address+':'+str(port), credentials)
         self.conn = rpc.GameServerStub(channel)
 
 
