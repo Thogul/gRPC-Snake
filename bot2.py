@@ -13,7 +13,9 @@ class Bot():
         self.engine = Engine
         self.client = client(self.id, self.engine)
         
-        for snake in Data.snakes:
+
+        snakes = Data.snakes
+        for snake in snakes:
             if self.id == snake.id:
                 self.snake = snake
                 break
@@ -24,21 +26,22 @@ class Bot():
         mat = random.choice.Data.foods
         snake = self.snake
             
-        if snake.x < mat.x:
-            while snake.x < mat.x:
+        if snake.head.x < mat.x:
+            while snake.head.x < mat.x:
                 self.client.send_action('d')
-        elif snake.x > mat.x:
-            while snake.x > mat.x:
+        elif snake.head.x > mat.x:
+            while snake.head.x > mat.x:
                 self.client.send_action('a')
         
-        if snake.y < mat.y:
-            while snake.y < mat.y:
+        if snake.head.y < mat.y:
+            while snake.head.y < mat.y:
                 self.client.send_action('w')
-        elif snake.y > mat.y:
-            while snake.y > mat.y:
+        elif snake.head.y > mat.y:
+            while snake.head.y > mat.y:
                 self.client.send_action('s')
 
         if (snake.x == mat.x) and (snake.y == mat.y):
+            print('360 No-scope!')
             Bot.getFood()
 
     def run(self):
