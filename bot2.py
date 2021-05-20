@@ -83,7 +83,11 @@ class Bot():
         Thread(target=self.run, daemon=True).start()
 
 if __name__ == '__main__':
-    bot_dos = Bot('Pro gamer', Engine, Client)
-    bot_dos.start()
+    #bot_dos = Bot('Pro gamer', Engine, Client)
+    #bot_dos.start()
+    bot_amount = 9
+    for i in range(bot_amount):
+        bot = Bot('bot'+i, Engine, Client)
+        bot.start()
     while True:
         pass
