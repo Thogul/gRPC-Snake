@@ -12,8 +12,8 @@ from queue import Queue
 
 
 #address = '192.168.43.122'
-#address = 'localhost'
-address = '127.0.0.1'
+address = 'localhost'
+#address = '172.20.10.5'
 port = 50051
 
 class Client():
