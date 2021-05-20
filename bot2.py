@@ -84,13 +84,12 @@ class Bot():
     def run(self):
         while True:
             data = self.client.gotten_data.get()
-            if self.engine.get_items_on_screen(self.id, data) == []:
+            while self.engine.get_items_on_screen(self.id, data) == []:
                 self.client.send_action('w')
                 self.heading = 'w'
                 print('spawning')
-            while self.engine.get_items_on_screen(self.id, data) == []:
                 data = self.client.gotten_data.get()
-                print('waiting spawn')
+                sleep(0.5)
 
             self.getFood()
 
@@ -102,7 +101,7 @@ if __name__ == '__main__':
     from time import sleep
     #bot_dos = Bot('Pro gamer', Engine, Client)
     #bot_dos.start()
-    bot_amount = 3
+    bot_amount = 1
     for i in range(bot_amount):
         bot = Bot('bot'+str(i), Engine, Client)
         bot.start()
