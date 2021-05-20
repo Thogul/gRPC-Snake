@@ -5,6 +5,10 @@ from engine_revised import Engine
 from threading import Thread
 import random
 
+import sys
+
+bot_amount = int(sys.argv[1])
+
 
 
 class Bot():
