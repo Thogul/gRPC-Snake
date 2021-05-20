@@ -12,35 +12,35 @@ class Bot():
         self.engine = Engine
         self.client = client(self.id, self.engine)
 
+    def getFood(self):
+        
+        mat = random.choice.Engine.foods
+        snake = Engine.snake
+            
+        if snake.x < mat.x:
+            while snake.x < mat.x:
+                self.client.send_action('d')
+        elif snake.x > mat.x:
+            while snake.x > mat.x:
+                self.client.send_action('a')
+        
+        if snake.y < mat.y:
+            while snake.y < mat.y:
+                self.client.send_action('w')
+        elif snake.y > mat.y:
+            while snake.y > mat.y:
+                self.client.send_action('s')
+
+        if (snake.x == mat.x) and (snake.y == mat.y):
+            Bot.getFood()
+
     def run(self):
         while True:
             data = self.client.gotten_data.get()
             if self.engine.get_items_on_screen(self.id, data) == []:
                 print('Spawning')
                 self.client.send_action('w')
-
-            
-    def getFood(self):
-        while True:
-            mat = random.choice.Engine.foods
-            snake = Engine.snake
-                
-            if snake.x < mat.x:
-                while snake.x < mat.x:
-                    self.client.send_action('d')
-            elif snake.x > mat.x:
-                while snake.x > mat.x:
-                    self.client.send_action('a')
-            
-            if snake.y < mat.y:
-                while snake.y < mat.y:
-                    self.client.send_action('w')
-            elif snake.y > mat.y:
-                while snake.y > mat.y:
-                    self.client.send_action('s')
-        
-       
-        
+                Bot.getFood()
 
 
     def start(self):
