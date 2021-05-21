@@ -111,7 +111,7 @@ if __name__ == '__main__':
     #bot_dos.start()
     bot_amount = int(sys.argv[1])
     for i in range(bot_amount):
-        bot = Bot('Pro gamer '+str(i + 1)+' ', Engine, Client)
+        bot = Bot('bot-'+str(i + 1)+' ', Engine, Client)
         bot.start()
         sleep(2)
     while True:

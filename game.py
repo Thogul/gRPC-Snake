@@ -1,17 +1,9 @@
-import random
-import sys
 import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QDialog, QColorDialog
-from PyQt5.QtCore import QBasicTimer 
-from PyQt5.QtWidgets import * 
-from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import * 
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
 from PyQt5.QtMultimedia import *
-import random
 import sys
 from client import Client
 from threading import Thread
@@ -19,7 +11,7 @@ import protobuffer_pb2 as game
 from time import sleep
 
 
-selectedColor = QtGui.QColor(0, 0, 255)
+selectedColor = QtGui.QColor(255, 85, 255)
 userName = str
 
 #score = str(engine.Snake().score)
