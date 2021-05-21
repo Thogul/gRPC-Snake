@@ -294,10 +294,10 @@ class Board(QFrame):
             scores = []
             for snake in self.data.snakes:
                 scores.append((snake.id, snake.score))
-            scores.sort(key=lambda x : x[1])
+            scores.sort(key=lambda x : x[1], reverse=True)
             score_string = ""
             for i, (id, score) in enumerate(scores):
-                if i == 5:
+                if i == 10:
                     break
                 score_string += f"{id}: {score}\n"
             self.parent.scoreboard.setPlainText(score_string)
