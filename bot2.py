@@ -38,10 +38,11 @@ class Bot():
                 elif self.heading == 'a':
                     self.client.send_action('w')
                     self.heading = 'w'
-                    sleep(0.25)
+                    sleep(0.5)
                 else:
                     self.client.send_action('d')
                     self.heading = 'd'
+                    sleep(0.05)
                 continue
             elif snake.head.x > mat.x:
                 #while snake.head.x > mat.x:
@@ -50,10 +51,11 @@ class Bot():
                 elif self.heading == 'd':
                     self.client.send_action('w')
                     self.heading = 'w'
-                    sleep(0.25)
+                    sleep(0.05)
                 else:
                     self.client.send_action('a')
                     self.heading = 'a'
+                    sleep(0.05)
                 continue
             
             elif snake.head.y < mat.y:
@@ -63,10 +65,11 @@ class Bot():
                 elif self.heading == 's':
                     self.client.send_action('a')
                     self.heading = 'a'
-                    sleep(0.25)
+                    sleep(0.05)
                 else:
                     self.client.send_action('w')
                     self.heading = 'w'
+                    sleep(0.05)
                 continue
             elif snake.head.y > mat.y:
                 #while snake.head.y > mat.y:
@@ -75,10 +78,11 @@ class Bot():
                 elif self.heading == 'w':
                     self.client.send_action('a')
                     self.heading = 'a'
-                    sleep(0.25)
+                    sleep(0.05)
                 else:
                     self.client.send_action('s')
                     self.heading = 's'
+                    sleep(0.05)
                 continue
 
             elif (snake.head.x == mat.x) and (snake.head.y == mat.y):

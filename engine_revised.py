@@ -171,6 +171,8 @@ class Engine():
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
+        self.max_food = len(self.snakes) * 2
+
         import warnings
         warnings.warn("Warning...........Just basic implementation")
 
@@ -350,14 +352,14 @@ class Engine():
             x = middlex + deltax
             y = middley + deltay
             if ((0<= x < width) and (0<= y < height)):
-                items_onscreen.append(Engine.new_object(x, y, '@'))
+                items_onscreen.append(Engine.new_object(x, y, '§'))
 
             for bodypart in other_snake.body:
                 deltax, deltay = bodypart.x - referencex , referencey - bodypart.y
                 x = middlex + deltax
                 y = middley + deltay
                 if ((0<= x < width) and (0<= y < height)):
-                    items_onscreen.append(Engine.new_object(x, y, 'O'))
+                    items_onscreen.append(Engine.new_object(x, y, '¤'))
 
         for wall in data.walls:
             deltax, deltay = wall.x - referencex , referencey - wall.y

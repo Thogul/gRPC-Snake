@@ -1,17 +1,9 @@
-import random
-import sys
 import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMainWindow
-from PyQt5.QtWidgets import QDialog, QColorDialog
-from PyQt5.QtCore import QBasicTimer 
-from PyQt5.QtWidgets import * 
-from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtCore import * 
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import * 
 from PyQt5.QtMultimedia import *
-import random
 import sys
 from client import Client
 from threading import Thread
@@ -19,7 +11,7 @@ import protobuffer_pb2 as game
 from time import sleep
 
 
-selectedColor = QtGui.QColor(0, 0, 255)
+selectedColor = QtGui.QColor(255, 85, 255)
 userName = str
 
 #score = str(engine.Snake().score)
@@ -265,14 +257,11 @@ class Board(QFrame):
 
         for item in self.items:
             if item.skin == '@':
-              
                 self.draw_square(painter,rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
-             
             elif item.skin == 'O':
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
                 #print('drawing new item at:', end=' ')
                 #print(item.x ,item.y )
-            
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(),color )
@@ -281,6 +270,13 @@ class Board(QFrame):
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
             elif item.skin == '#':
                 color = QColor(0, 0, 0)
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
+            #Other Snake
+            elif item.skin == '¤':
+                color = QColor(0, 0, 255)
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
+            elif item.skin == '§':
+                color = QColor(0, 0, 139)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
 
             
@@ -297,10 +293,10 @@ class Board(QFrame):
             scores = []
             for snake in self.data.snakes:
                 scores.append((snake.id, snake.score))
-            scores.sort(key=lambda x : x[1])
+            scores.sort(key=lambda x : x[1], reverse=True)
             score_string = ""
             for i, (id, score) in enumerate(scores):
-                if i == 5:
+                if i == 10:
                     break
                 score_string += f"{id}: {score}\n"
             self.parent.scoreboard.setPlainText(score_string)
