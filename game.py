@@ -14,7 +14,7 @@ from time import sleep
 selectedColor = QtGui.QColor(255, 85, 255)
 userName = str
 
-#score = str(engine.Snake().score)
+
 gameover = False
 
 class Mainwindow(QMainWindow):
@@ -165,7 +165,7 @@ class Ui_Form(QWidget):
         self.quitButton.setText(_translate("Widget", "Quit"))
         self.playButton.setText(_translate("Widget", "Play Again"))
         self.gameOver.setText(_translate("Widget", "GAME OVER"))
-        self.label.setText(_translate("Widget", "Quit or play again?"))
+        self.label.setText(_translate("Widget", "Final score : "+final_score))
     # retranslateUi
 
 class Board(QFrame):
@@ -293,6 +293,9 @@ class Board(QFrame):
             scores = []
             for snake in self.data.snakes:
                 scores.append((snake.id, snake.score))
+                if userName == snake.id:
+                   global final_score
+                   final_score = str(snake.score)
             scores.sort(key=lambda x : x[1], reverse=True)
             score_string = ""
             for i, (id, score) in enumerate(scores):
