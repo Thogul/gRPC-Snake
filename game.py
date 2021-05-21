@@ -375,6 +375,7 @@ class LoginDialog(QDialog):
         self.userName.setGeometry(QtCore.QRect(125, 20, 241, 22))
         self.userName.setObjectName("userName")
         self.userName.setStyleSheet("background: rgb(255, 255, 255)")
+        self.userName.setMaxLength(7)
         self.enterGame = QtWidgets.QPushButton(Dialog)
         self.enterGame.setGeometry(QtCore.QRect(170, 125, 175, 50))
         self.enterGame.setObjectName("enterGame")
