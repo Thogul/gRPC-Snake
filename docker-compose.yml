@@ -4,7 +4,7 @@ services:
     db:
         image: mongo:latest
         ports: 
-            - 27017:27017
+            - "27017:27017"
         restart: always
         volumes:
             - ./db_init.js:/docker-entrypoint-initdb.d/db_init.js
@@ -14,5 +14,5 @@ services:
             - db
         build: .
         ports: 
-            - 50051:50051
+            - "50051:50051"
         restart: always
