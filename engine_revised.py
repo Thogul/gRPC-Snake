@@ -171,6 +171,8 @@ class Engine():
         self.snakes.append(snake)
         self.directions[id] = 'w'
 
+        self.max_food = len(self.snakes) * 2
+
         import warnings
         warnings.warn("Warning...........Just basic implementation")
 
