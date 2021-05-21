@@ -46,7 +46,7 @@ if __name__ == '__main__':
     engine = Engine(d_b)
     #engine.spawn_snake('Thomas')
     #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
-    engine.generate_outer_walls(50, 50)
+    engine.generate_outer_walls(200, 200)
     grpc_server = GameServer(engine)
 
     with open('server.key', 'rb') as f:
