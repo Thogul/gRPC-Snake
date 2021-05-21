@@ -283,6 +283,9 @@ class Board(QFrame):
             elif item.skin == '¤':
                 color = QColor(0, 0, 255)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
+            elif item.skin == '§':
+                color = QColor(0, 0, 139)
+                self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height() ,color )
 
             
                 
