@@ -312,7 +312,7 @@ class Engine():
     def game_loop_thread(self) -> None:
         while True:
             sleep(0.1)
-            print('updating')
+            #print('updating')
             self.update()
 
     @staticmethod
