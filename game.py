@@ -265,14 +265,11 @@ class Board(QFrame):
 
         for item in self.items:
             if item.skin == '@':
-              
                 self.draw_square(painter,rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
-             
             elif item.skin == 'O':
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
                 #print('drawing new item at:', end=' ')
                 #print(item.x ,item.y )
-            
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(),color )
