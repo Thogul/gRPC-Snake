@@ -11,7 +11,7 @@ import protobuffer_pb2 as game
 from time import sleep
 
 
-selectedColor = QtGui.QColor(0, 0, 255)
+selectedColor = QtGui.QColor(255, 85, 255)
 userName = str
 
 #score = str(engine.Snake().score)
