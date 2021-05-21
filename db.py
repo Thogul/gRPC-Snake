@@ -5,7 +5,7 @@ import protobuffer_pb2 as game
 class DB():
     def __init__(self) -> None:
         
-        self.ip = 'localhost'
+        self.ip = 'db'
         self.port = 27017
         self.client = MongoClient(self.ip, self.port)
 
