@@ -14,9 +14,10 @@ from engine_revised import Engine
 import signal
 
 class GameServer(rpc.GameServerServicer):
-    def __init__(self, engine: Engine):
+    def __init__(self, engine: Engine, db: db.DB):
         self.snakes = []
         self.engine = engine
+        self.db = db
 
     def GameStream(self, request, context):
         lastindex = 0
@@ -34,6 +35,12 @@ class GameServer(rpc.GameServerServicer):
         print(f'{request.id} moved')
         #self.engine.move_sanek(request.id, request.diretction)
         return game.Nothing()
+    
+    def GameScores(self, request: game.Nothing, context) -> game.HighScores:
+        high_scores = game.HighScores()
+        high_scores.extend(self.db.get_scores())
+        return high_scores
+
 
 if __name__ == '__main__':
     port = 50051
@@ -49,7 +56,7 @@ if __name__ == '__main__':
     engine.generate_outer_walls(100, 100)
     engine.generate_wall(0,-10,0,20)
     
-    grpc_server = GameServer(engine)
+    grpc_server = GameServer(engine, d_b)
 
     with open('server.key', 'rb') as f:
         private_key = f.read()

@@ -55,8 +55,10 @@ class Client():
             print(f'Sending action: {action}')
             self.conn.GameAction(n)
 
-    def get_scores(self):
-        self.conn.GameScores()
+    def get_high_scores(self):
+        return self.conn.GameScores(game.Nothing())
+        #return self.conn.GameScores(game.Nothing())
+
 
 
 if __name__ == '__main__':
