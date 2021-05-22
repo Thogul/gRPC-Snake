@@ -9,6 +9,7 @@ import protobuffer_pb2_grpc as rpc
 
 from engine_revised import Engine
 from queue import Queue
+from db import DB
 
 
 #address = '192.168.43.122'
@@ -53,6 +54,10 @@ class Client():
             n.direction = action
             print(f'Sending action: {action}')
             self.conn.GameAction(n)
+
+    def get_scores(self):
+        self.conn.GameScores()
+
 
 if __name__ == '__main__':
     from sys import argv
