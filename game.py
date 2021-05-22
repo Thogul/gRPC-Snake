@@ -15,8 +15,6 @@ selectedColor = QtGui.QColor(255, 85, 255)
 userName = str
 
 
-gameover = False
-
 class Mainwindow(QMainWindow):
 
     def __init__(self, name):
@@ -31,26 +29,15 @@ class Mainwindow(QMainWindow):
 
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1050, 750)
-        #self.setGeometry(100, 100, 1050, 750)
-        #MainWindow.setStyleSheet("background: rgb(170, 255, 127)")
-        #self.centralwidget = QtWidgets.QWidget(MainWindow)
-        #self.centralwidget.setObjectName("centralwidget")
-
-
         self.board = Board(self)
         self.setCentralWidget(self.board)
-        #self.board.setGeometry(QtCore.QRect(0, 0, 1021, 741))
-  #self.board.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        #self.board.setFrameShadow(QtWidgets.QFrame.Raised)
         self.board.setObjectName("board")
         self.board.start()
         self.scoreboard = QtWidgets.QTextEdit(self.board)
-        #self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(10, 10, 200, 241))
         self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
-        #MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setStyleSheet("background: rgb(240, 240, 240)")
         self.statusbar.setObjectName("statusbar")
@@ -65,32 +52,19 @@ class Mainwindow(QMainWindow):
         self.radioButton.setGeometry(QtCore.QRect(10, 650, 61, 20))
         self.radioButton.toggled.connect(lambda:self.btnstate(self.radioButton))
         self.radioButton.setChecked(False)
-        
-        
         self.label = QLabel(MainWindow)
         self.label.setObjectName("label")
-        
         self.label.setGeometry(QRect(140, -47, 201, 200))
         self.label.setStyleSheet("font: 20pt \"8514oem\";")
-        #self.board.score[str].connect(self.label.setText)
-        #self.board.score[str].connect(self.scoreboard.setText)
-      
-        #self.board.score[str].connect(self.statusbar.showMessage)
-        #print(self.board.score[str])
 
-    
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-        
 
     def btnstate(self, radioButton):
         if radioButton.isChecked() == True:
             self.soundeffect.play()
         else:
             self.soundeffect.stop()        
-
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -110,9 +84,7 @@ class Ui_Form(QWidget):
 
         super(Ui_Form, self).__init__(parent)
         self.parent = parent
-
         self.setupUi(self)
-
 
     def setupUi(self, QWidget):
 
@@ -148,7 +120,6 @@ class Ui_Form(QWidget):
         
 
         self.retranslateUi(QWidget)
-
         QMetaObject.connectSlotsByName(QWidget)
     # setupUi
 
@@ -156,20 +127,13 @@ class Ui_Form(QWidget):
         QApplication.instance().quit()
 
     def playAgian(self):
-        #borad = Board(Mainwindow)
-        #self.parent.engine = engine_revised.Engine()
-        #self.parent.client = Client(userName, self.parent.engine)
-        #self.parent.client.send_action("w")
         self.parent.start()
         self.close()
 
     def showScores(self):
-       #self.qdialog = QDialog()
        self.highscore = HighScoreWidget()
        self.highscore.show()
-        #print('scores i guess')
-        #NotImplemented    
-
+         
     def retranslateUi(self, QWidget):
         _translate = QtCore.QCoreApplication.translate
 
@@ -183,31 +147,20 @@ class Ui_Form(QWidget):
 
 class Board(QFrame):
     
-    #score = pyqtSignal(str)
     snok_score =[]
     def __init__(self, parent):
         super(Board, self).__init__(parent)
 
-        
         self.WIDTHINBLOCKS = 105
         self.HEIGHTINBLOCKS = 75
-        
         self.SPEED = 17
         self.parent = parent
         self.screen_width = int(self.parent.width())
         self.screen_height = int(self.parent.height())
         self.setFocusPolicy(Qt.StrongFocus)
-  
-     
-        #self.engine = engine.Engine(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
         self.engine = engine_revised.Engine()
         self.client = Client(userName, self.engine)
         self.client.send_action("w")
-
-
-        ##self.engine.generate_outer_walls(100,150)
-        #self.items = self.engine.get_items_on_screen(self.WIDTHINBLOCKS, self.HEIGHTINBLOCKS)
-        #self.items = self.engine.get_items_on_screen()
         self.timer = QBasicTimer()
 
         self.direction = "w"
@@ -225,7 +178,6 @@ class Board(QFrame):
         while not self.data.alive:
             sleep(0.5)
 
-        #print(str(self.items))
 
     def game_data_loop(self):
         while True:
@@ -247,7 +199,6 @@ class Board(QFrame):
         while not self.data.alive:
             sleep(0.5)
 
-        #self.engine.generate_outer_walls(100, 150)
 
     def paintEvent(self, event): 
         
@@ -316,29 +267,18 @@ class Board(QFrame):
                     break
                 score_string += f"{id}: {score}\n"
             self.parent.scoreboard.setPlainText(score_string)
-
             
             if not self.data.alive:
                 self.gameover()
                 self.timer.stop()
             
-
             self.update()
 
     def gameover(self):
-
-        
         self.gameoverWidget = Ui_Form(self)
         self.gameoverWidget.show()
-
-           
-
-  
    
     def keyPressEvent(self, event):
-
-        
-        #print('noe')
 
         key = event.key()
         if key == Qt.Key_W or key == Qt.Key_Up:
@@ -365,14 +305,10 @@ class Board(QFrame):
             self.direction = 's'
             print("you pressed s")
 
-        
 class HighScoreWidget(QWidget):
 
     def __init__(self, ):
-
         super(HighScoreWidget, self).__init__()
-        #self.parent = parent
-
         self.setUp(self)
 
     def setUp(self, Widget):
@@ -408,11 +344,8 @@ class HighScoreWidget(QWidget):
 class LoginDialog(QDialog):
 
     def __init__(self):
-
         super().__init__()
-
         self.setupUi(self)
-
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -447,13 +380,8 @@ class LoginDialog(QDialog):
         self.instructions = QtWidgets.QLabel(Dialog)
         self.instructions.setGeometry(QtCore.QRect(140, 90, 241, 22))
         self.instructions.setObjectName("instructions")
-
-        
-        #color = QtGui.QColor(0, 0, 255)
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
-    
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -463,7 +391,6 @@ class LoginDialog(QDialog):
             self.framecolor.setStyleSheet("QWidget { background-color: %s}" %color.name())
             global selectedColor
             selectedColor = color
-            #print (selectedColor)
     
     def enter_game(self):
         name = self.userName.text()
@@ -473,20 +400,15 @@ class LoginDialog(QDialog):
         self.main.show()
         self.deleteLater()
         
-
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Get ready to play Snok!"))
-
         self.enterGame.setText(_translate("Dialog", "Enter Game"))
         self.enterGame.setText(_translate("Dialog", "Enter Game"))
         self.pickcolor.setText(_translate("Dialog", "Pick Color"))
         self.userLabel.setText(_translate("Dialog", "Enter nickname: "))
         self.pick.setText(_translate("Dialog", "Choose your color: "))
         self.instructions.setText(_translate("Dialog", 'Move with "WASD" or the arrowkeys!'))
-
-
-    
 
 def main():
     
@@ -496,8 +418,5 @@ def main():
     login.show()
     sys.exit(app.exec_())
     
-    
-
-
 if __name__ == '__main__':
     main()
