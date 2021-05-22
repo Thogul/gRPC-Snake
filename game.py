@@ -224,8 +224,6 @@ class Board(QFrame):
                 self.draw_square(painter,rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
             elif item.skin == 'O':
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(), selectedColor)
-                #print('drawing new item at:', end=' ')
-                #print(item.x ,item.y )
             elif item.skin == 'A':
                 color = QColor(255, 0, 0)
                 self.draw_square(painter, rect.left() + item.x * self.rec_width(), boardtop + item.y * self.rec_height(),color )
@@ -329,6 +327,11 @@ class HighScoreWidget(QWidget):
         self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
+        #self.client = Client()
+        #self.client.
+        self.scoreboard.setPlainText()
+
+
     
 
         self.retranslateUi(Widget)
