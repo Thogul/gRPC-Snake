@@ -38,6 +38,8 @@ class GameServer(rpc.GameServerServicer):
     
     def GameScores(self, request: game.Nothing, context) -> game.HighScores:
         high_scores = game.HighScores()
+        if self.db is None:
+            return high_scores
         high_scores.extend(self.db.get_scores())
         return high_scores
 

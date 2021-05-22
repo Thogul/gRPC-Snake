@@ -68,5 +68,6 @@ if __name__ == '__main__':
         client = Client(argv[1], Engine)
     else:
         client = Client('Thomas', Engine)
-    while True:
-        client.send_action(input())
+    from time import sleep
+    sleep(3)
+    print(client.get_high_scores())
