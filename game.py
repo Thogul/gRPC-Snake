@@ -392,7 +392,7 @@ class HighScoreWidget(QWidget):
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Highscore!!"))
         self.titlelabel.setText(_translate("Widget", "HIGHSCORES"))
-        self.label.setText(_translate("Widget", "Scores"))
+        self.label.setText(_translate("Widget", "Her vil alle scorene være"))
 
 
 class LoginDialog(QDialog):
