@@ -164,9 +164,9 @@ class Ui_Form(QWidget):
         self.close()
 
     def showScores(self):
-       self.qdialog = QDialog(Qt.Pop)
-       #self.highscore = HighScoreWidget()
-       #self.highscore.show()
+       #self.qdialog = QDialog()
+       self.highscore = HighScoreWidget()
+       self.highscore.show()
         #print('scores i guess')
         #NotImplemented    
 
@@ -368,8 +368,11 @@ class Board(QFrame):
         
 class HighScoreWidget(QWidget):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, ):
+
+        super(HighScoreWidget, self).__init__()
+        #self.parent = parent
+
         self.setUp(self)
 
     def setUp(self, Widget):
@@ -384,15 +387,22 @@ class HighScoreWidget(QWidget):
         self.label.setObjectName("scorelabel")
         self.label.setGeometry(QtCore.QRect(270, 50, 130, 20 ))
         self.label.setStyleSheet("Font: 12pt")
+        self.scoreboard = QtWidgets.QTextEdit(Widget)
+        self.scoreboard.setEnabled(False)
+        self.scoreboard.setGeometry(QtCore.QRect(150, 100, 300, 300))
+        self.scoreboard.setFont(QFont("Arial", 12))
+        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
+        self.scoreboard.setObjectName("scoreboard")
+    
 
         self.retranslateUi(Widget)
         QtCore.QMetaObject.connectSlotsByName(Widget)     
 
     def retranslateUi(self, Widget):
         _translate = QtCore.QCoreApplication.translate
-        Widget.setWindowTitle(_translate("Widget", "Highscore!!"))
-        self.titlelabel.setText(_translate("Widget", "HIGHSCORES"))
-        self.label.setText(_translate("Widget", "Her vil alle scorene være"))
+        Widget.setWindowTitle(_translate("Widget", "Highscore"))
+        self.titlelabel.setText(_translate("Widget", "Leaderboard"))
+        #self.label.setText(_translate("Widget", "Her vil alle scorene være"))
 
 
 class LoginDialog(QDialog):
