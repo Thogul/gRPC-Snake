@@ -121,16 +121,22 @@ class Ui_Form(QWidget):
         QWidget.setGeometry(350,100,346,268)
         self.quitButton = QtWidgets.QPushButton(QWidget)
         self.quitButton.setObjectName("quitButton")
-        self.quitButton.setGeometry(QRect(50, 170, 93, 28))
+        self.quitButton.setGeometry(QRect(0, 170, 110, 28))
         self.quitButton.setStyleSheet("background:rgb(255, 85, 0)")
         self.quitButton.clicked.connect(self.quitGame)
         self.playButton = QtWidgets.QPushButton(QWidget)
         self.playButton.setObjectName("playButton")
-        self.playButton.setGeometry(QRect(200, 170, 93, 28))
+        self.playButton.setGeometry(QRect(116, 170, 110, 28))
         self.playButton.setStyleSheet("background:rgb(85, 170, 255)")
         self.playButton.clicked.connect(self.playAgian)
+        self.scoreButton = QtWidgets.QPushButton(QWidget)
+        self.scoreButton.setObjectName("scoreButton")
+        self.scoreButton.setGeometry(QRect(232, 170, 110, 28))
+        self.scoreButton.setStyleSheet("background:rgb(245, 252, 36)")
+        self.scoreButton.clicked.connect(self.showScores)
         self.quitButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.playButton.setCursor(QCursor(Qt.PointingHandCursor))
+        self.scoreButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.gameOver = QtWidgets.QLabel(QWidget)
         self.gameOver.setObjectName("gameOver")
         self.gameOver.setGeometry(QRect(120, 30, 111, 61))
@@ -156,16 +162,20 @@ class Ui_Form(QWidget):
         #self.parent.client.send_action("w")
         self.parent.start()
         self.close()
-        
+
+    def showScores(self):
+        print('scores i guess')
+        NotImplemented    
 
     def retranslateUi(self, QWidget):
         _translate = QtCore.QCoreApplication.translate
 
-        QWidget.setWindowTitle(_translate("Widget", "Game over!"))
+        QWidget.setWindowTitle(_translate("Widget", "Game Over!"))
         self.quitButton.setText(_translate("Widget", "Quit"))
         self.playButton.setText(_translate("Widget", "Play Again"))
+        self.scoreButton.setText(_translate("Widget", "Show Highscores"))
         self.gameOver.setText(_translate("Widget", "GAME OVER"))
-        self.label.setText(_translate("Widget", "Final score : "+final_score))
+        self.label.setText(_translate("Widget", "Final Score : "+final_score))
     # retranslateUi
 
 class Board(QFrame):
