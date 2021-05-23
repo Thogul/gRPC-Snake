@@ -21,6 +21,10 @@ How we generated ssl certificate:
     
     #change localhost to the correct %DOMAIN-NAME%
 ## Instructions: How to play
+Make sure you are inside the correct folder:
+
+    C:\Downloads\gRPC-Snake-main\gRPC-Snake-main> 
+
 
 **Setup server only**
 The server can run alone with only docker.
@@ -49,6 +53,14 @@ Note: This may take some time.
      - Container grpc-snake_app_1         Started                                   4.2s
      - Container grpc-snake_prometheus_1  St...                                     5.3s
     (.venv) PS C:\Users\margr\Documents\GitHub\gRPC-Snake> 
+
+
+For launching the game you need too make sure all in the requirements.txt is downloaded correctly on your computer
+
+
+    $ python -m pip install -r requirements.txt
+    or
+    $ pip install -r requirements.txt
 
 **Launch the game client**
 Use the terminal, type:
