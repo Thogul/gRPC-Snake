@@ -67,7 +67,7 @@ if __name__ == '__main__':
     
     engine = Engine(d_b)
     engine.generate_outer_walls(300, 300)
-    engine.generate_wall(0,-50,0,50)
+    engine.generate_wall(0,-25,0,25)
     
     grpc_server = GameServer(engine, d_b)
 
