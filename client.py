@@ -1,4 +1,3 @@
-import queue
 from sys import maxsize
 import threading
 
@@ -9,7 +8,6 @@ import protobuffer_pb2_grpc as rpc
 
 from engine_revised import Engine
 from queue import Queue
-from db import DB
 
 
 #address = '192.168.43.122'
@@ -57,8 +55,6 @@ class Client():
 
     def get_high_scores(self):
         return self.conn.GameScores(game.Nothing())
-        #return self.conn.GameScores(game.Nothing())
-
 
 
 if __name__ == '__main__':
@@ -68,7 +64,7 @@ if __name__ == '__main__':
         client = Client(argv[1], Engine)
     else:
         client = Client('Thomas', Engine)
-    from time import sleep
+
     for score in client.get_high_scores().scores:
         print(score.id, score.score)
     #print(client.get_high_scores())
