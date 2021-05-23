@@ -36,7 +36,7 @@ class Mainwindow(QMainWindow):
         self.board.setObjectName("board")
         self.board.start()
         self.scoreboard = QtWidgets.QTextEdit(self.board)
-        self.scoreboard.setGeometry(QtCore.QRect(10, 10, 200, 241))
+        self.scoreboard.setGeometry(QtCore.QRect(10, 10, 200, 300))
         self.scoreboard.setFont(QFont("Arial", 12))
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
         self.scoreboard.setObjectName("scoreboard")
