@@ -327,10 +327,15 @@ class HighScoreWidget(QWidget):
         self.scoreboard.setObjectName("scoreboard")
         self.engine = engine_revised.Engine()
         self.client = Client(userName, self.engine)
-        string_score = self.client.get_high_scores()
-        #self.client = Client()
-        #self.client.
-        self.scoreboard.setPlainText(string_score)
+        self.scores = self.client.get_high_scores()
+
+        score_string = ""
+        for i, (id, score) in self.scores.Scores:
+            score_string += f"{id}: {score}\n"
+            self.scoreboard.setPlainText(score_string)
+        #print(self.client.get_high_scores())
+        #self.scoreboard.setPlainText()
+
 
 
     
