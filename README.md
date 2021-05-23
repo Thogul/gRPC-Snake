@@ -83,7 +83,7 @@ A window will pop-up, where you need to enter a username and pick a color. When 
 
 
 
-- There is a Music radio button on the left corner, which default is turned off, but if clicked you will hear the awesome music.
+- There is a Music radio button on the left corner, which default is turned off, but if clicked you will hear the awesome music.\\
 ![](https://paper-attachments.dropbox.com/s_A716632741AC4176A425793AD10D8AC3E5480B1151AA54BEE3ED3B602FF80C8A_1621773146533_image.png)
 
 
