@@ -17,9 +17,9 @@ We are having trouble with stability over time. The server can handle all the bo
 Our SSL certificate is self-signed for localhost. From our understanding and testing that means that the server can only run on localhost, and therefore other computers can’t connect unless the SSL certificate is signed with another domain name. We did not do that, however feel free to sign it again with other domain name etc…
 How we generated ssl certificate:
 
-    openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt -subj  "/CN=%DOMAIN-NAME%"
+    openssl req -newkey rsa:2048 -nodes -keyout server.key -x509 -days 365 -out server.crt -subj  "/CN=localhost"
     
-    #change %DOMAIN-NAME% to the correct hostname of the server
+    #change localhost to the correct %DOMAIN-NAME%
 ## Instructions: How to play
 
 **Setup server only**
@@ -41,7 +41,14 @@ Note: This may take some time.
 
 
 
-    
+    (.venv) PS C:\Users\margr\Documents\GitHub\gRPC-Snake> docker compose up -d
+    [+] Running 5/5
+     - Network grpc-snake_default         Created                                   0.1s 
+     - Container grpc-snake_grafana_1     Start...                                  3.2s
+     - Container grpc-snake_db_1          Started                                   3.2s 
+     - Container grpc-snake_app_1         Started                                   4.2s
+     - Container grpc-snake_prometheus_1  St...                                     5.3s
+    (.venv) PS C:\Users\margr\Documents\GitHub\gRPC-Snake> 
 
 **Launch the game client**
 Use the terminal, type:
@@ -84,7 +91,7 @@ A window will pop-up, where you need to enter a username and pick a color. When 
 
 
 - There is a Music radio button on the left corner, which default is turned off, but if clicked you will hear the awesome music.
-
+        
 ![](https://paper-attachments.dropbox.com/s_A716632741AC4176A425793AD10D8AC3E5480B1151AA54BEE3ED3B602FF80C8A_1621773146533_image.png)
 
 
