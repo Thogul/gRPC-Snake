@@ -14,5 +14,14 @@ services:
             - db
         build: .
         ports: 
+            - "9999:9999"
             - "50051:50051"
         restart: always
+    prometheus:
+        image: prom/prometheus:latest
+        depends_on:
+            - app
+        ports:
+            - "9090:9090"
+        volumes:
+            - "./prometheus.yml:/etc/prometheus/prometheus.yml"
