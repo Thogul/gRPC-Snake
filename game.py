@@ -36,8 +36,10 @@ class Mainwindow(QMainWindow):
         self.scoreboard = QtWidgets.QTextEdit(self.board)
         self.scoreboard.setGeometry(QtCore.QRect(10, 10, 200, 300))
         self.scoreboard.setFont(QFont("Arial", 12))
-        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
+        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5); color: black")
         self.scoreboard.setObjectName("scoreboard")
+        self.scoreboard.setEnabled(False)
+        #self.scoreboard.setVerticalScrollBar()
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setStyleSheet("background: rgb(240, 240, 240)")
         self.statusbar.setObjectName("statusbar")
@@ -259,7 +261,7 @@ class Board(QFrame):
             scores.sort(key=lambda x : x[1], reverse=True)
             score_string = ""
             for i, (id, score) in enumerate(scores):
-                if i == 10:
+                if i == 20:
                     break
                 score_string += f"{id}: {score}\n"
             self.parent.scoreboard.setPlainText(score_string)
