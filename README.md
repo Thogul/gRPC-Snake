@@ -35,7 +35,8 @@ The server can run alone with only docker.
 **Set up the** **complete docker environment****:**
 Use the terminal, type: 
 
-    docker-compose up -d  #turn off the server with docker-compose down
+    docker-compose up -d  
+    #turn off the server with docker-compose down
 
 this will get the server going with both the database, Prometheus and Grafana.
 Note: This may take some time.
@@ -76,7 +77,8 @@ A window will pop-up, where you need to enter a username and pick a color. When 
 
 **Add bots** **(Recommended)**
 
-    python bot2.py 15  #number at the end is the amount of bots you want to add
+    python bot2.py 15  
+    #number at the end is the amount of bots you want to add
 ![](https://paper-attachments.dropbox.com/s_A716632741AC4176A425793AD10D8AC3E5480B1151AA54BEE3ED3B602FF80C8A_1621775190216_image.png)
 
 - We recommend not having more then 20 bots if you don't want to much lag.
