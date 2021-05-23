@@ -334,7 +334,7 @@ class HighScoreWidget(QWidget):
 
         stringfuck = ''
         for highscore in self.scorelist.scores:
-            stringfuck += (str(highscore.id)+' : '+str(highscore.score)+ '/n')
+            stringfuck += (str(highscore.id)+' : '+str(highscore.score)+ '\n')
 
         self.scoreboard.setPlainText(stringfuck)
 
