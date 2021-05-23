@@ -79,7 +79,7 @@ if __name__ == '__main__':
     server_credentials = grpc.ssl_server_credentials(
         ((private_key, certificate_chain,),))
 
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=30))
 
     rpc.add_GameServerServicer_to_server(grpc_server, server)
 
