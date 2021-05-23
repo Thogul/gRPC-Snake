@@ -332,11 +332,11 @@ class HighScoreWidget(QWidget):
         self.client = Client(userName, self.engine)
         self.scorelist = self.client.get_high_scores()
 
-        stringfuck = ''
+        stringscore = ''
         for highscore in self.scorelist.scores:
-            stringfuck += (str(highscore.id)+' : '+str(highscore.score)+ '\n')
+            stringscore += (str(highscore.id)+' : '+str(highscore.score)+ '\n')
 
-        self.scoreboard.setPlainText(stringfuck)
+        self.scoreboard.setPlainText(stringscore)
 
         self.retranslateUi(Widget)
         QtCore.QMetaObject.connectSlotsByName(Widget)     
