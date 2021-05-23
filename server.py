@@ -66,8 +66,8 @@ if __name__ == '__main__':
             d_b = db.DB()
     
     engine = Engine(d_b)
-    engine.generate_outer_walls(100, 100)
-    engine.generate_wall(0,-10,0,20)
+    engine.generate_outer_walls(300, 300)
+    engine.generate_wall(0,-50,0,50)
     
     grpc_server = GameServer(engine, d_b)
 

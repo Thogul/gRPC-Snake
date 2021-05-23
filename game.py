@@ -39,7 +39,6 @@ class Mainwindow(QMainWindow):
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5); color: black")
         self.scoreboard.setObjectName("scoreboard")
         self.scoreboard.setEnabled(False)
-        #self.scoreboard.setVerticalScrollBar()
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setStyleSheet("background: rgb(240, 240, 240)")
         self.statusbar.setObjectName("statusbar")
