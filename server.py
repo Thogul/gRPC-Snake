@@ -75,7 +75,7 @@ if __name__ == '__main__':
     engine = Engine(d_b)
     #engine.spawn_snake('Thomas')
     #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
-    engine.generate_outer_walls(100, 100)
+    engine.generate_outer_walls(300, 300)
     engine.generate_wall(0,-10,0,20)
     
     grpc_server = GameServer(engine, d_b)
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     server_credentials = grpc.ssl_server_credentials(
         ((private_key, certificate_chain,),))
 
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=30))
 
     rpc.add_GameServerServicer_to_server(grpc_server, server)
 
