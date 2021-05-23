@@ -1,5 +1,3 @@
-from PyQt5.QtCore import qSNaN
-from protobuffer_pb2 import Snake, _SNAKE
 from client import Client
 from engine_revised import Engine
 from threading import Thread
@@ -32,7 +30,6 @@ class Bot():
                 return
                 
             if snake.head.x < mat.x:
-                #while snake.head.x < mat.x:
                 if self.heading == 'd':
                     pass
                 elif self.heading == 'a':
@@ -45,7 +42,6 @@ class Bot():
                     sleep(0.05)
                 continue
             elif snake.head.x > mat.x:
-                #while snake.head.x > mat.x:
                 if self.heading == 'a':
                     pass
                 elif self.heading == 'd':
@@ -59,7 +55,6 @@ class Bot():
                 continue
             
             elif snake.head.y < mat.y:
-                #while snake.head.y < mat.y:
                 if self.heading == 'w':
                     pass
                 elif self.heading == 's':
@@ -72,7 +67,6 @@ class Bot():
                     sleep(0.05)
                 continue
             elif snake.head.y > mat.y:
-                #while snake.head.y > mat.y:
                 if self.heading == 's':
                     pass
                 elif self.heading == 'w':
@@ -107,8 +101,7 @@ class Bot():
 
 if __name__ == '__main__':
     from time import sleep
-    #bot_dos = Bot('Pro gamer', Engine, Client)
-    #bot_dos.start()
+
     bot_amount = int(sys.argv[1])
     for i in range(bot_amount):
         bot = Bot('bot-'+str(i + 1)+' ', Engine, Client)

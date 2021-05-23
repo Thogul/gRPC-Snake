@@ -46,7 +46,7 @@ class GameServer(rpc.GameServerServicer):
         if self.db is None:
             return high_scores
         #high_scores.extend(self.db.get_scores())
-        high_scores.scores.extend(self.db.get_scores())
+        high_scores.scores.extend(self.db.get_scores(10))
         return high_scores
 
 def logging_thread():
