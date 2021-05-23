@@ -113,12 +113,12 @@ class Ui_Form(QWidget):
         self.scoreButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.gameOver = QtWidgets.QLabel(QWidget)
         self.gameOver.setObjectName("gameOver")
-        self.gameOver.setGeometry(QRect(120, 30, 111, 61))
-        self.gameOver.setStyleSheet("font: 20pt \"8514oem\";")
+        self.gameOver.setGeometry(QRect(120, 30, 201, 61))
+        self.gameOver.setStyleSheet("font: 12pt \"8514oem\";")
         self.label = QtWidgets.QLabel(QWidget)
         self.label.setObjectName("label")
-        self.label.setGeometry(QRect(80, 90, 201, 41))
-        self.label.setStyleSheet("font: 20pt \"8514oem\";")
+        self.label.setGeometry(QRect(100, 90, 201, 41))
+        self.label.setStyleSheet("font: 12pt \"8514oem\";")
         
 
         self.retranslateUi(QWidget)
