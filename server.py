@@ -1,6 +1,4 @@
 from concurrent import futures
-from logging import lastResort
-import sys
 from threading import Thread
 
 import grpc
@@ -12,7 +10,6 @@ import protobuffer_pb2_grpc as rpc
 import db
 
 from engine_revised import Engine
-import signal
 
 import prometheus_client
 import time
@@ -25,27 +22,22 @@ class GameServer(rpc.GameServerServicer):
         self.db = db
 
     def GameStream(self, request, context):
-        lastindex = 0
         id = request.id
         while True:
             time.sleep(0.05)
             data = self.engine.data_to_client(id)
-            #data = game.Data()
-            #data.snakes.extend(self.snakes)
             yield data
     
     def GameAction(self, request: game.Action, context):
         #Move snek!
         self.engine.set_snake_direction(request.id, request.direction)
         print(f'{request.id} moved')
-        #self.engine.move_sanek(request.id, request.diretction)
         return game.Nothing()
     
     def GameScores(self, request: game.Nothing, context) -> game.HighScores:
         high_scores = game.HighScores()
         if self.db is None:
             return high_scores
-        #high_scores.extend(self.db.get_scores())
         high_scores.scores.extend(self.db.get_scores(10))
         return high_scores
 
@@ -72,9 +64,8 @@ if __name__ == '__main__':
     if len(argv) == 2:
         if argv[1] == 'True':
             d_b = db.DB()
+    
     engine = Engine(d_b)
-    #engine.spawn_snake('Thomas')
-    #engine.foods.append(engine._Engine__new_food(5, 5, '%', 3))
     engine.generate_outer_walls(100, 100)
     engine.generate_wall(0,-10,0,20)
     
@@ -92,9 +83,7 @@ if __name__ == '__main__':
 
     rpc.add_GameServerServicer_to_server(grpc_server, server)
 
-    #start prometeus rescource logging(only cpu and memory, but should have been more)
-    #prometheus_thread = Thread(target=logging_thread, daemon=True)
-    #prometheus_thread.start()
+    
 
     print('Starting server, listening...')
 
@@ -104,21 +93,6 @@ if __name__ == '__main__':
     gameloop = Thread(target=engine.game_loop_thread, daemon=True)
     gameloop.start()
 
+    #start prometeus rescource logging(only cpu and memory, but should have been more)
     logging_thread()
     #server.wait_for_termination()
-    '''
-    try:
-        while True:
-            signal.pause()
-    except KeyboardInterrupt:
-        pass
-    server.stop(0)
-    exit(0)
-    
-    id = 0
-    while True:
-
-        input('Make new snake')
-        engine.spawn_snake(str(id))
-        id += 1
-    '''
