@@ -317,7 +317,7 @@ class HighScoreWidget(QWidget):
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(150, 100, 300, 300))
         self.scoreboard.setFont(QFont("Arial", 12))
-        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5)")
+        #self.scoreboard.setStyleSheet("background: rgb(247, 247, 247)")
         self.scoreboard.setObjectName("scoreboard")
         
         self.engine = engine_revised.Engine()
