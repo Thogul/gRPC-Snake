@@ -15,5 +15,5 @@ db.Scores.insert([
     { "id": "Stian", "score": 69420 },
     { "id": "Margrethe", "score": 420 },
     { "id": "Camilla", "score": 999 },
-    { "id": "Bottsersen", "score": 999999999 }
+    { "id": "Batman", "score": 86666 }
 ]);
