@@ -69,5 +69,6 @@ if __name__ == '__main__':
     else:
         client = Client('Thomas', Engine)
     from time import sleep
-    sleep(3)
-    print(client.get_high_scores())
+    for score in client.get_high_scores().scores:
+        print(score.id, score.score)
+    #print(client.get_high_scores())
