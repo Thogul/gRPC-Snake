@@ -11,9 +11,9 @@ db.createUser({
 db = new Mongo().getDB("High_Scores");
 db.createCollection("Scores")
 db.Scores.insert([
-    { "Thomas": 666 },
-    { "Stian": 69420 },
-    { "Margrethe": 420 },
-    { "Camilla": 999 },
-    { "Bottsersen": 999999999 }
+    { "id": "Thomas", "score": 666 },
+    { "id": "Stian", "score": 69420 },
+    { "id": "Margrethe", "score": 420 },
+    { "id": "Camilla", "score": 999 },
+    { "id": "Bottsersen", "score": 999999999 }
 ]);

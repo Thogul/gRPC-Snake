@@ -1,3 +1,5 @@
+from protobuffer_pb2_grpc import GameServer
+from grpc import Server
 import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import * 
@@ -317,10 +319,6 @@ class HighScoreWidget(QWidget):
         self.titlelabel.setObjectName("title")
         self.titlelabel.setGeometry(QtCore.QRect(230, 20, 150, 20))
         self.titlelabel.setStyleSheet("Font: 15pt")
-        self.label = QtWidgets.QLabel(Widget)   
-        self.label.setObjectName("scorelabel")
-        self.label.setGeometry(QtCore.QRect(270, 50, 130, 20 ))
-        self.label.setStyleSheet("Font: 12pt")
         self.scoreboard = QtWidgets.QTextEdit(Widget)
         self.scoreboard.setEnabled(False)
         self.scoreboard.setGeometry(QtCore.QRect(150, 100, 300, 300))
