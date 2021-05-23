@@ -342,6 +342,7 @@ class HighScoreWidget(QWidget):
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Highscore"))
         self.titlelabel.setText(_translate("Widget", "Leaderboard"))
+        self.top.setText(_translate("Widget", "Top 10"))
 
 
 class LoginDialog(QDialog):
