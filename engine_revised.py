@@ -4,9 +4,6 @@ import random
 
 from threading import Thread
 
-#import db #database
-
-#type hinting stuff
 from typing import List, Dict, Tuple
 Wall_obj = game.Object
 Id = str
@@ -244,8 +241,7 @@ class Engine():
                 self.directions.pop(id, None)
                 if self.db is not None:
                     Thread(target=self.db.insert_score,args=(id, score), daemon=True).start()
-                #Thread(db.insert_score(id, score), daemon=True).start()
-                #db.insert_score(id, score)
+
 
     def update_scores(self) -> None:
         for snake in self.snakes:
@@ -275,7 +271,7 @@ class Engine():
                     continue
                 for bodypart in other_snake.body:
                     if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
-                        #Collision suff idk
+                        #Collision
                         self.kill_snake(snake.id)
 
             for wall in self.walls:
@@ -285,7 +281,7 @@ class Engine():
             
             for food in self.foods:
                 if (snake.head.x == food.x) and (snake.head.y == food.y):
-                    #Eat an apple or something
+                    #Eat an apple
                     self.grow_snake(snake.id, food)
 
     def update(self) -> None:

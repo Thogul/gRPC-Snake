@@ -77,8 +77,8 @@ class Mainwindow(QMainWindow):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.statusbar.showMessage(_translate("statusbar", self.name))
-        self.scoreboard.append(_translate("scoreboard", self.name + ' Score : '))
         self.radioButton.setText(_translate("MainWindow", "Music"))
+        self.statusbar.setStyleSheet(_translate("Statusbar", "Font: 10pt"))
 
 class Ui_Form(QWidget):
 
@@ -123,7 +123,6 @@ class Ui_Form(QWidget):
 
         self.retranslateUi(QWidget)
         QMetaObject.connectSlotsByName(QWidget)
-    # setupUi
 
     def quitGame(self):
         QApplication.instance().quit()
@@ -145,7 +144,6 @@ class Ui_Form(QWidget):
         self.scoreButton.setText(_translate("Widget", "Show Highscores"))
         self.gameOver.setText(_translate("Widget", "GAME OVER"))
         self.label.setText(_translate("Widget", "Final Score : "+final_score))
-    # retranslateUi
 
 class Board(QFrame):
     
@@ -282,25 +280,21 @@ class Board(QFrame):
 
         key = event.key()
         if key == Qt.Key_W or key == Qt.Key_Up:
-            #self.engine.snake.move(key)
             self.client.send_action("w")
             self.direction = 'w'
             print('you pressed w')
 
         if key == Qt.Key_A or key == Qt.Key_Left:
-            #self.engine.snake.move(key)
             self.client.send_action("a")
             self.direction = 'a'
             print("you pressed a")
         
         if key == Qt.Key_D or key == Qt.Key_Right:
-            #self.engine.snake.move(key)
             self.client.send_action("d")
             self.direction = 'd'
             print("you pressed d")
 
         if key == Qt.Key_S or key == Qt.Key_Down:
-            #self.engine.snake.move(key)
             self.client.send_action("s")
             self.direction = 's'
             print("you pressed s")
@@ -330,8 +324,6 @@ class HighScoreWidget(QWidget):
         
         self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5); color: black")
         self.scoreboard.setObjectName("scoreboard")
-        #self.client = Client()
-        #self.client.
         
         self.engine = engine_revised.Engine()
         self.client = Client(userName, self.engine)
@@ -350,8 +342,6 @@ class HighScoreWidget(QWidget):
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Highscore"))
         self.titlelabel.setText(_translate("Widget", "Leaderboard"))
-        self.top.setText(_translate("Widget", "Top 10"))
-        #self.label.setText(_translate("Widget", "Her vil alle scorene være"))
 
 
 class LoginDialog(QDialog):
@@ -367,9 +357,11 @@ class LoginDialog(QDialog):
         self.userLabel = QtWidgets.QLabel(Dialog)
         self.userLabel.setGeometry(QtCore.QRect(10, 20, 241, 22))
         self.userLabel.setObjectName("enter_nickname")
+        self.userLabel.setStyleSheet("Font: 8pt")
         self.pick = QtWidgets.QLabel(Dialog)
         self.pick.setGeometry(QtCore.QRect(10,50, 241, 22))
         self.pick.setObjectName("pick_color")
+        self.pick.setStyleSheet("Font: 8pt")
         self.userName = QtWidgets.QLineEdit(Dialog)
         self.userName.setGeometry(QtCore.QRect(125, 20, 241, 22))
         self.userName.setObjectName("userName")
@@ -393,6 +385,7 @@ class LoginDialog(QDialog):
         self.instructions = QtWidgets.QLabel(Dialog)
         self.instructions.setGeometry(QtCore.QRect(140, 90, 241, 22))
         self.instructions.setObjectName("instructions")
+        self.instructions.setStyleSheet("Font: 8pt")
         self.framecolor.setStyleSheet("QWidget { background-color: %s}" %selectedColor.name())
       
         self.retranslateUi(Dialog)
