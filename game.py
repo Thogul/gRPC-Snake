@@ -319,11 +319,16 @@ class HighScoreWidget(QWidget):
         self.titlelabel.setObjectName("title")
         self.titlelabel.setGeometry(QtCore.QRect(230, 20, 150, 20))
         self.titlelabel.setStyleSheet("Font: 15pt")
+        self.top = QtWidgets.QLabel(Widget)
+        self.top.setObjectName("top")
+        self.top.setGeometry(QtCore.QRect(250, 70, 150, 25))
+        self.top.setStyleSheet("Font: 12pt")
         self.scoreboard = QtWidgets.QTextEdit(Widget)
         self.scoreboard.setEnabled(False)
-        self.scoreboard.setGeometry(QtCore.QRect(150, 100, 300, 300))
+        self.scoreboard.setGeometry(QtCore.QRect(160, 120, 250, 300))
         self.scoreboard.setFont(QFont("Arial", 12))
-        #self.scoreboard.setStyleSheet("background: rgb(247, 247, 247)")
+        
+        self.scoreboard.setStyleSheet("background: rgba(247, 247, 247, .5); color: black")
         self.scoreboard.setObjectName("scoreboard")
         #self.client = Client()
         #self.client.
@@ -345,6 +350,7 @@ class HighScoreWidget(QWidget):
         _translate = QtCore.QCoreApplication.translate
         Widget.setWindowTitle(_translate("Widget", "Highscore"))
         self.titlelabel.setText(_translate("Widget", "Leaderboard"))
+        self.top.setText(_translate("Widget", "Top 10"))
         #self.label.setText(_translate("Widget", "Her vil alle scorene være"))
 
 
