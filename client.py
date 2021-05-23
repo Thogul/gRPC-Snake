@@ -10,9 +10,7 @@ from engine_revised import Engine
 from queue import Queue
 
 
-#address = '192.168.43.122'
 address = 'localhost'
-#address = '172.20.10.5'
 port = 50051
 
 class Client():
@@ -67,4 +65,3 @@ if __name__ == '__main__':
 
     for score in client.get_high_scores().scores:
         print(score.id, score.score)
-    #print(client.get_high_scores())

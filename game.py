@@ -1,5 +1,3 @@
-from protobuffer_pb2_grpc import GameServer
-from grpc import Server
 import engine_revised
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import * 

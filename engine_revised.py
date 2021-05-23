@@ -236,7 +236,6 @@ class Engine():
             if snake.id == id:
                 score = snake.score
                 x, y = snake.body[0].x, snake.body[0].y
-                #self.__spawn_food(x, y, x, y)
                 self.snakes.remove(snake)
                 self.directions.pop(id, None)
                 if self.db is not None:
@@ -250,7 +249,6 @@ class Engine():
     def collisions(self):
         #Run throught each snake and see if it collides with anything
         #Maybe when running through snakes, make it not run through earlier snakes
-        #Dont know what we should do with head to head collision(both dead, priority?)
 
         #run through each snake:
         for snake in self.snakes:
@@ -258,7 +256,6 @@ class Engine():
             for bodypart in snake.body:
                 if (snake.head.x == bodypart.x) and (snake.head.y == bodypart.y):
                     #snake has collided with itself, delete or something
-                    #self.kill_snake(snake.id) something like this id
                     self.kill_snake(snake.id)
             
             #All other snakes body collision
@@ -286,8 +283,6 @@ class Engine():
 
     def update(self) -> None:
         '''
-        OBS: We think we want to use threadlocking when updating the game
-            Maybe only per update part, but likely the whole shæbang
         Take care of updating the game:
          - Move snakes
          - Handle collision
@@ -298,7 +293,6 @@ class Engine():
          functionality that is needed
          '''
         self.collisions()
-        #if len(self.directions) > 0:
         for id, direction in self.directions.items():
             self.move_snake(id, direction)
 
@@ -308,7 +302,6 @@ class Engine():
     def game_loop_thread(self) -> None:
         while True:
             sleep(0.1)
-            #print('updating')
             self.update()
 
     @staticmethod
@@ -322,7 +315,6 @@ class Engine():
         if main_snake is None:
             #my snake is not there, i might be dead or something
             #maybe not update anything idk
-            print('was no main snek')
             return []
 
         #start the algorithm
@@ -339,7 +331,6 @@ class Engine():
             x = middlex + deltax
             y = middley + deltay
             if ((0<= x < width) and (0<= y < height)):
-                #items_onscreen.append(food)
                 newfood = Engine.__new_food(x, y, food.skin, food.strength)
                 items_onscreen.append(newfood)
 
@@ -390,8 +381,6 @@ class Engine():
 if __name__ == '__main__':
     engine = Engine()
     engine.spawn_snake('Thomas')
-    #engine.foods.append(engine._Engine__new_food(0, 0))
-    #print(engine.data_to_client())
     for snake in engine.data_to_client().snakes:
         print(snake.head.x, snake.head.y, snake.head.skin)
         for bodypart in snake.body:
@@ -402,5 +391,3 @@ if __name__ == '__main__':
         print(snake.head.x, snake.head.y, snake.head.skin)
         for bodypart in snake.body:
             print(bodypart.x, bodypart.y, bodypart.skin)
-    #print(engine.data_to_client())
-    #engine.collisions()
